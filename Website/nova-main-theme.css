@@ -1,0 +1,1093 @@
+/* =========================================================
+   NOVA MAIN WEBSITE THEME
+   Matches Nova Login / Signup
+========================================================= */
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
+html {
+    background: #efe4d2;
+}
+
+
+body {
+
+    color: #4a382b;
+
+    background:
+        linear-gradient(
+            rgba(245, 236, 219, 0.94),
+            rgba(245, 236, 219, 0.94)
+        ),
+        url("assets/backgrounds/nova-login-bg.png")
+        center top / cover
+        fixed;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 13px;
+}
+
+
+/* Hide old scrapbook decorations */
+
+.page-decorations {
+    display: none;
+}
+
+
+/* =========================================================
+   MAIN SITE CONTAINER
+========================================================= */
+
+#site {
+
+    width:
+        min(
+            1500px,
+            94vw
+        );
+
+    margin:
+        22px auto 50px;
+
+    background:
+        rgba(
+            255,
+            250,
+            239,
+            0.97
+        );
+
+    border:
+        1px solid
+        #9a7658;
+
+    border-radius:
+        10px;
+
+    box-shadow:
+        0 8px 28px
+        rgba(
+            53,
+            35,
+            23,
+            0.20
+        );
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TOP HEADER
+========================================================= */
+
+.top-banner {
+
+    height: 108px;
+
+    background:
+        linear-gradient(
+            to right,
+            #3b2920,
+            #604331,
+            #3b2920
+        );
+
+    border-bottom:
+        1px solid
+        #251a14;
+
+    box-shadow:
+        0 3px 10px
+        rgba(
+            0,
+            0,
+            0,
+            0.24
+        );
+}
+
+
+/* Remove old banner scenery */
+
+.banner-scene {
+    opacity: 0.08;
+}
+
+
+.banner-overlay {
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(20, 13, 9, 0.30),
+            transparent 35%,
+            transparent 65%,
+            rgba(20, 13, 9, 0.30)
+        );
+}
+
+
+/* NOVA logo */
+
+.top-banner-logo {
+
+    width: 270px;
+    height: 90px;
+
+    top: 9px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 4px 5px
+            rgba(
+                0,
+                0,
+                0,
+                0.40
+            )
+        );
+}
+
+
+/* =========================================================
+   ACCOUNT BUTTONS
+========================================================= */
+
+.login-link {
+
+    top: 31px;
+    left: 24px;
+
+    padding:
+        9px 16px;
+
+    color: #fff6df;
+
+    font-size: 13px;
+
+    background:
+        rgba(
+            36,
+            24,
+            17,
+            0.82
+        );
+
+    border:
+        1px solid
+        #7c5e46;
+
+    border-radius: 5px;
+}
+
+
+.login-link:hover {
+
+    color: white;
+
+    background:
+        rgba(
+            61,
+            42,
+            31,
+            0.96
+        );
+}
+
+
+.signup-button {
+
+    width: 185px;
+
+    right: 24px;
+    top: 30px;
+
+    padding:
+        12px 17px;
+
+    color: #402d20;
+
+    font-size: 14px;
+
+    background:
+        linear-gradient(
+            #f5d789,
+            #e7bd62
+        );
+
+    border:
+        1px solid
+        #8a683f;
+
+    border-radius: 6px;
+
+    box-shadow:
+        0 3px 8px
+        rgba(
+            0,
+            0,
+            0,
+            0.25
+        );
+}
+
+
+.signup-button:hover {
+
+    color: #382519;
+
+    background:
+        #f4d47f;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.top-nav {
+
+    min-height: 48px;
+
+    padding:
+        6px 7%;
+
+    gap: 7px;
+
+    background:
+        linear-gradient(
+            #c99562,
+            #b77f4d
+        );
+
+    border-bottom:
+        1px solid
+        #825c3c;
+
+    box-shadow:
+        inset
+        0 1px 0
+        rgba(
+            255,
+            255,
+            255,
+            0.30
+        );
+}
+
+
+.top-nav a {
+
+    padding:
+        8px 15px;
+
+    color: #493225;
+
+    font-size: 13px;
+
+    background:
+        rgba(
+            255,
+            246,
+            225,
+            0.92
+        );
+
+    border:
+        1px solid
+        #8f6948;
+
+    border-radius: 5px;
+
+    box-shadow:
+        inset
+        0 1px 0
+        rgba(
+            255,
+            255,
+            255,
+            0.75
+        );
+
+    transition:
+        background 0.12s ease,
+        transform 0.12s ease;
+}
+
+
+.top-nav a:hover {
+
+    color: #38251a;
+
+    text-decoration: none;
+
+    background: white;
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   PAGE LAYOUT
+========================================================= */
+
+.page-body {
+
+    padding: 22px;
+
+    grid-template-columns:
+        205px
+        minmax(
+            0,
+            1fr
+        )
+        225px;
+
+    gap: 20px;
+}
+
+
+.page-title {
+
+    color: #51382a;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 25px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   LEFT SIDEBAR
+========================================================= */
+
+.left-heading {
+
+    margin-top: 17px;
+
+    padding-bottom: 6px;
+
+    color: #573e2e;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    border-bottom:
+        1px solid
+        #ccb394;
+}
+
+
+.left-menu a {
+
+    margin:
+        6px 0;
+
+    padding:
+        8px 10px;
+
+    color: #5d4434;
+
+    background:
+        #fff9ed;
+
+    border:
+        1px solid
+        #d6bd9c;
+
+    border-radius: 5px;
+
+    transition:
+        background 0.12s ease,
+        border-color 0.12s ease,
+        transform 0.12s ease;
+}
+
+
+.left-menu a:hover {
+
+    color: #3e2b20;
+
+    background:
+        #f6e5c8;
+
+    border-color:
+        #b89166;
+
+    transform:
+        translateX(2px);
+}
+
+
+/* =========================================================
+   TIP CARD
+========================================================= */
+
+.sticky-note {
+
+    margin-top: 21px;
+
+    padding: 13px;
+
+    color: #574229;
+
+    line-height: 1.45;
+
+    background:
+        #fff2b5;
+
+    border:
+        1px solid
+        #d3bb70;
+
+    border-radius: 4px;
+
+    transform: none;
+
+    box-shadow:
+        0 3px 8px
+        rgba(
+            0,
+            0,
+            0,
+            0.11
+        );
+}
+
+
+/* =========================================================
+   POLAROID -> SIMPLE PLACE PREVIEW
+========================================================= */
+
+.mini-polaroid {
+
+    padding:
+        7px 7px 16px;
+
+    color: #66503e;
+
+    background: white;
+
+    border:
+        1px solid
+        #c7b398;
+
+    border-radius: 5px;
+
+    transform: none;
+
+    box-shadow:
+        0 3px 8px
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.cafe-hero {
+
+    min-height: 235px;
+
+    padding: 25px;
+
+    grid-template-columns:
+        190px
+        1fr;
+
+    gap: 28px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #fffaf0,
+            #f4e4c9
+        );
+
+    border:
+        1px solid
+        #b78b62;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(
+            80,
+            49,
+            27,
+            0.12
+        );
+}
+
+
+.hero-avatar {
+
+    width: 180px;
+    height: 180px;
+
+    background:
+        #f5ead8;
+
+    border:
+        3px solid
+        #795842;
+
+    border-radius: 8px;
+
+    transform: none;
+
+    box-shadow:
+        0 4px 10px
+        rgba(
+            0,
+            0,
+            0,
+            0.16
+        );
+}
+
+
+.hero-small-text {
+
+    color: #8b6c54;
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+.cafe-hero h1 {
+
+    color: #4b3325;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 31px;
+
+    font-weight: 400;
+}
+
+
+.cafe-hero p {
+
+    color: #715744;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   GENERIC CARDS
+========================================================= */
+
+.retro-box {
+
+    background:
+        #fffaf0;
+
+    border:
+        1px solid
+        #b99169;
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 3px 10px
+        rgba(
+            68,
+            42,
+            24,
+            0.09
+        );
+}
+
+
+.retro-box-title {
+
+    padding:
+        10px 13px;
+
+    color: #4c3528;
+
+    font-size: 13px;
+
+    background:
+        linear-gradient(
+            #e8c695,
+            #d9ad77
+        );
+
+    border-bottom:
+        1px solid
+        #ae8057;
+
+    border-radius:
+        6px 6px 0 0;
+}
+
+
+.retro-box-content {
+    padding: 14px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.retro-button {
+
+    padding:
+        9px 15px;
+
+    color: #493222;
+
+    background:
+        linear-gradient(
+            #fff4da,
+            #e9c58e
+        );
+
+    border:
+        1px solid
+        #8e6746;
+
+    border-radius: 5px;
+
+    box-shadow:
+        inset
+        0 1px 0
+        white,
+        0 2px 5px
+        rgba(
+            0,
+            0,
+            0,
+            0.10
+        );
+}
+
+
+.retro-button:hover {
+
+    color: #39261b;
+
+    background:
+        #fff0d0;
+}
+
+
+.play-button {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            #75975b,
+            #587443
+        );
+
+    border-color:
+        #405b32;
+}
+
+
+.play-button:hover {
+
+    color: white;
+
+    background:
+        #68874f;
+}
+
+
+/* =========================================================
+   FEATURE CARDS
+========================================================= */
+
+.image-feature-card {
+
+    background:
+        #fffaf0;
+
+    border:
+        1px solid
+        #bd9873;
+
+    border-radius: 6px;
+
+    box-shadow:
+        0 2px 6px
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+
+.image-feature-card:hover {
+
+    background:
+        white;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.image-feature-card img {
+
+    height: 145px;
+
+    border-bottom:
+        1px solid
+        #c2a17d;
+}
+
+
+.image-feature-card h3 {
+
+    color: #513629;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+/* =========================================================
+   GAME CARDS
+========================================================= */
+
+.game-card {
+
+    padding: 9px;
+
+    background:
+        #fffaf0;
+
+    border:
+        1px solid
+        #c1a07c;
+
+    border-radius: 6px;
+}
+
+
+.game-card:hover {
+
+    background:
+        white;
+
+    box-shadow:
+        0 4px 10px
+        rgba(
+            54,
+            35,
+            21,
+            0.12
+        );
+}
+
+
+.game-card img {
+
+    border:
+        1px solid
+        #725a46;
+
+    border-radius: 4px;
+}
+
+
+.game-name {
+
+    margin-top: 8px;
+
+    font-size: 12px;
+}
+
+
+.game-description {
+
+    color: #735b48;
+}
+
+
+/* =========================================================
+   SMALL BUTTONS
+========================================================= */
+
+.tiny-button {
+
+    padding:
+        5px 9px;
+
+    color: #543a2b;
+
+    background:
+        #f5dfb9;
+
+    border:
+        1px solid
+        #96704f;
+
+    border-radius: 4px;
+}
+
+
+.tiny-play {
+
+    color: white;
+
+    background:
+        #66864d;
+
+    border-color:
+        #405d33;
+}
+
+
+.tiny-play:hover {
+
+    color: white;
+
+    background:
+        #77975c;
+}
+
+
+/* =========================================================
+   FEATURE STRIP
+========================================================= */
+
+.feature-card {
+
+    background:
+        #f8ead1;
+
+    border:
+        1px solid
+        #c7a67e;
+
+    border-radius: 6px;
+}
+
+
+.feature-card:hover {
+
+    background:
+        #fff6e5;
+}
+
+
+/* =========================================================
+   NEWS AREA
+========================================================= */
+
+.cafe-news-layout {
+
+    grid-template-columns:
+        1fr
+        230px;
+}
+
+
+.coffee-list {
+
+    color: #624c3d;
+
+    line-height: 1.9;
+}
+
+
+.coffee-quote {
+
+    color: #55432c;
+
+    background:
+        #fff1ad;
+
+    border:
+        1px solid
+        #d0b660;
+
+    border-radius: 4px;
+
+    transform: none;
+
+    box-shadow:
+        0 3px 7px
+        rgba(
+            0,
+            0,
+            0,
+            0.10
+        );
+}
+
+
+/* =========================================================
+   COMMUNITY BOARD
+========================================================= */
+
+.ad-column {
+
+    min-height: 620px;
+
+    padding: 10px;
+
+    background:
+        #d8b37f;
+
+    border:
+        2px solid
+        #836143;
+
+    border-radius: 7px;
+
+    box-shadow:
+        inset
+        0 0 0 3px
+        rgba(
+            255,
+            247,
+            225,
+            0.28
+        );
+}
+
+
+.ad-column::before {
+
+    content:
+        "NOVA COMMUNITY";
+
+    margin-bottom: 12px;
+
+    color: #4c3729;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 0.8px;
+}
+
+
+.ad-column img {
+
+    border:
+        1px solid
+        #755c48;
+
+    border-radius: 3px;
+
+    transform: none !important;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    padding: 25px;
+
+    color: #dfcfbb;
+
+    background:
+        #3b2920;
+
+    border-top:
+        1px solid
+        #241811;
+}
+
+
+.footer-logo {
+
+    color: #fff3dc;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    letter-spacing: 1px;
+}
+
+
+.footer a {
+
+    color: #e4c69d;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media
+(max-width: 1180px) {
+
+    #site {
+        width: 97vw;
+    }
+
+
+    .page-body {
+
+        grid-template-columns:
+            180px
+            minmax(
+                0,
+                1fr
+            )
+            190px;
+
+    }
+
+}

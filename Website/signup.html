@@ -10,312 +10,1063 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        Join Nova
-    </title>
+    <title>Join Nova</title>
 
-    <link
-        rel="stylesheet"
-        href="styles.css"
-    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
+        body {
+            margin: 0;
+
+            min-height: 100vh;
+
+            color: #fffaf0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(40, 25, 15, 0.16),
+                    rgba(40, 25, 15, 0.20)
+                ),
+                url("assets/backgrounds/nova-login-bg.png")
+                center center / cover
+                no-repeat fixed;
+        }
+
+
+        /* =====================================================
+           TOP BAR
+        ===================================================== */
+
+        .landing-topbar {
+
+            min-height: 64px;
+
+            padding:
+                0 6%;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 32px;
+
+            background:
+                rgba(
+                    53,
+                    38,
+                    28,
+                    0.94
+                );
+
+            border-bottom:
+                2px solid
+                rgba(
+                    255,
+                    240,
+                    210,
+                    0.35
+                );
+
+            box-shadow:
+                0 2px 8px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.28
+                );
+        }
+
+
+        .landing-logo {
+
+            color: #fff1cf;
+
+            font-size: 27px;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            text-decoration: none;
+
+            text-shadow:
+                0 2px 2px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.4
+                );
+        }
+
+
+        .landing-nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+            flex: 1;
+        }
+
+
+        .landing-nav a {
+
+            padding:
+                21px 0 17px;
+
+            color: #fff8e8;
+
+            font-size: 15px;
+
+            text-decoration: none;
+
+            border-bottom:
+                3px solid
+                transparent;
+        }
+
+
+        .landing-nav a:hover {
+
+            border-bottom-color:
+                #f0ca7d;
+
+        }
+
+
+        .top-login {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+
+        .top-login input {
+
+            width: 155px;
+
+            height: 31px;
+
+            padding:
+                0 10px;
+
+            color: #4b3828;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.96
+                );
+
+            border:
+                1px solid
+                #c5b59f;
+
+            border-radius: 4px;
+
+            outline: none;
+        }
+
+
+        .top-login button {
+
+            height: 31px;
+
+            min-width: 75px;
+
+            padding:
+                0 14px;
+
+            color: white;
+
+            font-weight: bold;
+
+            background:
+                #66864d;
+
+            border:
+                1px solid
+                #405d33;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+        }
+
+
+        .top-login button:hover {
+
+            background:
+                #76965b;
+
+        }
+
+
+        /* =====================================================
+           PAGE
+        ===================================================== */
+
+        .landing-page {
+
+            min-height:
+                calc(
+                    100vh - 64px
+                );
+
+            padding:
+                45px 7% 70px;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(
+                    0,
+                    1fr
+                )
+                minmax(
+                    390px,
+                    470px
+                );
+
+            gap: 70px;
+
+            align-items:
+                start;
+        }
+
+
+        /* =====================================================
+           BRAND AREA
+        ===================================================== */
+
+        .brand-area {
+
+            max-width: 650px;
+
+            margin-top: 100px;
+        }
+
+
+        .brand-logo-panel {
+
+            display:
+                inline-block;
+
+            padding:
+                17px 27px 14px;
+
+            background:
+                rgba(
+                    45,
+                    30,
+                    21,
+                    0.82
+                );
+
+            border:
+                2px solid
+                rgba(
+                    255,
+                    244,
+                    220,
+                    0.35
+                );
+
+            border-radius:
+                9px;
+
+            box-shadow:
+                0 5px 16px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.32
+                );
+        }
+
+
+        .brand-logo-panel img {
+
+            width:
+                min(
+                    390px,
+                    70vw
+                );
+
+            display: block;
+        }
+
+
+        .brand-tagline {
+
+            margin:
+                0;
+
+            padding:
+                11px 18px;
+
+            display:
+                inline-block;
+
+            color:
+                white;
+
+            font-size:
+                28px;
+
+            font-weight:
+                300;
+
+            background:
+                rgba(
+                    37,
+                    30,
+                    24,
+                    0.78
+                );
+
+            box-shadow:
+                0 3px 10px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.25
+                );
+        }
+
+
+        /* =====================================================
+           SIGNUP CARD
+        ===================================================== */
+
+        .signup-card {
+
+            padding:
+                19px;
+
+            color:
+                #4f3828;
+
+            background:
+                rgba(
+                    255,
+                    250,
+                    238,
+                    0.94
+                );
+
+            border:
+                1px solid
+                rgba(
+                    120,
+                    83,
+                    53,
+                    0.45
+                );
+
+            box-shadow:
+                0 5px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.28
+                );
+        }
+
+
+        .signup-card h1 {
+
+            margin:
+                0 0 18px;
+
+            color:
+                #4a3324;
+
+            font-size:
+                23px;
+
+            font-weight:
+                400;
+        }
+
+
+        .signup-card input {
+
+            width: 100%;
+
+            height: 47px;
+
+            margin-bottom:
+                10px;
+
+            padding:
+                0 14px;
+
+            color:
+                #4b3828;
+
+            font-size:
+                14px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.94
+                );
+
+            border:
+                1px solid
+                #c9b89f;
+
+            border-radius:
+                4px;
+
+            outline:
+                none;
+        }
+
+
+        .signup-card input:focus {
+
+            border-color:
+                #9a714c;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(
+                    154,
+                    113,
+                    76,
+                    0.12
+                );
+        }
+
+
+        .signup-button {
+
+            width: 100%;
+
+            height: 43px;
+
+            margin-top:
+                3px;
+
+            color:
+                white;
+
+            font-size:
+                17px;
+
+            font-weight:
+                bold;
+
+            background:
+                #66864d;
+
+            border:
+                1px solid
+                #405d33;
+
+            border-radius:
+                4px;
+
+            cursor:
+                pointer;
+
+            box-shadow:
+                inset
+                0 1px 0
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.25
+                );
+        }
+
+
+        .signup-button:hover {
+
+            background:
+                #73945a;
+
+        }
+
+
+        .signup-button:disabled {
+
+            opacity:
+                0.65;
+
+            cursor:
+                wait;
+        }
+
+
+        .signup-message {
+
+            min-height:
+                22px;
+
+            margin:
+                11px 0 0;
+
+            font-size:
+                13px;
+
+            font-weight:
+                bold;
+
+            line-height:
+                1.35;
+        }
+
+
+        .login-link {
+
+            margin:
+                15px 0 0;
+
+            color:
+                #765842;
+
+            font-size:
+                12px;
+
+            text-align:
+                center;
+        }
+
+
+        .login-link a {
+
+            color:
+                #7c4d2d;
+
+            font-weight:
+                bold;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media
+        (
+            max-width:
+                1000px
+        ) {
+
+            .top-login {
+                display:
+                    none;
+            }
+
+
+            .landing-page {
+
+                grid-template-columns:
+                    1fr;
+
+                gap:
+                    30px;
+
+            }
+
+
+            .brand-area {
+
+                margin-top:
+                    20px;
+
+                text-align:
+                    center;
+
+            }
+
+
+            .signup-card {
+
+                width:
+                    min(
+                        470px,
+                        100%
+                    );
+
+                margin:
+                    auto;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
 
 <body>
 
-<div id="header"></div>
+
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
+
+    <header class="landing-topbar">
+
+        <a
+            class="landing-logo"
+            href="index.html"
+        >
+            NOVA
+        </a>
 
 
-<div id="site">
+        <nav class="landing-nav">
 
-    <main
-        style="
-            max-width:700px;
-            margin:30px auto;
-            padding:20px;
-        "
-    >
+            <a href="games.html">
+                Play
+            </a>
 
-        <section class="retro-box">
+            <a href="index.html">
+                About
+            </a>
 
-            <div class="retro-box-title">
-                ☕ Join Nova
+            <a href="install.html">
+                Platforms
+            </a>
+
+        </nav>
+
+
+        <form
+            class="top-login"
+            id="topLoginForm"
+        >
+
+            <input
+                id="topEmail"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+                required
+            >
+
+            <input
+                id="topPassword"
+                type="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit">
+                Log In
+            </button>
+
+        </form>
+
+    </header>
+
+
+    <!-- =====================================================
+         LANDING PAGE
+    ====================================================== -->
+
+    <main class="landing-page">
+
+
+        <section class="brand-area">
+
+            <div class="brand-logo-panel">
+
+                <img
+                    src="assets/logo/nova-logo.png"
+                    alt="Nova"
+                >
+
             </div>
 
 
-            <div class="retro-box-content">
+            <div>
 
-                <h1>
-                    Create your account
-                </h1>
+                <p class="brand-tagline">
 
+                    The World Powered by Players.
 
-                <p>
-                    Pick a username and start
-                    exploring Nova.
                 </p>
-
-
-                <form id="signupForm">
-
-
-                    <div class="form-row">
-
-                        <label
-                            for="username"
-                        >
-                            Username
-                        </label>
-
-                        <input
-                            id="username"
-                            type="text"
-                            maxlength="20"
-                            required
-                        >
-
-                    </div>
-
-
-
-                    <div class="form-row">
-
-                        <label
-                            for="email"
-                        >
-                            Email
-                        </label>
-
-                        <input
-                            id="email"
-                            type="email"
-                        >
-
-                    </div>
-
-
-
-                    <div class="form-row">
-
-                        <label
-                            for="password"
-                        >
-                            Password
-                        </label>
-
-                        <input
-                            id="password"
-                            type="password"
-                            required
-                        >
-
-                    </div>
-
-
-
-                    <div class="form-row">
-
-                        <label
-                            for="confirmPassword"
-                        >
-                            Confirm Password
-                        </label>
-
-                        <input
-                            id="confirmPassword"
-                            type="password"
-                            required
-                        >
-
-                    </div>
-
-
-
-                    <button
-                        class="retro-button"
-                        type="submit"
-                    >
-                        Join Nova ☕
-                    </button>
-
-
-                    <p
-                        id="signupMessage"
-                        style="
-                            margin-top:15px;
-                            font-weight:bold;
-                        "
-                    ></p>
-
-
-                </form>
-
-
-                <hr
-                    style="
-                        margin:25px 0;
-                        border:none;
-                        border-top:1px dashed #b99773;
-                    "
-                >
-
-
-                <p>
-                    Already have an account?
-                    <a href="login.html">
-                        Login here.
-                    </a>
-                </p>
-
 
             </div>
 
         </section>
 
+
+
+        <section class="signup-card">
+
+            <h1>
+                Sign up and start having fun!
+            </h1>
+
+
+            <form id="signupForm">
+
+                <input
+                    id="username"
+                    type="text"
+                    placeholder="Username (3-20 characters, no spaces)"
+                    maxlength="20"
+                    autocomplete="username"
+                    required
+                >
+
+
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    autocomplete="email"
+                    required
+                >
+
+
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Password (6 characters minimum)"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+                <input
+                    id="confirmPassword"
+                    type="password"
+                    placeholder="Confirm Password"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+                <button
+                    class="signup-button"
+                    id="signupButton"
+                    type="submit"
+                >
+                    Sign Up
+                </button>
+
+
+                <p
+                    class="signup-message"
+                    id="signupMessage"
+                ></p>
+
+            </form>
+
+
+            <p class="login-link">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Log in
+                </a>
+
+            </p>
+
+        </section>
+
+
     </main>
 
 
-    <footer class="footer">
+    <!-- =====================================================
+         SUPABASE + NOVA
+    ====================================================== -->
 
-        ☕ Nova
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
 
-    </footer>
+    <script src="js/nova-storage.js"></script>
 
-</div>
+    <script src="js/nova-supabase.js"></script>
 
-
-<script src="js/nova-storage.js"></script>
-<script src="js/nova-auth.js"></script>
-<script src="shell.js"></script>
-
-
-<script>
-
-renderShell();
+    <script src="js/nova-auth.js"></script>
 
 
-if (
-    NovaAuth.isLoggedIn()
-) {
+    <script>
 
-    window.location.href =
-        "index.html";
+        // =====================================================
+        // EXISTING SESSION
+        // =====================================================
 
-}
+        NovaAuth
+            .refreshSession()
+            .then(
+                user => {
 
+                    if (
+                        user
+                    ) {
 
-const form =
-    document.getElementById(
-        "signupForm"
-    );
+                        window.location.href =
+                            "index.html";
 
+                    }
 
-form.addEventListener(
-    "submit",
-    event => {
-
-        event.preventDefault();
-
-
-        const username =
-            document
-                .getElementById(
-                    "username"
-                )
-                .value;
-
-
-        const email =
-            document
-                .getElementById(
-                    "email"
-                )
-                .value;
-
-
-        const password =
-            document
-                .getElementById(
-                    "password"
-                )
-                .value;
-
-
-        const confirmPassword =
-            document
-                .getElementById(
-                    "confirmPassword"
-                )
-                .value;
-
-
-        const message =
-            document
-                .getElementById(
-                    "signupMessage"
-                );
-
-
-        if (
-            password !==
-            confirmPassword
-        ) {
-
-            message.style.color =
-                "#a52a2a";
-
-            message.textContent =
-                "Passwords do not match.";
-
-            return;
-
-        }
-
-
-        const result =
-            NovaAuth.createAccount(
-                username,
-                password,
-                email
+                }
             );
 
 
-        if (!result.success) {
+        // =====================================================
+        // SIGNUP FORM
+        // =====================================================
 
-            message.style.color =
-                "#a52a2a";
+        document
+            .getElementById(
+                "signupForm"
+            )
+            .addEventListener(
+                "submit",
+                async event => {
 
-            message.textContent =
-                result.message;
-
-            return;
-
-        }
-
-
-        message.style.color =
-            "#547044";
-
-        message.textContent =
-            "Account created!";
+                    event.preventDefault();
 
 
-        setTimeout(
-            () => {
+                    const username =
+                        document
+                            .getElementById(
+                                "username"
+                            )
+                            .value;
 
-                window.location.href =
-                    "index.html";
 
-            },
-            500
-        );
+                    const email =
+                        document
+                            .getElementById(
+                                "email"
+                            )
+                            .value;
 
-    }
-);
 
-</script>
+                    const password =
+                        document
+                            .getElementById(
+                                "password"
+                            )
+                            .value;
+
+
+                    const confirmPassword =
+                        document
+                            .getElementById(
+                                "confirmPassword"
+                            )
+                            .value;
+
+
+                    const message =
+                        document
+                            .getElementById(
+                                "signupMessage"
+                            );
+
+
+                    const button =
+                        document
+                            .getElementById(
+                                "signupButton"
+                            );
+
+
+                    message.textContent =
+                        "";
+
+
+                    if (
+                        password !==
+                        confirmPassword
+                    ) {
+
+                        message.style.color =
+                            "#a52a2a";
+
+
+                        message.textContent =
+                            "Passwords do not match.";
+
+                        return;
+
+                    }
+
+
+                    button.disabled =
+                        true;
+
+
+                    button.textContent =
+                        "Creating Account...";
+
+
+                    const result =
+                        await NovaAuth
+                            .createAccount(
+                                username,
+                                password,
+                                email
+                            );
+
+
+                    button.disabled =
+                        false;
+
+
+                    button.textContent =
+                        "Sign Up";
+
+
+                    if (
+                        !result.success
+                    ) {
+
+                        message.style.color =
+                            "#a52a2a";
+
+
+                        message.textContent =
+                            result.message;
+
+                        return;
+
+                    }
+
+
+                    message.style.color =
+                        "#547044";
+
+
+                    message.textContent =
+                        result.message;
+
+
+                    if (
+                        result.requiresConfirmation
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                "index.html";
+
+                        },
+                        650
+                    );
+
+                }
+            );
+
+
+        // =====================================================
+        // TOP LOGIN
+        // =====================================================
+
+        document
+            .getElementById(
+                "topLoginForm"
+            )
+            .addEventListener(
+                "submit",
+                async event => {
+
+                    event.preventDefault();
+
+
+                    const email =
+                        document
+                            .getElementById(
+                                "topEmail"
+                            )
+                            .value;
+
+
+                    const password =
+                        document
+                            .getElementById(
+                                "topPassword"
+                            )
+                            .value;
+
+
+                    const result =
+                        await NovaAuth
+                            .login(
+                                email,
+                                password
+                            );
+
+
+                    if (
+                        result.success
+                    ) {
+
+                        window.location.href =
+                            "index.html";
+
+                    }
+                    else {
+
+                        alert(
+                            result.message
+                        );
+
+                    }
+
+                }
+            );
+
+    </script>
 
 
 </body>
+
 </html>
