@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Catalog - Nova
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div id="header"></div>
+
+
+<div id="site">
+
+
+    <div class="page-body">
+
+
+        <aside>
+
+            <h1 class="page-title">
+                Catalog
+            </h1>
+
+
+            <nav class="left-menu">
+
+                <a
+                    class="selected"
+                    href="#"
+                    data-filter="all"
+                >
+                    All Items
+                </a>
+
+                <a
+                    href="#"
+                    data-filter="hat"
+                >
+                    Hats
+                </a>
+
+                <a
+                    href="#"
+                    data-filter="shirt"
+                >
+                    Shirts
+                </a>
+
+                <a
+                    href="#"
+                    data-filter="pants"
+                >
+                    Pants
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+
+        <main>
+
+
+            <section class="retro-box">
+
+
+                <div class="retro-box-title">
+
+                    <span>
+                        ☕ Nova Catalog
+                    </span>
+
+                    <span id="catalogCount">
+                    </span>
+
+                </div>
+
+
+                <div class="retro-box-content">
+
+
+                    <div class="catalog-search-row">
+
+                        <input
+                            id="catalogSearch"
+                            type="search"
+                            placeholder="Search the catalog..."
+                        >
+
+                    </div>
+
+
+                    <div
+                        id="catalogGrid"
+                        class="nova-catalog-grid"
+                    ></div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <aside>
+
+            <div
+                id="ads"
+                class="ad-column"
+            ></div>
+
+        </aside>
+
+
+    </div>
+
+
+    <footer class="footer">
+        ☕ Nova
+    </footer>
+
+
+</div>
+
+
+<script src="js/nova-storage.js"></script>
+<script src="js/nova-auth.js"></script>
+<script src="shell.js"></script>
+
+
+<script type="module">
+
+import {
+    getAllItems
+}
+from "./js/nova-items.js";
+
+
+renderShell();
+
+
+const grid =
+    document.getElementById(
+        "catalogGrid"
+    );
+
+
+const search =
+    document.getElementById(
+        "catalogSearch"
+    );
+
+
+const count =
+    document.getElementById(
+        "catalogCount"
+    );
+
+
+let filter =
+    "all";
+
+
+function renderCatalog() {
+
+    const query =
+        search.value
+            .trim()
+            .toLowerCase();
+
+
+    const items =
+        getAllItems()
+            .filter(
+                item => {
+
+                    const matchesType =
+                        filter === "all"
+                        ||
+                        item.type === filter;
+
+
+                    const matchesSearch =
+                        item.name
+                            .toLowerCase()
+                            .includes(
+                                query
+                            );
+
+
+                    return (
+                        matchesType
+                        &&
+                        matchesSearch
+                    );
+
+                }
+            );
+
+
+    grid.innerHTML =
+        "";
+
+
+    count.textContent =
+        `${items.length} items`;
+
+
+    items.forEach(
+        item => {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "nova-catalog-card";
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${item.icon}"
+                    alt="${item.name}"
+                >
+
+                <div class="nova-catalog-name">
+                    ${item.name}
+                </div>
+
+                <div class="nova-catalog-type">
+                    ${item.type}
+                </div>
+
+                <a
+                    class="tiny-button"
+                    href="character.html?equip=${item.id}"
+                >
+                    Try On
+                </a>
+
+            `;
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+document
+    .querySelectorAll(
+        "[data-filter]"
+    )
+    .forEach(
+        link => {
+
+            link.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+
+                    filter =
+                        link.dataset.filter;
+
+
+                    document
+                        .querySelectorAll(
+                            "[data-filter]"
+                        )
+                        .forEach(
+                            item =>
+                                item.classList
+                                    .remove(
+                                        "selected"
+                                    )
+                        );
+
+
+                    link.classList.add(
+                        "selected"
+                    );
+
+
+                    renderCatalog();
+
+                }
+            );
+
+        }
+    );
+
+
+search.addEventListener(
+    "input",
+    renderCatalog
+);
+
+
+renderCatalog();
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Install Nova Player</title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+    <style>
+
+        body {
+            background: #f7edda;
+            color: #5a402d;
+            font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
+        }
+
+        .install-page {
+            width: min(1100px, 92vw);
+            margin: 40px auto;
+        }
+
+        .install-card {
+            background: #fff8ea;
+            border: 4px solid #9e704d;
+            border-radius: 14px;
+            box-shadow: 0 8px 0 #d4b48b;
+            overflow: hidden;
+        }
+
+        .install-header {
+            padding: 22px 28px;
+            background: #d8b48b;
+            border-bottom: 4px solid #9e704d;
+        }
+
+        .install-header h1 {
+            margin: 0;
+            font-size: 34px;
+        }
+
+        .install-header p {
+            margin: 8px 0 0;
+            font-size: 16px;
+        }
+
+        .install-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 28px;
+            padding: 30px;
+        }
+
+        .install-main {
+            min-width: 0;
+        }
+
+        .install-side {
+            background: #f3e2c8;
+            border: 3px solid #b98b62;
+            border-radius: 12px;
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .install-section {
+            margin-bottom: 28px;
+        }
+
+        .install-section h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .install-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .nova-button {
+            display: inline-block;
+            padding: 14px 22px;
+            border: 3px solid #6e4a33;
+            border-radius: 10px;
+            background: #c98f65;
+            color: white;
+            font-family: inherit;
+            font-size: 17px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #6e4a33;
+        }
+
+        .nova-button:hover {
+            transform: translateY(-1px);
+        }
+
+        .nova-button:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #6e4a33;
+        }
+
+        .nova-button.secondary {
+            background: #fff3df;
+            color: #5a402d;
+        }
+
+        .install-steps {
+            margin: 0;
+            padding-left: 24px;
+            line-height: 1.8;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 10px 0;
+            border-bottom: 2px dashed #c9a47d;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .install-warning {
+            background: #fff2c8;
+            border: 3px solid #d0a657;
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            color: #6d4a33;
+            font-weight: bold;
+        }
+
+        #launchStatus {
+            margin-top: 14px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+
+        @media (max-width: 800px) {
+
+            .install-content {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+
+    <div class="install-page">
+
+        <div class="install-card">
+
+            <div class="install-header">
+
+                <h1>
+                    ☕ Nova Player
+                </h1>
+
+                <p>
+                    Install Nova Player to launch and play Nova games.
+                </p>
+
+            </div>
+
+
+            <div class="install-content">
+
+
+                <main class="install-main">
+
+                    <section class="install-section">
+
+                        <h2>
+                            Download Nova Player
+                        </h2>
+
+                        <p>
+                            Nova Player is required to launch games from the Nova website.
+                        </p>
+
+                        <div class="install-buttons">
+
+                            <a
+                                class="nova-button"
+                                href="/downloads/NovaPlayerSetup.exe"
+                                download
+                            >
+                                Download for Windows
+                            </a>
+
+                            <button
+                                class="nova-button secondary"
+                                type="button"
+                                onclick="launchNova()"
+                            >
+                                I Already Installed It
+                            </button>
+
+                        </div>
+
+                        <div id="launchStatus"></div>
+
+                    </section>
+
+
+                    <section class="install-section">
+
+                        <h2>
+                            How to Install
+                        </h2>
+
+                        <ol class="install-steps">
+
+                            <li>
+                                Click <b>Download for Windows</b>.
+                            </li>
+
+                            <li>
+                                Open <b>NovaPlayerSetup.exe</b>.
+                            </li>
+
+                            <li>
+                                Follow the Nova Player installer.
+                            </li>
+
+                            <li>
+                                Finish installation.
+                            </li>
+
+                            <li>
+                                Come back here and click
+                                <b>I Already Installed It</b>.
+                            </li>
+
+                        </ol>
+
+                    </section>
+
+
+                    <section class="install-section">
+
+                        <h2>
+                            Launch Test
+                        </h2>
+
+                        <p>
+                            This currently launches the Nova Baseplate demo using:
+                        </p>
+
+                        <code>
+                            nova-player://play?placeId=1
+                        </code>
+
+                        <div class="install-buttons">
+
+                            <button
+                                class="nova-button"
+                                type="button"
+                                onclick="launchNova()"
+                            >
+                                Launch Baseplate Demo
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <div class="install-warning">
+
+                        <b>Early Nova Build</b>
+
+                        <p>
+                            Nova Player is still in development. Windows may show
+                            additional security warnings while Nova is unsigned.
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        class="back-link"
+                        href="index.html"
+                    >
+                        ← Back to Nova
+                    </a>
+
+                </main>
+
+
+
+                <aside class="install-side">
+
+                    <h2>
+                        Player Information
+                    </h2>
+
+                    <div class="info-row">
+
+                        <strong>
+                            Application
+                        </strong>
+
+                        <span>
+                            Nova Player
+                        </span>
+
+                    </div>
+
+                    <div class="info-row">
+
+                        <strong>
+                            Publisher
+                        </strong>
+
+                        <span>
+                            5r1han
+                        </span>
+
+                    </div>
+
+                    <div class="info-row">
+
+                        <strong>
+                            Platform
+                        </strong>
+
+                        <span>
+                            Windows 64-bit
+                        </span>
+
+                    </div>
+
+                    <div class="info-row">
+
+                        <strong>
+                            Version
+                        </strong>
+
+                        <span>
+                            0.1.0
+                        </span>
+
+                    </div>
+
+                    <div class="info-row">
+
+                        <strong>
+                            Protocol
+                        </strong>
+
+                        <span>
+                            nova-player://
+                        </span>
+
+                    </div>
+
+                </aside>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/nova-storage.js"></script>
+    <script src="js/nova-auth.js"></script>
+    <script src="shell.js"></script>
+
+
+    <script>
+
+        if (
+            typeof renderShell === "function"
+        ) {
+            renderShell();
+        }
+
+
+        function launchNova() {
+
+            const status =
+                document.getElementById(
+                    "launchStatus"
+                );
+
+
+            status.textContent =
+                "Opening Nova Player...";
+
+
+            window.location.href =
+                "nova-player://play?placeId=1";
+
+
+            setTimeout(
+                () => {
+
+                    status.innerHTML =
+                        'Didn\'t open? <a href="/downloads/NovaPlayerSetup.exe">Download Nova Player</a>';
+
+                },
+                2500
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

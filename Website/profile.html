@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Profile - Nova
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+</head>
+
+
+<body>
+
+<div id="header"></div>
+
+
+<div id="site">
+
+    <div class="page-body">
+
+
+        <!-- LEFT SIDEBAR -->
+
+        <aside>
+
+            <h1 class="page-title">
+                Profile
+            </h1>
+
+
+            <nav class="left-menu">
+
+                <a
+                    class="selected"
+                    href="profile.html"
+                >
+                    ☕ Profile
+                </a>
+
+                <a href="friends.html">
+                    Friends
+                </a>
+
+                <a href="messages.html">
+                    Messages
+                </a>
+
+                <a href="inventory.html">
+                    Inventory
+                </a>
+
+                <a href="character.html">
+                    Character
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+
+        <!-- MAIN PROFILE -->
+
+        <main>
+
+            <section class="retro-box">
+
+                <div class="retro-box-title">
+                    My Profile
+                </div>
+
+
+                <div class="retro-box-content">
+
+
+                    <div class="classic-profile-layout">
+
+
+                        <!-- LEFT SIDE -->
+
+                        <div class="classic-profile-left">
+
+
+                            <div class="profile-avatar-card">
+
+                                <img
+                                    id="profileAvatar"
+                                    class="classic-profile-avatar"
+                                    src="assets/avatars/guest.png"
+                                    alt="Nova Avatar"
+                                >
+
+                                <div class="profile-status">
+                                    Online
+                                </div>
+
+                            </div>
+
+
+                            <div class="profile-info-block">
+
+                                <h1
+                                    id="profileUsername"
+                                    class="classic-profile-name"
+                                >
+                                    Guest
+                                </h1>
+
+
+                                <p
+                                    id="profileBio"
+                                    class="classic-profile-bio"
+                                ></p>
+
+
+                                <p class="profile-detail">
+
+                                    <strong>
+                                        Joined:
+                                    </strong>
+
+                                    <span
+                                        id="profileJoined"
+                                    ></span>
+
+                                </p>
+
+
+                                <div class="profile-buttons">
+
+                                    <a
+                                        class="retro-button"
+                                        href="character.html"
+                                    >
+                                        Edit Character
+                                    </a>
+
+                                    <button
+                                        id="logoutButton"
+                                        class="retro-button"
+                                        type="button"
+                                    >
+                                        Logout
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- BADGES -->
+
+                            <div class="profile-section">
+
+                                <div class="profile-section-title">
+                                    Nova Badges
+                                </div>
+
+
+                                <div class="badge-grid">
+
+                                    <div class="badge-item">
+
+                                        <div class="badge-icon">
+                                            ☕
+                                        </div>
+
+                                        <span>
+                                            First Login
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="badge-item">
+
+                                        <div class="badge-icon">
+                                            🛠
+                                        </div>
+
+                                        <span>
+                                            Builder
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="badge-item">
+
+                                        <div class="badge-icon">
+                                            🎮
+                                        </div>
+
+                                        <span>
+                                            Player
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="badge-item">
+
+                                        <div class="badge-icon">
+                                            ★
+                                        </div>
+
+                                        <span>
+                                            Nova Member
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- RIGHT SIDE -->
+
+                        <div class="classic-profile-right">
+
+
+                            <div class="profile-section">
+
+                                <div class="profile-section-title">
+                                    My Places
+                                </div>
+
+
+                                <div
+                                    id="profilePlaces"
+                                    class="profile-place-list"
+                                >
+
+                                    <div class="profile-place-card">
+
+                                        <img
+                                            src="assets/games/baseplate.png"
+                                            alt="Nova Baseplate"
+                                        >
+
+                                        <div>
+
+                                            <a
+                                                class="profile-place-name"
+                                                href="game.html?id=1"
+                                            >
+                                                Nova Baseplate
+                                            </a>
+
+                                            <p>
+                                                Your default place.
+                                            </p>
+
+                                            <div class="profile-place-actions">
+
+                                                <button
+                                                    class="tiny-button tiny-play"
+                                                    data-place-id="1"
+                                                    type="button"
+                                                >
+                                                    Play
+                                                </button>
+
+                                                <a
+                                                    class="tiny-button"
+                                                    href="creator.html"
+                                                >
+                                                    Edit
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <a
+                                    class="retro-button"
+                                    href="creator.html"
+                                >
+                                    Create a Place
+                                </a>
+
+                            </div>
+
+
+
+                            <div class="profile-section">
+
+                                <div class="profile-section-title">
+                                    Character
+                                </div>
+
+
+                                <div
+                                    style="
+                                        display:flex;
+                                        align-items:center;
+                                        gap:18px;
+                                        margin-bottom:15px;
+                                    "
+                                >
+
+                                    <img
+                                        id="profileCharacterPreview"
+                                        src="assets/avatars/guest.png"
+                                        alt="Character"
+                                        style="
+                                            width:120px;
+                                            height:120px;
+                                            object-fit:cover;
+                                            border:3px solid #9b704e;
+                                            border-radius:8px;
+                                            background:#fff7e8;
+                                        "
+                                    >
+
+                                    <div>
+
+                                        <p>
+                                            Customize how you look around Nova.
+                                        </p>
+
+                                        <a
+                                            class="retro-button"
+                                            href="character.html"
+                                        >
+                                            Customize Character
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+
+        <!-- ADS -->
+
+        <aside>
+
+            <div
+                id="ads"
+                class="ad-column"
+            ></div>
+
+        </aside>
+
+
+    </div>
+
+
+    <footer class="footer">
+        ☕ Nova
+    </footer>
+
+</div>
+
+
+<script src="js/nova-storage.js"></script>
+<script src="js/nova-auth.js"></script>
+<script src="shell.js"></script>
+<script src="script.js"></script>
+
+
+<script>
+
+renderShell();
+
+
+/* =========================================================
+   USER
+========================================================= */
+
+const user =
+    NovaAuth.getCurrentUser();
+
+
+if (!user) {
+
+    window.location.href =
+        "login.html";
+
+}
+else {
+
+    /* =====================================================
+       USERNAME
+    ===================================================== */
+
+    document
+        .getElementById(
+            "profileUsername"
+        )
+        .textContent =
+            user.username ||
+            "Guest";
+
+
+    /* =====================================================
+       RENDERED AVATAR
+
+       Priority:
+
+       1. avatarImage
+       2. old avatar
+       3. guest.png
+    ===================================================== */
+
+    const avatarSource =
+        user.avatarImage
+        ||
+        user.avatar
+        ||
+        "assets/avatars/guest.png";
+
+
+    document
+        .getElementById(
+            "profileAvatar"
+        )
+        .src =
+            avatarSource;
+
+
+    document
+        .getElementById(
+            "profileCharacterPreview"
+        )
+        .src =
+            avatarSource;
+
+
+    /* =====================================================
+       BIO
+    ===================================================== */
+
+    document
+        .getElementById(
+            "profileBio"
+        )
+        .textContent =
+            user.bio
+            ||
+            "Hey! I'm new to Nova.";
+
+
+    /* =====================================================
+       JOIN DATE
+    ===================================================== */
+
+    if (
+        user.joinedAt
+    ) {
+
+        const joinedDate =
+            new Date(
+                user.joinedAt
+            );
+
+
+        if (
+            !Number.isNaN(
+                joinedDate.getTime()
+            )
+        ) {
+
+            document
+                .getElementById(
+                    "profileJoined"
+                )
+                .textContent =
+                    joinedDate
+                        .toLocaleDateString();
+
+        }
+        else {
+
+            document
+                .getElementById(
+                    "profileJoined"
+                )
+                .textContent =
+                    "Unknown";
+
+        }
+
+    }
+    else {
+
+        document
+            .getElementById(
+                "profileJoined"
+            )
+            .textContent =
+                "Unknown";
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+    ===================================================== */
+
+    document
+        .getElementById(
+            "logoutButton"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                NovaAuth.logout();
+
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

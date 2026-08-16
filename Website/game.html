@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Nova Game
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           GAME PAGE
+        ===================================================== */
+
+        .game-page {
+            width: calc(100% - 40px);
+            max-width: 1250px;
+            margin: 18px auto 50px auto;
+        }
+
+
+        .game-back {
+            display: inline-block;
+            margin-bottom: 12px;
+
+            color: #75452f;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+
+        .game-back:hover {
+            text-decoration: underline;
+        }
+
+
+        .game-title {
+            margin: 0 0 18px 0;
+
+            color: #4e3426;
+
+            font-size: 30px;
+        }
+
+
+        /* =====================================================
+           MAIN GAME CARD
+        ===================================================== */
+
+        .game-main-card {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(500px, 1.45fr)
+                minmax(300px, 0.75fr);
+
+            gap: 24px;
+
+            padding: 18px;
+
+            background: #fff8eb;
+
+            border: 3px solid #9b704e;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 0 rgba(
+                    116,
+                    77,
+                    48,
+                    0.16
+                );
+        }
+
+
+        /* =====================================================
+           THUMBNAIL
+        ===================================================== */
+
+        .game-media {
+
+            min-width: 0;
+
+        }
+
+
+        .game-image-frame {
+
+            position: relative;
+
+            width: 100%;
+
+            overflow: hidden;
+
+            background: #ead8ba;
+
+            border: 3px solid #9c704e;
+
+            border-radius: 9px;
+
+        }
+
+
+        .game-detail-image {
+
+            display: block;
+
+            width: 100%;
+
+            aspect-ratio: 16 / 9;
+
+            object-fit: cover;
+
+        }
+
+
+        /* =====================================================
+           PLAY AREA
+        ===================================================== */
+
+        .game-play-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-top: 14px;
+
+        }
+
+
+        .play-big {
+
+            min-width: 150px;
+
+            padding: 13px 28px;
+
+            font-family:
+                "Comic Sans MS",
+                "Trebuchet MS",
+                sans-serif;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    #75a952,
+                    #59873d
+                );
+
+            border: 3px solid #42652d;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 4px 0 #365525;
+
+        }
+
+
+        .play-big:hover {
+
+            background:
+                linear-gradient(
+                    #82b85e,
+                    #649548
+                );
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        .play-big:active {
+
+            transform:
+                translateY(3px);
+
+            box-shadow:
+                0 1px 0 #365525;
+
+        }
+
+
+        .play-big:disabled {
+
+            opacity: 0.7;
+
+            cursor: default;
+
+            transform: none;
+
+        }
+
+
+        .play-message {
+
+            min-height: 24px;
+
+            color: #65432f;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =====================================================
+           GAME INFORMATION
+        ===================================================== */
+
+        .game-information {
+
+            min-width: 0;
+
+        }
+
+
+        .game-info-box {
+
+            overflow: hidden;
+
+            margin-bottom: 15px;
+
+            background: #fffdf7;
+
+            border: 2px solid #c39769;
+
+            border-radius: 9px;
+
+        }
+
+
+        .game-info-title {
+
+            padding: 8px 12px;
+
+            background:
+                linear-gradient(
+                    #edcca0,
+                    #ddb57f
+                );
+
+            border-bottom:
+                2px solid #c39769;
+
+            color: #63412c;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+
+        .game-info-content {
+
+            padding: 13px 14px;
+
+            color: #5d4838;
+
+            line-height: 1.55;
+
+        }
+
+
+        .game-info-content p {
+
+            margin: 0;
+
+        }
+
+
+        /* =====================================================
+           PLAYER INSTALL WARNING
+        ===================================================== */
+
+        .install-box {
+
+            display: none;
+
+            margin-top: 14px;
+
+            padding: 14px 16px;
+
+            background: #fff0c9;
+
+            border: 2px solid #c69a55;
+
+            border-radius: 8px;
+
+        }
+
+
+        .install-box.visible {
+
+            display: block;
+
+        }
+
+
+        .install-box p {
+
+            margin:
+                0
+                0
+                10px
+                0;
+
+        }
+
+
+        .install-button {
+
+            display: inline-block;
+
+            padding: 9px 15px;
+
+            color: white;
+
+            background: #b87845;
+
+            border: 2px solid #77492b;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+        }
+
+
+        .install-button:hover {
+
+            background: #c98a55;
+
+        }
+
+
+        /* =====================================================
+           STATUS DOT
+        ===================================================== */
+
+        .launch-dot {
+
+            display: none;
+
+            width: 10px;
+
+            height: 10px;
+
+            margin-right: 7px;
+
+            border-radius: 50%;
+
+            background: #619448;
+
+            animation:
+                novaPulse
+                0.8s
+                infinite
+                alternate;
+
+        }
+
+
+        .launch-dot.visible {
+
+            display: inline-block;
+
+        }
+
+
+        @keyframes novaPulse {
+
+            from {
+                opacity: 0.35;
+            }
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (
+            max-width: 900px
+        ) {
+
+            .game-main-card {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 600px
+        ) {
+
+            .game-page {
+
+                width:
+                    calc(100% - 20px);
+
+            }
+
+
+            .game-main-card {
+
+                padding: 10px;
+
+            }
+
+
+            .game-play-area {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
+
+            }
+
+
+            .play-big {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div id="site">
+
+
+    <!-- HEADER -->
+
+    <div id="header"></div>
+
+
+
+    <!-- GAME PAGE -->
+
+    <main class="game-page">
+
+
+        <a
+            class="game-back"
+            href="games.html"
+        >
+            &lt; Back to Games
+        </a>
+
+
+        <h1
+            id="gameTitle"
+            class="game-title"
+        ></h1>
+
+
+
+        <section class="game-main-card">
+
+
+            <!-- ================================
+                 LEFT
+            ================================= -->
+
+            <div class="game-media">
+
+
+                <div class="game-image-frame">
+
+                    <img
+                        id="gameImage"
+                        class="game-detail-image"
+                        alt="Nova game thumbnail"
+                    >
+
+                </div>
+
+
+                <div class="game-play-area">
+
+
+                    <button
+                        id="playButton"
+                        class="play-big"
+                        type="button"
+                    >
+                        ▶ Play
+                    </button>
+
+
+                    <div
+                        id="playMessage"
+                        class="play-message"
+                    >
+
+                        <span
+                            id="launchDot"
+                            class="launch-dot"
+                        ></span>
+
+                        <span
+                            id="playMessageText"
+                        ></span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- PLAYER NOT INSTALLED -->
+
+                <div
+                    id="installBox"
+                    class="install-box"
+                >
+
+                    <p>
+                        <b>
+                            Nova Player didn't appear to open.
+                        </b>
+                    </p>
+
+                    <p>
+                        Install Nova Player to play this game.
+                    </p>
+
+                    <a
+                        class="install-button"
+                        href="install.html"
+                    >
+                        Download Nova Player
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================
+                 RIGHT
+            ================================= -->
+
+            <aside class="game-information">
+
+
+                <!-- ABOUT -->
+
+                <div class="game-info-box">
+
+
+                    <div class="game-info-title">
+                        About
+                    </div>
+
+
+                    <div class="game-info-content">
+
+                        <p
+                            id="gameDescription"
+                        ></p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CREATOR -->
+
+                <div class="game-info-box">
+
+
+                    <div class="game-info-title">
+                        Creator
+                    </div>
+
+
+                    <div class="game-info-content">
+
+                        <p
+                            id="gameCreator"
+                        ></p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CATEGORY -->
+
+                <div class="game-info-box">
+
+
+                    <div class="game-info-title">
+                        Category
+                    </div>
+
+
+                    <div class="game-info-content">
+
+                        <p
+                            id="gameCategory"
+                        ></p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- PLACE ID -->
+
+                <div class="game-info-box">
+
+
+                    <div class="game-info-title">
+                        Place
+                    </div>
+
+
+                    <div class="game-info-content">
+
+                        <p>
+                            Place ID:
+                            <strong
+                                id="gamePlaceId"
+                            ></strong>
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+            </aside>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <div class="footer">
+        ☕ Nova
+    </div>
+
+
+</div>
+
+
+
+<script src="js/nova-storage.js"></script>
+<script src="js/nova-auth.js"></script>
+<script src="data.js"></script>
+<script src="shell.js"></script>
+
+
+<script>
+
+
+/* =========================================================
+   SHELL
+========================================================= */
+
+renderShell();
+
+
+
+/* =========================================================
+   FIND GAME
+========================================================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const id =
+    Number(
+        params.get("id")
+        ||
+        1
+    );
+
+
+const game =
+    NOVA_GAMES.find(
+        item =>
+            item.id === id
+    )
+    ||
+    NOVA_GAMES[0];
+
+
+
+/* =========================================================
+   PAGE INFORMATION
+========================================================= */
+
+document.getElementById(
+    "gameTitle"
+).textContent =
+    game.name;
+
+
+document.getElementById(
+    "gameImage"
+).src =
+    game.thumbnail;
+
+
+document.getElementById(
+    "gameImage"
+).alt =
+    game.name;
+
+
+document.getElementById(
+    "gameDescription"
+).textContent =
+    game.description;
+
+
+document.getElementById(
+    "gameCreator"
+).textContent =
+    game.creator;
+
+
+document.getElementById(
+    "gameCategory"
+).textContent =
+    game.category;
+
+
+document.getElementById(
+    "gamePlaceId"
+).textContent =
+    game.id;
+
+
+
+/* =========================================================
+   PLAYER LAUNCHER
+========================================================= */
+
+const playButton =
+    document.getElementById(
+        "playButton"
+    );
+
+
+const installBox =
+    document.getElementById(
+        "installBox"
+    );
+
+
+const playMessageText =
+    document.getElementById(
+        "playMessageText"
+    );
+
+
+const launchDot =
+    document.getElementById(
+        "launchDot"
+    );
+
+
+let launchTimer =
+    null;
+
+
+let launching =
+    false;
+
+
+let externalAppOpened =
+    false;
+
+
+
+/* =========================================================
+   EXTERNAL APP DETECTION
+========================================================= */
+
+function markPlayerOpened() {
+
+    if (!launching) {
+        return;
+    }
+
+
+    externalAppOpened =
+        true;
+
+
+    if (launchTimer) {
+
+        clearTimeout(
+            launchTimer
+        );
+
+        launchTimer =
+            null;
+
+    }
+
+
+    installBox
+        .classList
+        .remove(
+            "visible"
+        );
+
+
+    playMessageText.textContent =
+        "Nova Player is starting...";
+
+
+    launchDot
+        .classList
+        .add(
+            "visible"
+        );
+
+
+    setTimeout(
+        () => {
+
+            playMessageText.textContent =
+                "";
+
+
+            launchDot
+                .classList
+                .remove(
+                    "visible"
+                );
+
+
+            playButton.disabled =
+                false;
+
+
+            playButton.textContent =
+                "▶ Play";
+
+
+            launching =
+                false;
+
+        },
+
+        2500
+    );
+
+}
+
+
+
+document.addEventListener(
+    "visibilitychange",
+
+    () => {
+
+        if (
+            document.hidden
+        ) {
+
+            markPlayerOpened();
+
+        }
+
+    }
+);
+
+
+
+window.addEventListener(
+    "blur",
+
+    () => {
+
+        markPlayerOpened();
+
+    }
+);
+
+
+
+/* =====================================================
+   BUILD NOVA PLAYER URL
+===================================================== */
+
+const user =
+    NovaAuth.getCurrentUser();
+
+
+const character =
+    user?.character
+    ||
+    {};
+
+
+const launchParams =
+    new URLSearchParams();
+
+
+launchParams.set(
+    "placeId",
+    game.id
+);
+
+
+if (character.skin) {
+
+    launchParams.set(
+        "skin",
+        character.skin
+    );
+
+}
+
+
+if (character.face) {
+
+    launchParams.set(
+        "face",
+        character.face
+    );
+
+}
+
+
+if (character.shirt) {
+
+    launchParams.set(
+        "shirt",
+        character.shirt
+    );
+
+}
+
+
+if (character.pants) {
+
+    launchParams.set(
+        "pants",
+        character.pants
+    );
+
+}
+
+
+if (
+    character.hat &&
+    character.hat !== "none"
+) {
+
+    launchParams.set(
+        "hat",
+        character.hat
+    );
+
+}
+
+
+const protocolUrl =
+    `nova-player://play?${launchParams.toString()}`;
+
+
+console.log(
+    "Nova launching:",
+    protocolUrl
+);
+
+
+window.location.href =
+    protocolUrl;
+
+    /* =====================================================
+       FALLBACK
+    ===================================================== */
+
+    launchTimer =
+        setTimeout(
+            () => {
+
+                if (
+                    externalAppOpened
+                ) {
+
+                    return;
+
+                }
+
+
+                launching =
+                    false;
+
+
+                playButton.disabled =
+                    false;
+
+
+                playButton.textContent =
+                    "▶ Play";
+
+
+                launchDot
+                    .classList
+                    .remove(
+                        "visible"
+                    );
+
+
+                playMessageText.textContent =
+                    "Nova Player isn't responding.";
+
+
+                installBox
+                    .classList
+                    .add(
+                        "visible"
+                    );
+
+            },
+
+            3000
+        );
+
+
+
+
+
+/* =========================================================
+   PLAY CLICK
+========================================================= */
+
+playButton.addEventListener(
+    "click",
+
+    () => {
+
+        launchNovaPlayer();
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>

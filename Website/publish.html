@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Publish Place - Nova</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<div id="site">
+
+<div id="header"></div>
+
+
+<div class="page-body">
+
+<aside>
+
+<div class="left-title">
+Create
+</div>
+
+<nav class="left-menu">
+
+<a href="creator.html">
+My Creations
+</a>
+
+<a href="publish.html">
+Publish Place
+</a>
+
+</nav>
+
+</aside>
+
+
+<main>
+
+<h1>
+Publish Place
+</h1>
+
+
+<form id="publishForm">
+
+
+<div class="form-row">
+
+<label>
+Place Name
+</label>
+
+<input
+    id="placeName"
+    required
+>
+
+</div>
+
+
+<div class="form-row">
+
+<label>
+Description
+</label>
+
+<textarea
+    id="description"
+></textarea>
+
+</div>
+
+
+<div class="form-row">
+
+<label>
+Category
+</label>
+
+<select id="category">
+
+<option>
+Building
+</option>
+
+<option>
+Adventure
+</option>
+
+<option>
+Action
+</option>
+
+<option>
+Obby
+</option>
+
+<option>
+Racing
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-row">
+
+<label>
+Thumbnail
+</label>
+
+<input
+    type="file"
+    accept="image/*"
+>
+
+</div>
+
+
+<button
+    class="retro-button"
+    type="submit"
+>
+Publish
+</button>
+
+
+</form>
+
+
+<p
+    id="publishMessage"
+    style="display:none;"
+>
+Publishing will connect to the Nova server later.
+</p>
+
+
+</main>
+
+
+<aside
+    id="ads"
+    class="ad-column"
+></aside>
+
+</div>
+
+</div>
+
+
+<script src="shell.js"></script>
+
+<script>
+
+renderShell();
+
+document
+.getElementById(
+    "publishForm"
+)
+.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        document
+        .getElementById(
+            "publishMessage"
+        )
+        .style.display =
+            "block";
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

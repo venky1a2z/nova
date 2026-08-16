@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Places - Nova</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="siteHeader"></div>
+
+    <div class="notice-bar">
+        <div class="page-width">
+            My Places
+        </div>
+    </div>
+
+    <div class="page-width page-layout">
+        <div id="siteSidebar"></div>
+
+        <main>
+            <section class="content-box">
+                <div class="box-heading">
+                    <h2>My Places</h2>
+
+                    <a href="create.html">
+                        Create New
+                    </a>
+                </div>
+
+                <div class="place-grid">
+                    <article class="place-card">
+                        <a href="game.html">
+                            <img
+                                class="place-thumbnail-image"
+                                src="assets/places/baseplate-thumbnail.png"
+                                alt="Nova Baseplate"
+                            >
+                        </a>
+
+                        <a
+                            class="place-name"
+                            href="game.html"
+                        >
+                            Nova Baseplate
+                        </a>
+
+                        <p>
+                            Place ID: 1
+                        </p>
+
+                        <a
+                            class="small-button"
+                            href="game.html"
+                        >
+                            View
+                        </a>
+
+                        <button
+                            class="small-button play-button"
+                            type="button"
+                            data-place-id="1"
+                        >
+                            Play
+                        </button>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <div id="siteRightColumn"></div>
+    </div>
+
+    <div id="siteFooter"></div>
+
+    <script src="site-shell.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

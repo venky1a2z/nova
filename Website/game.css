@@ -1,0 +1,329 @@
+.game-page {
+    padding-top: 18px;
+    padding-bottom: 35px;
+}
+
+.breadcrumb-separator {
+    margin: 0 7px;
+    color: #728795;
+}
+
+.game-main-panel {
+    margin-bottom: 14px;
+
+    background: white;
+
+    border: 1px solid #b8b8b8;
+}
+
+.game-heading {
+    min-height: 65px;
+    padding: 12px 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ffffff,
+            #e2e2e2
+        );
+
+    border-bottom: 1px solid #b8b8b8;
+}
+
+.game-heading h1 {
+    margin: 0 0 5px;
+
+    color: #333333;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.game-heading p {
+    margin: 0;
+
+    color: #666666;
+}
+
+.game-overview {
+    padding: 15px;
+
+    display: grid;
+    grid-template-columns: 470px 1fr;
+    gap: 20px;
+}
+
+.game-image-column {
+    min-width: 0;
+}
+
+.game-thumbnail-large {
+    width: 470px;
+    height: 294px;
+
+    display: block;
+    object-fit: cover;
+
+    background: #cccccc;
+
+    border: 1px solid #777777;
+}
+
+.retro-play-button {
+    width: 100%;
+    height: 48px;
+    margin-top: 10px;
+
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 35%);
+
+    background:
+        linear-gradient(
+            to bottom,
+            #70b94d,
+            #398c25
+        );
+
+    border: 1px solid #27671a;
+    box-shadow:
+        inset 0 1px 0
+        rgb(255 255 255 / 30%);
+
+    cursor: pointer;
+}
+
+.retro-play-button:hover {
+    background:
+        linear-gradient(
+            to bottom,
+            #7ac756,
+            #3f9729
+        );
+}
+
+.retro-play-button:active {
+    background:
+        linear-gradient(
+            to bottom,
+            #327d20,
+            #56a638
+        );
+}
+
+.play-symbol {
+    margin-right: 6px;
+}
+
+.game-details-column {
+    min-width: 0;
+}
+
+.game-description,
+.game-information {
+    margin-bottom: 18px;
+}
+
+.game-description h2,
+.game-information h2 {
+    margin: 0 0 8px;
+    padding-bottom: 5px;
+
+    color: #333333;
+    font-size: 16px;
+
+    border-bottom: 1px solid #cccccc;
+}
+
+.game-description p {
+    margin: 0;
+
+    color: #555555;
+    line-height: 1.55;
+}
+
+.game-information dl {
+    margin: 0;
+}
+
+.game-information dl > div {
+    min-height: 31px;
+
+    display: grid;
+    grid-template-columns: 105px 1fr;
+    align-items: center;
+
+    border-bottom: 1px dotted #c5c5c5;
+}
+
+.game-information dt {
+    color: #666666;
+    font-weight: bold;
+}
+
+.game-information dd {
+    margin: 0;
+}
+
+.game-lower-layout {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 14px;
+}
+
+.game-text-content {
+    padding: 13px;
+}
+
+.game-text-content p {
+    margin: 0 0 12px;
+
+    color: #555555;
+    line-height: 1.55;
+}
+
+.game-text-content h3 {
+    margin: 20px 0 8px;
+
+    color: #333333;
+    font-size: 14px;
+}
+
+.controls-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    border: 1px solid #b8b8b8;
+}
+
+.controls-table th,
+.controls-table td {
+    padding: 7px 9px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #dddddd;
+}
+
+.controls-table th {
+    width: 150px;
+
+    color: #333333;
+    background: #eeeeee;
+}
+
+.controls-table tr:last-child th,
+.controls-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.game-actions {
+    padding: 9px;
+}
+
+.sidebar-action {
+    width: 100%;
+    min-height: 32px;
+    margin-bottom: 7px;
+    padding: 7px 9px;
+
+    display: block;
+
+    color: #222222;
+    font-weight: bold;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ffffff,
+            #d8d8d8
+        );
+
+    border: 1px solid #777777;
+
+    cursor: pointer;
+}
+
+.sidebar-action:hover {
+    color: #222222;
+    text-decoration: none;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ffffff,
+            #c8c8c8
+        );
+}
+
+.primary-action {
+    color: white;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 35%);
+
+    background:
+        linear-gradient(
+            to bottom,
+            #70b94d,
+            #398c25
+        );
+
+    border-color: #27671a;
+}
+
+.primary-action:hover {
+    color: white;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #7ac756,
+            #3f9729
+        );
+}
+
+.creator-card {
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.creator-card img {
+    width: 58px;
+    height: 58px;
+
+    object-fit: cover;
+
+    background: #dddddd;
+
+    border: 1px solid #888888;
+}
+
+.creator-card a {
+    font-weight: bold;
+}
+
+.creator-card p {
+    margin: 5px 0 0;
+
+    color: #777777;
+    font-size: 11px;
+}
+
+@media (max-width: 1000px) {
+    .game-overview {
+        grid-template-columns: 430px 1fr;
+    }
+
+    .game-thumbnail-large {
+        width: 430px;
+        height: 269px;
+    }
+}

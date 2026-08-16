@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/Player/">
+    <Project Path="Player/Nova.Player.csproj" />
+  </Folder>
+</Solution>

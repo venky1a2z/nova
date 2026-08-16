@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+
+Website/node_modules/
+Website/dist/
+
+Installer/Output/
+Website/public/downloads/*.exe
+
+*.exe

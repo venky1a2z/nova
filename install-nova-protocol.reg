@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Classes\nova-player]
+@="URL:Nova Player Protocol"
+"URL Protocol"=""
+
+[HKEY_CURRENT_USER\Software\Classes\nova-player\shell]
+
+[HKEY_CURRENT_USER\Software\Classes\nova-player\shell\open]
+
+[HKEY_CURRENT_USER\Software\Classes\nova-player\shell\open\command]
+@="\"C:\\Users\\sriha\\Desktop\\Nova\\Player\\publish\\Nova.Player.exe\" \"%1\""

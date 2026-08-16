@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nova Studio</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="siteHeader"></div>
+
+    <div class="notice-bar">
+        <div class="page-width">
+            Nova Studio
+        </div>
+    </div>
+
+    <div class="page-width page-layout">
+        <div id="siteSidebar"></div>
+
+        <main>
+            <section class="content-box">
+                <div class="box-heading">
+                    <h2>Nova Studio</h2>
+                </div>
+
+                <div class="panel-content">
+                    <div class="studio-intro">
+                        <img
+                            class="studio-preview"
+                            src="assets/places/baseplate-thumbnail.png"
+                            alt="Nova Baseplate"
+                        >
+
+                        <div>
+                            <h1>Create with Nova Studio</h1>
+
+                            <p>
+                                Build places, add parts, edit properties,
+                                and test your games in Nova Player.
+                            </p>
+
+                            <button
+                                id="openStudioButton"
+                                class="button primary-button"
+                                type="button"
+                            >
+                                Open Nova Studio
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-box">
+                <div class="box-heading">
+                    <h2>My Places</h2>
+                </div>
+
+                <div class="place-grid">
+                    <article class="place-card">
+                        <a href="game.html">
+                            <img
+                                class="place-thumbnail-image"
+                                src="assets/places/baseplate-thumbnail.png"
+                                alt="Nova Baseplate"
+                            >
+                        </a>
+
+                        <a
+                            class="place-name"
+                            href="game.html"
+                        >
+                            Nova Baseplate
+                        </a>
+
+                        <p>
+                            The first Nova place.
+                        </p>
+
+                        <button
+                            id="editBaseplateButton"
+                            class="small-button"
+                            type="button"
+                        >
+                            Edit
+                        </button>
+
+                        <button
+                            class="small-button play-button"
+                            type="button"
+                            data-place-id="1"
+                        >
+                            Play
+                        </button>
+                    </article>
+                </div>
+            </section>
+
+            <section class="content-box">
+                <div class="box-heading">
+                    <h2>Templates</h2>
+                </div>
+
+                <div class="place-grid">
+                    <article class="place-card">
+                        <img
+                            class="place-thumbnail-image"
+                            src="assets/places/baseplate-thumbnail.png"
+                            alt="Baseplate Template"
+                        >
+
+                        <span class="place-name">
+                            Baseplate
+                        </span>
+
+                        <p>
+                            Start with a simple empty baseplate.
+                        </p>
+
+                        <a
+                            class="small-button"
+                            href="create.html"
+                        >
+                            Use Template
+                        </a>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <div id="siteRightColumn"></div>
+    </div>
+
+    <div id="siteFooter"></div>
+
+    <script src="site-shell.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        const openStudio = (placeId) => {
+            const studioUrl =
+                `nova-studio://edit?placeId=${
+                    encodeURIComponent(placeId)
+                }`;
+
+            window.location.href = studioUrl;
+        };
+
+        document
+            .getElementById("openStudioButton")
+            .addEventListener(
+                "click",
+                () => {
+                    openStudio(1);
+                }
+            );
+
+        document
+            .getElementById("editBaseplateButton")
+            .addEventListener(
+                "click",
+                () => {
+                    openStudio(1);
+                }
+            );
+    </script>
+</body>
+</html>

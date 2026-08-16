@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Character - Nova
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div id="header"></div>
+
+
+<div id="site">
+
+
+    <div class="page-body">
+
+
+        <!-- ===============================================
+             LEFT SIDEBAR
+        ================================================ -->
+
+        <aside>
+
+
+            <h1 class="page-title">
+                Character
+            </h1>
+
+
+            <nav class="left-menu">
+
+
+                <a href="profile.html">
+                    Profile
+                </a>
+
+
+                <a
+                    class="selected"
+                    href="character.html"
+                >
+                    ★ Character
+                </a>
+
+
+                <a href="inventory.html">
+                    Inventory
+                </a>
+
+
+                <a href="catalog.html">
+                    Catalog
+                </a>
+
+
+            </nav>
+
+
+
+            <div class="sticky-note">
+
+                <b>
+                    Character Tip
+                </b>
+
+                <br><br>
+
+                Drag your character
+                to spin them around.
+
+                <br><br>
+
+                Use your mouse wheel
+                to zoom.
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- ===============================================
+             MAIN
+        ================================================ -->
+
+        <main>
+
+
+            <section class="retro-box">
+
+
+                <div class="retro-box-title">
+
+
+                    <span>
+                        ★ Customize Character
+                    </span>
+
+
+                    <span id="viewerStatus">
+                        Loading...
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="retro-box-content">
+
+
+                    <div class="character-3d-layout">
+
+
+                        <!-- ===================================
+                             CHARACTER VIEWER
+                        ==================================== -->
+
+                        <div class="character-view-column">
+
+
+                            <div
+                                id="characterViewer"
+                                class="character-3d-viewer"
+                            ></div>
+
+
+                            <h2
+                                id="characterUsername"
+                                class="character-view-name"
+                            >
+                                Guest
+                            </h2>
+
+
+                            <p class="character-view-help">
+
+                                Drag to rotate ·
+                                Scroll to zoom
+
+                            </p>
+
+
+                            <button
+                                id="saveCharacterButton"
+                                class="retro-button play-button"
+                                type="button"
+                            >
+                                Save Character
+                            </button>
+
+
+                            <p
+                                id="saveCharacterMessage"
+                                class="character-save-message"
+                            ></p>
+
+
+                        </div>
+
+
+
+                        <!-- ===================================
+                             CUSTOMIZATION
+                        ==================================== -->
+
+                        <div class="character-customization-panel">
+
+
+                            <!-- ===============================
+                                 HATS
+                            ================================ -->
+
+                            <section class="profile-section">
+
+
+                                <div class="profile-section-title">
+                                    Hats
+                                </div>
+
+
+                                <div class="character-3d-item-grid">
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-hat="none"
+                                    >
+
+                                        <div class="character-no-item">
+                                            ✕
+                                        </div>
+
+                                        <strong>
+                                            None
+                                        </strong>
+
+                                    </button>
+
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-hat="beanie"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/hats/beanie/icon.png"
+                                            alt="Red Beanie"
+                                        >
+
+                                        <strong>
+                                            Red Beanie
+                                        </strong>
+
+                                    </button>
+
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-hat="crown"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/hats/crown/icon.png"
+                                            alt="Rainbow Crown"
+                                        >
+
+                                        <strong>
+                                            Rainbow Crown
+                                        </strong>
+
+                                    </button>
+
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-hat="pizza-cap"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/hats/pizza-cap/icon.png"
+                                            alt="Pizza Cap"
+                                        >
+
+                                        <strong>
+                                            Pizza Cap
+                                        </strong>
+
+                                    </button>
+
+
+                                </div>
+
+
+                            </section>
+
+
+
+                            <!-- ===============================
+                                 FACES
+                            ================================ -->
+
+                            <section class="profile-section">
+
+
+                                <div class="profile-section-title">
+                                    Faces
+                                </div>
+
+
+                                <div class="character-3d-item-grid">
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-face="smile"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/faces/smile/icon.png"
+                                            alt="Classic Smile"
+                                        >
+
+                                        <strong>
+                                            Classic Smile
+                                        </strong>
+
+                                    </button>
+
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-face="happy"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/faces/happy/icon.png"
+                                            alt="Happy"
+                                        >
+
+                                        <strong>
+                                            Happy
+                                        </strong>
+
+                                    </button>
+
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-face="surprised"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/faces/surprised/icon.png"
+                                            alt="Surprised"
+                                        >
+
+                                        <strong>
+                                            Surprised
+                                        </strong>
+
+                                    </button>
+
+
+                                </div>
+
+
+                            </section>
+
+
+
+                            <!-- ===============================
+                                 SHIRTS
+                            ================================ -->
+
+                            <section class="profile-section">
+
+
+                                <div class="profile-section-title">
+                                    Shirts
+                                </div>
+
+
+                                <div class="character-3d-item-grid">
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-shirt="classic"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/shirts/classic/icon.png"
+                                            alt="Classic Shirt"
+                                        >
+
+                                        <strong>
+                                            Classic
+                                        </strong>
+
+                                    </button>
+
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-shirt="blue"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/shirts/blue/icon.png"
+                                            alt="Blue Shirt"
+                                        >
+
+                                        <strong>
+                                            Blue
+                                        </strong>
+
+                                    </button>
+
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-shirt="cafe"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/shirts/cafe/icon.png"
+                                            alt="Cafe Shirt"
+                                        >
+
+                                        <strong>
+                                            Cafe
+                                        </strong>
+
+                                    </button>
+
+
+                                </div>
+
+
+                            </section>
+
+
+
+                            <!-- ===============================
+                                 PANTS
+                            ================================ -->
+
+                            <section class="profile-section">
+
+
+                                <div class="profile-section-title">
+                                    Pants
+                                </div>
+
+
+                                <div class="character-3d-item-grid">
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-pants="black"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/pants/black/icon.png"
+                                            alt="Black Pants"
+                                        >
+
+                                        <strong>
+                                            Black
+                                        </strong>
+
+                                    </button>
+
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-pants="jeans"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/pants/jeans/icon.png"
+                                            alt="Classic Jeans"
+                                        >
+
+                                        <strong>
+                                            Jeans
+                                        </strong>
+
+                                    </button>
+
+
+
+                                    <button
+                                        class="character-3d-item"
+                                        type="button"
+                                        data-pants="brown"
+                                    >
+
+                                        <img
+                                            class="character-item-icon"
+                                            src="/assets/character/pants/brown/icon.png"
+                                            alt="Brown Pants"
+                                        >
+
+                                        <strong>
+                                            Brown
+                                        </strong>
+
+                                    </button>
+
+
+                                </div>
+
+
+                            </section>
+
+
+
+                            <!-- ===============================
+                                 SKIN
+                            ================================ -->
+
+                            <section class="profile-section">
+
+
+                                <div class="profile-section-title">
+                                    Skin Tone
+                                </div>
+
+
+                                <div class="skin-tone-grid">
+
+
+                                    <button
+                                        class="skin-tone-button"
+                                        data-skin="light"
+                                        type="button"
+                                        title="Light"
+                                        style="background:#f2c7a5;"
+                                    ></button>
+
+
+                                    <button
+                                        class="skin-tone-button"
+                                        data-skin="tan"
+                                        type="button"
+                                        title="Tan"
+                                        style="background:#c98f65;"
+                                    ></button>
+
+
+                                    <button
+                                        class="skin-tone-button"
+                                        data-skin="brown"
+                                        type="button"
+                                        title="Brown"
+                                        style="background:#8c5a3c;"
+                                    ></button>
+
+
+                                    <button
+                                        class="skin-tone-button"
+                                        data-skin="dark"
+                                        type="button"
+                                        title="Dark"
+                                        style="background:#5a3728;"
+                                    ></button>
+
+
+                                    <button
+                                        class="skin-tone-button"
+                                        data-skin="yellow"
+                                        type="button"
+                                        title="Classic Yellow"
+                                        style="background:#f4d84a;"
+                                    ></button>
+
+
+                                </div>
+
+
+                            </section>
+
+
+
+                            <!-- ===============================
+                                 CURRENT OUTFIT
+                            ================================ -->
+
+                            <section class="profile-section">
+
+
+                                <div class="profile-section-title">
+                                    Current Outfit
+                                </div>
+
+
+                                <div class="current-outfit-row">
+
+                                    <strong>
+                                        Hat
+                                    </strong>
+
+                                    <span id="currentHatName"></span>
+
+                                </div>
+
+
+                                <div class="current-outfit-row">
+
+                                    <strong>
+                                        Face
+                                    </strong>
+
+                                    <span id="currentFaceName"></span>
+
+                                </div>
+
+
+                                <div class="current-outfit-row">
+
+                                    <strong>
+                                        Shirt
+                                    </strong>
+
+                                    <span id="currentShirtName"></span>
+
+                                </div>
+
+
+                                <div class="current-outfit-row">
+
+                                    <strong>
+                                        Pants
+                                    </strong>
+
+                                    <span id="currentPantsName"></span>
+
+                                </div>
+
+
+                                <div class="current-outfit-row">
+
+                                    <strong>
+                                        Skin
+                                    </strong>
+
+                                    <span id="currentSkinName"></span>
+
+                                </div>
+
+
+                            </section>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- ===============================================
+             RIGHT SIDE
+        ================================================ -->
+
+        <aside>
+
+            <div
+                id="ads"
+                class="ad-column"
+            ></div>
+
+        </aside>
+
+
+    </div>
+
+
+
+    <footer class="footer">
+        ☕ Nova
+    </footer>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     NORMAL NOVA SCRIPTS
+===================================================== -->
+
+<script src="js/nova-storage.js"></script>
+
+<script src="js/nova-auth.js"></script>
+
+<script src="shell.js"></script>
+
+
+
+<script>
+
+renderShell();
+
+
+if (
+    !NovaAuth.getCurrentUser()
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+</script>
+
+
+
+<!-- =====================================================
+     CHARACTER SCRIPT
+===================================================== -->
+
+<script type="module">
+
+
+import {
+    NovaCharacterViewer
+}
+from "./js/character-3d.js";
+
+
+import {
+    NOVA_ITEMS,
+    NOVA_SKIN_TONES
+}
+from "./js/nova-items.js";
+
+
+
+/* =========================================================
+   USER
+========================================================= */
+
+const user =
+    NovaAuth.getCurrentUser();
+
+
+const saved =
+    user?.character
+    ||
+    {};
+
+
+/* =========================================================
+   CURRENT CHARACTER
+========================================================= */
+
+let selectedHat =
+    saved.hat
+    ||
+    "none";
+
+
+let selectedFace =
+    saved.face
+    ||
+    "happy";
+
+
+let selectedShirt =
+    saved.shirt
+    ||
+    "cafe";
+
+
+let selectedPants =
+    saved.pants
+    ||
+    "black";
+
+
+let selectedSkin =
+    saved.skin
+    ||
+    "yellow";
+
+
+
+/* =========================================================
+   USERNAME
+========================================================= */
+
+document.getElementById(
+    "characterUsername"
+).textContent =
+    user?.username
+    ||
+    "Guest";
+
+
+
+/* =========================================================
+   VIEWER
+========================================================= */
+
+const viewer =
+    new NovaCharacterViewer(
+        document.getElementById(
+            "characterViewer"
+        )
+    );
+
+
+const status =
+    document.getElementById(
+        "viewerStatus"
+    );
+
+
+
+/* =========================================================
+   SAFE LOAD
+========================================================= */
+
+async function safeLoad(
+    message,
+    action
+) {
+
+    try {
+
+        status.textContent =
+            message;
+
+
+        await action();
+
+
+        return true;
+
+    }
+    catch (error) {
+
+        console.warn(
+            `Nova: ${message} failed.`,
+            error
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   START CHARACTER
+========================================================= */
+
+async function startViewer() {
+
+
+    try {
+
+        status.textContent =
+            "Loading body...";
+
+
+        await viewer.loadBody();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Nova: character body failed.",
+            error
+        );
+
+
+        status.textContent =
+            "Character failed";
+
+
+        return;
+
+    }
+
+
+
+    /* SKIN */
+
+    try {
+
+        viewer.setSkinTone(
+            NOVA_SKIN_TONES[
+                selectedSkin
+            ].color
+        );
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Nova: skin failed.",
+            error
+        );
+
+    }
+
+
+
+    /* FACE */
+
+    await safeLoad(
+        "Loading face...",
+
+        async () => {
+
+            await viewer.setFace(
+                selectedFace
+            );
+
+        }
+    );
+
+
+
+    /* SHIRT */
+
+    await safeLoad(
+        "Loading shirt...",
+
+        async () => {
+
+            await viewer.setShirt(
+                selectedShirt
+            );
+
+        }
+    );
+
+
+
+    /* PANTS */
+
+    await safeLoad(
+        "Loading pants...",
+
+        async () => {
+
+            await viewer.setPants(
+                selectedPants
+            );
+
+        }
+    );
+
+
+
+    /* HAT */
+
+    await safeLoad(
+        "Loading hat...",
+
+        async () => {
+
+            await viewer.setHat(
+                selectedHat
+            );
+
+        }
+    );
+
+
+    updateUI();
+
+
+    status.textContent =
+        "Ready";
+
+}
+
+
+
+/* =========================================================
+   HAT BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-hat]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+
+                async () => {
+
+                    selectedHat =
+                        button.dataset.hat;
+
+
+                    await safeLoad(
+                        "Changing hat...",
+
+                        async () => {
+
+                            await viewer.setHat(
+                                selectedHat
+                            );
+
+                        }
+                    );
+
+
+                    updateUI();
+
+
+                    status.textContent =
+                        "Ready";
+
+                }
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   FACE BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-face]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+
+                async () => {
+
+                    selectedFace =
+                        button.dataset.face;
+
+
+                    await safeLoad(
+                        "Changing face...",
+
+                        async () => {
+
+                            await viewer.setFace(
+                                selectedFace
+                            );
+
+                        }
+                    );
+
+
+                    updateUI();
+
+
+                    status.textContent =
+                        "Ready";
+
+                }
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   SHIRT BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-shirt]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+
+                async () => {
+
+                    selectedShirt =
+                        button.dataset.shirt;
+
+
+                    await safeLoad(
+                        "Changing shirt...",
+
+                        async () => {
+
+                            await viewer.setShirt(
+                                selectedShirt
+                            );
+
+                        }
+                    );
+
+
+                    updateUI();
+
+
+                    status.textContent =
+                        "Ready";
+
+                }
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   PANTS BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-pants]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+
+                async () => {
+
+                    selectedPants =
+                        button.dataset.pants;
+
+
+                    await safeLoad(
+                        "Changing pants...",
+
+                        async () => {
+
+                            await viewer.setPants(
+                                selectedPants
+                            );
+
+                        }
+                    );
+
+
+                    updateUI();
+
+
+                    status.textContent =
+                        "Ready";
+
+                }
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   SKIN BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-skin]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+
+                () => {
+
+                    selectedSkin =
+                        button.dataset.skin;
+
+
+                    viewer.setSkinTone(
+                        NOVA_SKIN_TONES[
+                            selectedSkin
+                        ].color
+                    );
+
+
+                    updateUI();
+
+                }
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   UPDATE SELECTED UI
+========================================================= */
+
+function updateUI() {
+
+
+    document
+        .querySelectorAll(
+            "[data-hat]"
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+
+                    "selected",
+
+                    button.dataset.hat ===
+                    selectedHat
+
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-face]"
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+
+                    "selected",
+
+                    button.dataset.face ===
+                    selectedFace
+
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-shirt]"
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+
+                    "selected",
+
+                    button.dataset.shirt ===
+                    selectedShirt
+
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-pants]"
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+
+                    "selected",
+
+                    button.dataset.pants ===
+                    selectedPants
+
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-skin]"
+        )
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+
+                    "selected",
+
+                    button.dataset.skin ===
+                    selectedSkin
+
+                );
+
+            }
+        );
+
+
+
+    document.getElementById(
+        "currentHatName"
+    ).textContent =
+
+        selectedHat === "none"
+
+            ? "None"
+
+            : (
+                NOVA_ITEMS
+                    .hats[
+                        selectedHat
+                    ]
+                    ?.name
+
+                ||
+
+                selectedHat
+            );
+
+
+
+    document.getElementById(
+        "currentFaceName"
+    ).textContent =
+
+        NOVA_ITEMS
+            .faces[
+                selectedFace
+            ]
+            ?.name
+
+        ||
+
+        selectedFace;
+
+
+
+    document.getElementById(
+        "currentShirtName"
+    ).textContent =
+
+        NOVA_ITEMS
+            .shirts[
+                selectedShirt
+            ]
+            ?.name
+
+        ||
+
+        selectedShirt;
+
+
+
+    document.getElementById(
+        "currentPantsName"
+    ).textContent =
+
+        NOVA_ITEMS
+            .pants[
+                selectedPants
+            ]
+            ?.name
+
+        ||
+
+        selectedPants;
+
+
+
+    document.getElementById(
+        "currentSkinName"
+    ).textContent =
+
+        NOVA_SKIN_TONES[
+            selectedSkin
+        ]
+            ?.name
+
+        ||
+
+        selectedSkin;
+
+}
+
+
+
+/* =========================================================
+   SAVE CHARACTER + AVATAR IMAGE
+========================================================= */
+
+document.getElementById(
+    "saveCharacterButton"
+).addEventListener(
+
+    "click",
+
+    () => {
+
+
+        const message =
+            document.getElementById(
+                "saveCharacterMessage"
+            );
+
+
+        const currentUser =
+            NovaAuth.getCurrentUser();
+
+
+        if (!currentUser) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        /* ===============================================
+           CHARACTER DATA
+        ================================================ */
+
+        const characterData = {
+
+            body:
+                "r6",
+
+            hat:
+                selectedHat,
+
+            face:
+                selectedFace,
+
+            shirt:
+                selectedShirt,
+
+            pants:
+                selectedPants,
+
+            skin:
+                selectedSkin
+
+        };
+
+
+        /* ===============================================
+           CREATE 2D RENDERED IMAGE
+        ================================================ */
+
+        let avatarImage =
+            null;
+
+
+        try {
+
+            avatarImage =
+                viewer.getAvatarImage();
+
+
+            console.log(
+                "Nova: generated avatar PNG."
+            );
+
+        }
+        catch (error) {
+
+            console.error(
+                "Nova: avatar image generation failed.",
+                error
+            );
+
+        }
+
+
+        /* ===============================================
+           SAVE BOTH
+        ================================================ */
+
+        const success =
+            NovaAuth.updateCurrentUser({
+
+                character:
+                    characterData,
+
+                avatarImage:
+                    avatarImage
+
+            });
+
+
+        if (!success) {
+
+            message.textContent =
+                "Could not save character.";
+
+            return;
+
+        }
+
+
+        console.log(
+            "Nova: saved character:",
+            characterData
+        );
+
+
+        console.log(
+            "Nova: avatar image saved:",
+            !!avatarImage
+        );
+
+
+        message.textContent =
+            "Character saved! ☕";
+
+
+        setTimeout(
+            () => {
+
+                message.textContent =
+                    "";
+
+            },
+            2000
+        );
+
+    }
+
+);
+
+
+
+/* =========================================================
+   START
+========================================================= */
+
+startViewer();
+
+
+</script>
+
+
+</body>
+
+</html>

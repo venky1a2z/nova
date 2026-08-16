@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Games - Nova
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+</head>
+
+<body>
+
+<div id="site">
+
+    <div id="header"></div>
+
+
+    <div class="page-body">
+
+        <!-- LEFT -->
+
+        <aside>
+
+            <div class="left-title">
+                Games
+            </div>
+
+            <div class="left-heading">
+                Browse
+            </div>
+
+            <nav class="left-menu">
+
+                <a
+                    class="selected"
+                    href="#"
+                >
+                    Most Popular
+                </a>
+
+                <a href="#">
+                    Recently Updated
+                </a>
+
+                <a href="#">
+                    Featured Games
+                </a>
+
+            </nav>
+
+
+            <div class="left-heading">
+                Genre
+            </div>
+
+            <nav class="left-menu">
+
+                <a href="#">
+                    Building
+                </a>
+
+                <a href="#">
+                    Adventure
+                </a>
+
+                <a href="#">
+                    Action
+                </a>
+
+                <a href="#">
+                    Obby
+                </a>
+
+                <a href="#">
+                    Racing
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- CENTER -->
+
+        <main>
+
+            <div class="center-heading">
+
+                <h1>
+                    Games
+                </h1>
+
+            </div>
+
+            <div
+                id="gameGrid"
+                class="game-grid"
+            ></div>
+
+        </main>
+
+
+        <!-- ADS -->
+
+        <aside
+            id="ads"
+            class="ad-column"
+        ></aside>
+
+    </div>
+
+
+    <div class="footer">
+
+        Nova
+
+    </div>
+
+</div>
+
+
+<script src="data.js"></script>
+
+<script src="shell.js"></script>
+
+<script>
+
+renderShell(
+    "games"
+);
+
+const grid =
+    document.getElementById(
+        "gameGrid"
+    );
+
+NOVA_GAMES.forEach(
+    game => {
+
+        const card =
+            document.createElement(
+                "article"
+            );
+
+        card.className =
+            "game-card";
+
+        card.innerHTML = `
+
+            <a
+                href="game.html?id=${game.id}"
+            >
+
+                <img
+                    src="${game.thumbnail}"
+                    alt="${game.name}"
+                >
+
+            </a>
+
+            <div class="game-name">
+
+                <a
+                    href="game.html?id=${game.id}"
+                >
+                    ${game.name}
+                </a>
+
+            </div>
+
+            <div class="game-description">
+
+                ${game.description}
+
+            </div>
+
+            <div class="creator-name">
+
+                Creator:
+                ${game.creator}
+
+            </div>
+
+        `;
+
+        grid.appendChild(
+            card
+        );
+    }
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{
+  "placeId": 2,
+  "name": "Brick Battle",
+  "spawn": [0, 3, 0],
+  "parts": [
+    {
+      "name": "Floor",
+      "position": [0, 0, 0],
+      "size": [40, 1, 40],
+      "color": [0.4, 0.8, 0.3]
+    }
+  ]
+}

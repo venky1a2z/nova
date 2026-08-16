@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create - Nova</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="siteHeader"></div>
+
+    <div class="notice-bar">
+        <div class="page-width">
+            Create a Nova place.
+        </div>
+    </div>
+
+    <div class="page-width page-layout">
+        <div id="siteSidebar"></div>
+
+        <main>
+            <section class="content-box">
+                <div class="box-heading">
+                    <h2>Create a Place</h2>
+                </div>
+
+                <div class="panel-content">
+                    <form id="createPlaceForm">
+                        <div class="form-row">
+                            <label for="placeName">
+                                Place name
+                            </label>
+
+                            <input
+                                id="placeName"
+                                required
+                                placeholder="Untitled Place"
+                            >
+                        </div>
+
+                        <div class="form-row">
+                            <label for="template">
+                                Template
+                            </label>
+
+                            <select id="template">
+                                <option value="baseplate">
+                                    Baseplate
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="description">
+                                Description
+                            </label>
+
+                            <textarea id="description"></textarea>
+                        </div>
+
+                        <button
+                            class="button primary-button"
+                            type="submit"
+                        >
+                            Create Place
+                        </button>
+                    </form>
+
+                    <p
+                        id="createNotice"
+                        hidden
+                    >
+                        Place creation will work after the Nova server
+                        is connected.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <div id="siteRightColumn"></div>
+    </div>
+
+    <div id="siteFooter"></div>
+
+    <script src="site-shell.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        document
+            .getElementById("createPlaceForm")
+            .addEventListener(
+                "submit",
+                (event) => {
+                    event.preventDefault();
+
+                    document
+                        .getElementById("createNotice")
+                        .hidden = false;
+                }
+            );
+    </script>
+</body>
+</html>
