@@ -13,13 +13,902 @@
     <title>Nova</title>
 
     <link
+        rel="icon"
+        type="image/png"
+        href="/favicon.png"
+    >
+
+    <link
         rel="stylesheet"
         href="styles.css"
     >
-    <link
-    rel="stylesheet"
-    href="nova-main-theme.css"
->
+
+
+    <style>
+
+        /* =====================================================
+           HOME NEWS COLUMN
+        ===================================================== */
+
+        .nova-news-column {
+
+            min-width:
+                0;
+
+        }
+
+
+        .nova-news-paper {
+
+            overflow:
+                hidden;
+
+            position:
+                sticky;
+
+            top:
+                15px;
+
+            background:
+                #fff9ee;
+
+            border:
+                1px solid
+                #9c88ad;
+
+            border-radius:
+                10px;
+
+            box-shadow:
+                0 8px 24px
+                rgba(
+                    24,
+                    20,
+                    35,
+                    0.18
+                );
+
+        }
+
+
+        .nova-news-top {
+
+            padding:
+                10px
+                13px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                8px;
+
+            color:
+                #f2e8ff;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #24243c,
+                    #3c3458
+                );
+
+        }
+
+
+        .nova-news-brand {
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1.2px;
+
+        }
+
+
+        .nova-news-trust {
+
+            font-size:
+                7px;
+
+            opacity:
+                0.7;
+
+        }
+
+
+        .nova-news-banner {
+
+            width:
+                100%;
+
+            aspect-ratio:
+                16 / 9;
+
+            display:
+                block;
+
+            object-fit:
+                cover;
+
+            background:
+                #1c1d2e;
+
+        }
+
+
+        /* =====================================================
+           NEWS STORY
+        ===================================================== */
+
+        .nova-news-story {
+
+            padding:
+                16px;
+
+            min-height:
+                285px;
+
+        }
+
+
+        .nova-news-category {
+
+            margin-bottom:
+                7px;
+
+            color:
+                #856e98;
+
+            font-size:
+                8px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+        .nova-news-headline {
+
+            margin:
+                0
+                0
+                10px;
+
+            color:
+                #3e3249;
+
+            font-size:
+                20px;
+
+            line-height:
+                1.15;
+
+        }
+
+
+        .nova-news-text {
+
+            color:
+                #665970;
+
+            font-size:
+                10px;
+
+            line-height:
+                1.62;
+
+        }
+
+
+        .nova-news-text p {
+
+            margin:
+                0
+                0
+                10px;
+
+        }
+
+
+        .nova-news-quote {
+
+            margin:
+                13px
+                0;
+
+            padding:
+                11px;
+
+            color:
+                #44374e;
+
+            font-size:
+                10px;
+
+            line-height:
+                1.45;
+
+            background:
+                #efe6f4;
+
+            border-left:
+                4px solid
+                #76639c;
+
+            border-radius:
+                4px;
+
+        }
+
+
+        .nova-news-quote span {
+
+            margin-top:
+                6px;
+
+            display:
+                block;
+
+            color:
+                #8b7992;
+
+            font-size:
+                8px;
+
+            font-style:
+                italic;
+
+        }
+
+
+        /* =====================================================
+           NEWS CONTROLS
+        ===================================================== */
+
+        .nova-news-controls {
+
+            padding:
+                0
+                16px
+                15px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                8px;
+
+        }
+
+
+        .nova-news-controls button {
+
+            width:
+                31px;
+
+            height:
+                27px;
+
+            color:
+                #f9f3ff;
+
+            font-size:
+                16px;
+
+            background:
+                #39334f;
+
+            border:
+                1px solid
+                #5f5576;
+
+            border-radius:
+                5px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .nova-news-controls button:hover {
+
+            background:
+                #4c4269;
+
+        }
+
+
+        .nova-news-counter {
+
+            color:
+                #8d7a95;
+
+            font-size:
+                8px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        /* =====================================================
+           IMPORTANT INVESTIGATIVE JOURNALISM
+        ===================================================== */
+
+        .nova-breaking-strip {
+
+            padding:
+                8px
+                12px;
+
+            color:
+                #4d3d55;
+
+            font-size:
+                8px;
+
+            font-weight:
+                800;
+
+            text-align:
+                center;
+
+            background:
+                #f2df9f;
+
+            border-top:
+                1px solid
+                #cdb56c;
+
+            border-bottom:
+                1px solid
+                #cdb56c;
+
+        }
+
+
+        /* =====================================================
+           FAKE ADS
+        ===================================================== */
+
+        .nova-ads {
+
+            border-top:
+                1px solid
+                #b8a5c3;
+
+        }
+
+
+        .nova-ad-heading {
+
+            padding:
+                10px
+                12px
+                7px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                6px;
+
+        }
+
+
+        .nova-ad-heading strong {
+
+            color:
+                #725f84;
+
+            font-size:
+                8px;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+        .nova-ad-heading span {
+
+            color:
+                #9a8aa0;
+
+            font-size:
+                6px;
+
+        }
+
+
+        .nova-ad-window {
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+            margin:
+                0
+                10px
+                10px;
+
+            border:
+                1px solid
+                #9c89aa;
+
+            border-radius:
+                7px;
+
+        }
+
+
+        .nova-ad {
+
+            min-height:
+                205px;
+
+            padding:
+                17px
+                34px;
+
+            box-sizing:
+                border-box;
+
+            display:
+                none;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+        }
+
+
+        .nova-ad.active {
+
+            display:
+                flex;
+
+        }
+
+
+        .nova-ad-icon {
+
+            width:
+                55px;
+
+            height:
+                55px;
+
+            flex:
+                0 0
+                55px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                30px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.55
+                );
+
+            border:
+                1px solid
+                rgba(
+                    30,
+                    30,
+                    45,
+                    0.18
+                );
+
+            border-radius:
+                12px;
+
+        }
+
+
+        .nova-ad-company {
+
+            margin-bottom:
+                4px;
+
+            font-size:
+                7px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1px;
+
+            opacity:
+                0.72;
+
+        }
+
+
+        .nova-ad h3 {
+
+            margin:
+                0
+                0
+                6px;
+
+            font-size:
+                14px;
+
+            line-height:
+                1.2;
+
+        }
+
+
+        .nova-ad p {
+
+            margin:
+                0
+                0
+                7px;
+
+            font-size:
+                8px;
+
+            line-height:
+                1.45;
+
+        }
+
+
+        .nova-ad strong {
+
+            display:
+                block;
+
+            margin-bottom:
+                4px;
+
+            font-size:
+                8px;
+
+        }
+
+
+        .nova-ad small {
+
+            display:
+                block;
+
+            font-size:
+                6px;
+
+            opacity:
+                0.7;
+
+        }
+
+
+        .nova-ad-ac {
+
+            color:
+                #265066;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #d9f5ff,
+                    #edfaff
+                );
+
+        }
+
+
+        .nova-ad-law {
+
+            color:
+                #423647;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #e9e0ee,
+                    #d8ccde
+                );
+
+        }
+
+
+        .nova-ad-pizza {
+
+            color:
+                #683726;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #ffe5bd,
+                    #ffd097
+                );
+
+        }
+
+
+        .nova-ad-insurance {
+
+            color:
+                #533f27;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #fff3c7,
+                    #f6daa0
+                );
+
+        }
+
+
+        .nova-ad-tech {
+
+            color:
+                #244a3e;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #d7f3e5,
+                    #bfe4d2
+                );
+
+        }
+
+
+        .nova-ad-school {
+
+            color:
+                #47355c;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #e7dcfa,
+                    #d2bff0
+                );
+
+        }
+
+
+        .nova-ad-space {
+
+            color:
+                #f7efff;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #25243e,
+                    #443267
+                );
+
+        }
+
+
+        .nova-ad-arrow {
+
+            position:
+                absolute;
+
+            top:
+                50%;
+
+            z-index:
+                5;
+
+            width:
+                25px;
+
+            height:
+                37px;
+
+            padding:
+                0;
+
+            color:
+                white;
+
+            font-size:
+                21px;
+
+            background:
+                rgba(
+                    20,
+                    20,
+                    35,
+                    0.7
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.2
+                );
+
+            cursor:
+                pointer;
+
+            transform:
+                translateY(
+                    -50%
+                );
+
+        }
+
+
+        .nova-ad-arrow:hover {
+
+            background:
+                rgba(
+                    55,
+                    46,
+                    78,
+                    0.95
+                );
+
+        }
+
+
+        .nova-ad-prev {
+
+            left:
+                5px;
+
+        }
+
+
+        .nova-ad-next {
+
+            right:
+                5px;
+
+        }
+
+
+        .nova-ad-dots {
+
+            padding:
+                0
+                0
+                10px;
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            gap:
+                4px;
+
+        }
+
+
+        .nova-ad-dot {
+
+            width:
+                6px;
+
+            height:
+                6px;
+
+            padding:
+                0;
+
+            background:
+                #c0b2c6;
+
+            border:
+                0;
+
+            border-radius:
+                50%;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .nova-ad-dot.active {
+
+            background:
+                #655487;
+
+        }
+
+
+        @media (
+            max-width:
+                1100px
+        ) {
+
+            .page-body {
+
+                grid-template-columns:
+                    170px
+                    minmax(
+                        0,
+                        1fr
+                    )
+                    260px
+                    !important;
+
+            }
+
+        }
+
+
+        @media (
+            max-width:
+                850px
+        ) {
+
+            .nova-news-paper {
+
+                position:
+                    static;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -27,849 +916,1170 @@
 <body>
 
 
-    <!-- FULL SCREEN DECORATIONS -->
-
-    <div class="page-decorations">
-
-        <img
-            class="decor decor-coffee"
-            src="assets/decorations/coffee-cup.png"
-            alt=""
-        >
-
-        <img
-            class="decor decor-star"
-            src="assets/decorations/star.png"
-            alt=""
-        >
-
-        <img
-            class="decor decor-pencil"
-            src="assets/decorations/pencil.png"
-            alt=""
-        >
-
-        <img
-            class="decor decor-cookie"
-            src="assets/decorations/cookie.png"
-            alt=""
-        >
-
-        <img
-            class="decor decor-plant"
-            src="assets/decorations/plant.png"
-            alt=""
-        >
-
-        <img
-            class="decor decor-mug"
-            src="assets/decorations/mug.png"
-            alt=""
-        >
-
-        <img
-            class="decor decor-cloud"
-            src="assets/decorations/doodle-cloud.png"
-            alt=""
-        >
-
-    </div>
+<div id="header"></div>
 
 
-    <!-- HEADER -->
-
-    <div id="header"></div>
+<div id="site">
 
 
-    <!-- MAIN SITE -->
-
-    <div id="site">
-
-        <div class="page-body">
+    <div class="page-body">
 
 
-            <!-- LEFT SIDEBAR -->
+        <!-- =================================================
+             LEFT
+        ================================================== -->
 
-            <aside>
-
-                <h1 class="page-title">
-                    My NOVA
-                </h1>
+        <aside>
 
 
-                <div class="left-heading">
-                    My Stuff
-                </div>
+            <h1 class="page-title">
+                My NOVA
+            </h1>
 
 
-                <nav class="left-menu">
-
-                    <a href="profile.html">
-                        ☕ Profile
-                    </a>
-
-                    <a href="friends.html">
-                        ✉ Friends
-                    </a>
-
-                    <a href="messages.html">
-                        ✎ Messages
-                    </a>
-
-                    <a href="character.html">
-                        ★ Character
-                    </a>
-
-                    <a href="inventory.html">
-                        ▣ Inventory
-                    </a>
-
-                </nav>
+            <div class="left-heading">
+                My Stuff
+            </div>
 
 
-                <div class="left-heading">
-                    Explore
-                </div>
+            <nav class="left-menu">
+
+                <a href="profile.html">
+                    ★ Profile
+                </a>
+
+                <a href="friends.html">
+                    ✉ Friends
+                </a>
+
+                <a href="messages.html">
+                    ✎ Messages
+                </a>
+
+                <a href="character.html">
+                    ★ Character
+                </a>
+
+                <a href="inventory.html">
+                    ▣ Inventory
+                </a>
+
+            </nav>
 
 
-                <nav class="left-menu">
-
-                    <a href="games.html">
-                        🎮 Games
-                    </a>
-
-                    <a href="catalog.html">
-                        👕 Catalog
-                    </a>
-
-                    <a href="people.html">
-                        ☺ People
-                    </a>
-
-                    <a href="groups.html">
-                        ◉ Groups
-                    </a>
-
-                </nav>
+            <div class="left-heading">
+                Explore
+            </div>
 
 
-                <div class="left-heading">
-                    Create
-                </div>
+            <nav class="left-menu">
+
+                <a href="games.html">
+                    🎮 Games
+                </a>
+
+                <a href="catalog.html">
+                    👕 Catalog
+                </a>
+
+                <a href="people.html">
+                    ☺ People
+                </a>
+
+                <a href="groups.html">
+                    ◉ Groups
+                </a>
+
+            </nav>
 
 
-                <nav class="left-menu">
-
-                    <a href="creator.html">
-                        🛠 My Creations
-                    </a>
-
-                    <a href="publish.html">
-                        ✎ Publish
-                    </a>
-
-                    <a href="studio.html">
-                        ★ Nova Studio
-                    </a>
-
-                </nav>
+            <div class="left-heading">
+                Create
+            </div>
 
 
-                <div class="sticky-note">
+            <nav class="left-menu">
 
-                    <b>
-                        ☕ Tip of the Day
-                    </b>
+                <a href="creator.html">
+                    🛠 My Creations
+                </a>
 
-                    <br><br>
+                <a href="publish.html">
+                    ✎ Publish
+                </a>
 
-                    Build something weird.
+                <a href="studio.html">
+                    ★ Nova Studio
+                </a>
 
-                    <br><br>
-
-                    Weird is usually more fun.
-
-                </div>
+            </nav>
 
 
-                <div class="mini-polaroid">
+            <div class="sticky-note">
+
+                <b>
+                    ✦ Tip of the Day
+                </b>
+
+                <br><br>
+
+                Build something weird.
+
+                <br><br>
+
+                If it breaks,
+                call it experimental.
+
+            </div>
+
+
+            <div class="mini-polaroid">
+
+                <img
+                    src="assets/games/baseplate.png"
+                    alt=""
+                >
+
+                <span>
+                    Advanced terrain technology
+                </span>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =================================================
+             CENTER
+        ================================================== -->
+
+        <main>
+
+
+            <!-- HERO -->
+
+            <section class="cafe-hero">
+
+
+                <a href="profile.html">
 
                     <img
-                        src="assets/games/baseplate.png"
-                        alt=""
+                        id="homeAvatar"
+                        class="hero-avatar"
+                        src="assets/avatars/guest.png"
+                        alt="Nova Avatar"
                     >
 
-                    <span>
-                        Today's workspace
-                    </span>
-
-                </div>
-
-            </aside>
+                </a>
 
 
-
-            <!-- CENTER -->
-
-            <main>
+                <div>
 
 
-                <!-- HERO -->
+                    <div class="hero-small-text">
+                        ✦ WELCOME TO NOVA
+                    </div>
 
-                <section class="cafe-hero">
+
+                    <h1 id="homeWelcome">
+                        Welcome to Nova!
+                    </h1>
 
 
-                    <a
-                        href="profile.html"
-                        title="View your Nova profile"
-                    >
+                    <p>
+                        Play something fun,
+                        build something questionable,
+                        customize your avatar,
+                        or stare at the baseplate
+                        until inspiration happens.
+                    </p>
 
-                        <img
-                            id="homeAvatar"
-                            class="hero-avatar"
-                            src="assets/avatars/guest.png"
-                            alt="Nova Avatar"
+
+                    <div class="hero-buttons">
+
+                        <a
+                            class="retro-button play-button"
+                            href="games.html"
                         >
-
-                    </a>
-
-
-                    <div>
-
-                        <div class="hero-small-text">
-                            I think the dumplings were fake though...
-                        </div>
-
-
-                        <h1 id="homeWelcome">
-
-                            whats up its nova
-
-                        </h1>
-
-
-                        <p>
-                            Play something fun,
-                            make a strange little world,
-                            customize your character,
-                            or hang around and explore.
-                        </p>
-
-
-                        <div class="hero-buttons">
-
-                            <a
-                                class="retro-button play-button"
-                                href="games.html"
-                            >
-                                ▶ Browse Games
-                            </a>
-
-                            <a
-                                class="retro-button"
-                                href="character.html"
-                            >
-                                ★ Edit Character
-                            </a>
-
-                            <a
-                                class="retro-button"
-                                href="creator.html"
-                            >
-                                ✎ Create Something
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- AROUND NOVA -->
-
-                <section class="retro-box">
-
-                    <div class="retro-box-title">
-                        ✦ Around Nova
-                    </div>
-
-
-                    <div class="retro-box-content">
-
-
-                        <div class="image-feature-grid">
-
-
-                            <a
-                                class="image-feature-card"
-                                href="games.html"
-                            >
-
-                                <img
-                                    src="assets/banners/games-banner.png"
-                                    alt=""
-                                >
-
-                                <div class="feature-text">
-
-                                    <h3>
-                                        Explore
-                                    </h3>
-
-                                    <p>
-                                        Browse all the places
-                                        currently on Nova.
-                                    </p>
-
-                                </div>
-
-                            </a>
-
-
-
-                            <a
-                                class="image-feature-card"
-                                href="creator.html"
-                            >
-
-                                <img
-                                    src="assets/banners/creator-banner.png"
-                                    alt=""
-                                >
-
-                                <div class="feature-text">
-
-                                    <h3>
-                                        Create
-                                    </h3>
-
-                                    <p>
-                                       make your own
-                                    </p>
-
-                                </div>
-
-                            </a>
-
-
-
-                            <a
-                                class="image-feature-card"
-                                href="catalog.html"
-                            >
-
-                                <img
-                                    src="assets/banners/catalog-banner.png"
-                                    alt=""
-                                >
-
-                                <div class="feature-text">
-
-                                    <h3>
-                                        Catalog
-                                    </h3>
-
-                                    <p>
-                                        Find things for
-                                        your character, like Roblox...
-                                    </p>
-
-                                </div>
-
-                            </a>
-
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- FEATURED GAMES -->
-
-                <section class="retro-box">
-
-
-                    <div class="retro-box-title">
-
-                        <span>
-                            ★ Featured Places
-                        </span>
-
-                        <a href="games.html">
-                            see all →
+                            ▶ Browse Games
+                        </a>
+
+                        <a
+                            class="retro-button"
+                            href="character.html"
+                        >
+                            ★ Edit Character
+                        </a>
+
+                        <a
+                            class="retro-button"
+                            href="creator.html"
+                        >
+                            ✎ Create Something
                         </a>
 
                     </div>
 
 
-                    <div class="retro-box-content">
+                </div>
 
 
-                        <div class="game-grid">
+            </section>
 
 
-                            <!-- BASEPLATE -->
 
-                            <article class="game-card">
+            <!-- =================================================
+                 AROUND NOVA
+            ================================================== -->
 
-                                <a href="game.html?id=1">
+            <section class="retro-box">
 
-                                    <img
-                                        src="assets/games/baseplate.png"
-                                        alt="Nova Baseplate"
-                                    >
 
-                                </a>
+                <div class="retro-box-title">
+                    ✦ Around Nova
+                </div>
 
 
-                                <div class="game-name">
+                <div class="retro-box-content">
 
-                                    <a href="game.html?id=1">
-                                        Nova Baseplate
-                                    </a>
 
-                                </div>
+                    <div class="image-feature-grid">
 
 
-                                <div class="game-description">
+                        <a
+                            class="image-feature-card"
+                            href="games.html"
+                        >
 
-                                    Build, experiment,
-                                    and test Nova features.
-
-                                </div>
-
-
-                                <div class="game-card-actions">
-
-                                    <a
-                                        class="tiny-button"
-                                        href="game.html?id=1"
-                                    >
-                                        View
-                                    </a>
-
-
-                                    <button
-                                        class="tiny-button tiny-play"
-                                        type="button"
-                                        data-place-id="1"
-                                    >
-                                        Play
-                                    </button>
-
-                                </div>
-
-                            </article>
-
-
-
-                            <!-- BRICK BATTLE -->
-
-                            <article class="game-card">
-
-                                <a href="game.html?id=2">
-
-                                    <img
-                                        src="assets/games/brickbattle.png"
-                                        alt="Brick Battle"
-                                    >
-
-                                </a>
-
-
-                                <div class="game-name">
-
-                                    <a href="game.html?id=2">
-                                        Brick Battle
-                                    </a>
-
-                                </div>
-
-
-                                <div class="game-description">
-
-                                    Classic block battles
-                                    on floating platforms.
-
-                                </div>
-
-
-                                <div class="game-card-actions">
-
-                                    <a
-                                        class="tiny-button"
-                                        href="game.html?id=2"
-                                    >
-                                        View
-                                    </a>
-
-
-                                    <button
-                                        class="tiny-button tiny-play"
-                                        type="button"
-                                        data-place-id="2"
-                                    >
-                                        Play
-                                    </button>
-
-                                </div>
-
-                            </article>
-
-
-
-                            <!-- CROSSROADS -->
-
-                            <article class="game-card">
-
-                                <a href="game.html?id=3">
-
-                                    <img
-                                        src="assets/games/crossroads.png"
-                                        alt="Crossroads"
-                                    >
-
-                                </a>
-
-
-                                <div class="game-name">
-
-                                    <a href="game.html?id=3">
-                                        Crossroads
-                                    </a>
-
-                                </div>
-
-
-                                <div class="game-description">
-
-                                    Explore an old-school
-                                    crossroads world.
-
-                                </div>
-
-
-                                <div class="game-card-actions">
-
-                                    <a
-                                        class="tiny-button"
-                                        href="game.html?id=3"
-                                    >
-                                        View
-                                    </a>
-
-
-                                    <button
-                                        class="tiny-button tiny-play"
-                                        type="button"
-                                        data-place-id="3"
-                                    >
-                                        Play
-                                    </button>
-
-                                </div>
-
-                            </article>
-
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- THINGS TO DO -->
-
-                <section class="retro-box">
-
-                    <div class="retro-box-title">
-                        Things to Do
-                    </div>
-
-
-                    <div class="retro-box-content">
-
-
-                        <div class="feature-strip">
-
-
-                            <a
-                                class="feature-card"
-                                href="games.html"
+                            <img
+                                src="assets/banners/games-banner.png"
+                                alt=""
                             >
 
-                                <div class="feature-icon">
-                                    🎮
-                                </div>
+                            <div class="feature-text">
 
                                 <h3>
-                                    Play
+                                    Games 🎮
                                 </h3>
 
                                 <p>
-                                    Find somewhere new
-                                    to hang out.
+                                    Browse everything
+                                    currently surviving on Nova.
                                 </p>
 
-                            </a>
+                            </div>
+
+                        </a>
 
 
 
-                            <a
-                                class="feature-card"
-                                href="character.html"
+                        <a
+                            class="image-feature-card"
+                            href="creator.html"
+                        >
+
+                            <img
+                                src="assets/banners/creator-banner.png"
+                                alt=""
                             >
 
-                                <div class="feature-icon">
-                                    👕
-                                </div>
+                            <div class="feature-text">
 
                                 <h3>
-                                    Dress Up
+                                    Creator Corner 🛠
                                 </h3>
 
                                 <p>
-                                    Change the way
-                                    your character looks.
+                                    Build your masterpiece.
+                                    Or another baseplate.
+                                    We don't judge.
                                 </p>
 
-                            </a>
+                            </div>
+
+                        </a>
 
 
 
-                            <a
-                                class="feature-card"
-                                href="creator.html"
+                        <a
+                            class="image-feature-card"
+                            href="catalog.html"
+                        >
+
+                            <img
+                                src="assets/banners/cafe-banner.png"
+                                alt=""
                             >
 
-                                <div class="feature-icon">
-                                    🛠
-                                </div>
+                            <div class="feature-text">
 
                                 <h3>
-                                    Build
+                                    Catalog 👕
                                 </h3>
 
                                 <p>
-                                    Make your own
-                                    Nova place.
-                                </p>
-
-                            </a>
-
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- CAFE NEWS -->
-
-                <section class="retro-box">
-
-                    <div class="retro-box-title">
-                        ☕ Nova Café
-                    </div>
-
-
-                    <div class="retro-box-content">
-
-
-                        <div class="cafe-news-layout">
-
-
-                            <div>
-
-                                <h3>
-                                    What's brewing?
-                                </h3>
-
-
-                                <ul class="coffee-list">
-
-                                    <li>
-                                        Nova Player can load worlds.
-                                    </li>
-
-                                    <li>
-                                        Custom character rendering works.
-                                    </li>
-
-                                    <li>
-                                        Website avatars can be rendered.
-                                    </li>
-
-                                    <li>
-                                        Website games can launch Nova Player.
-                                    </li>
-
-                                    <li>
-                                        Nova Studio is coming next.
-                                    </li>
-
-                                </ul>
-
-                            </div>
-
-
-                            <div class="coffee-quote">
-
-                                <div class="coffee-quote-title">
-                                    Today's note
-                                </div>
-
-
-                                <p>
-                                    “A blank baseplate is
-                                    just a game waiting to happen.”
-                                </p>
-
-
-                                <span>
-                                    — probably someone at Nova
-                                </span>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- CREATOR -->
-
-                <section class="retro-box">
-
-                    <div class="retro-box-title">
-                        ✎ Creator Corner
-                    </div>
-
-
-                    <div class="retro-box-content">
-
-
-                        <div class="creator-callout">
-
-
-                            <div>
-
-                                <h2>
-                                    Make something!
-                                </h2>
-
-                                <p>
-                                    Build a place,
-                                    publish it,
-                                    and eventually share it
-                                    with other Nova players.
+                                    Buy absolutely essential
+                                    digital hats.
                                 </p>
 
                             </div>
 
+                        </a>
 
-                            <div class="creator-buttons">
-
-                                <a
-                                    class="retro-button"
-                                    href="publish.html"
-                                >
-                                    Publish a Place
-                                </a>
-
-                                <a
-                                    class="retro-button"
-                                    href="studio.html"
-                                >
-                                    Open Nova Studio
-                                </a>
-
-                            </div>
-
-
-                        </div>
 
                     </div>
 
-                </section>
+
+                </div>
 
 
-            </main>
+            </section>
 
 
 
-            <!-- RIGHT COMMUNITY BOARD -->
+            <!-- =================================================
+                 FRIENDS
+            ================================================== -->
 
-            <aside>
+            <section
+                id="homeFriendsSection"
+                class="home-social-strip home-real-friends"
+            >
+
+
+                <div class="home-section-heading-row">
+
+
+                    <div>
+
+                        <div class="games-kicker">
+                            FRIENDS
+                        </div>
+
+                        <h2>
+                            Friends
+                        </h2>
+
+                    </div>
+
+
+                    <a
+                        class="home-section-link"
+                        href="friends.html"
+                    >
+                        Manage Friends →
+                    </a>
+
+
+                </div>
+
 
                 <div
-                    id="ads"
-                    class="ad-column"
+                    id="homeFriendsRow"
+                    class="home-friends-row"
                 ></div>
 
-            </aside>
+
+                <div
+                    id="homeFriendsEmpty"
+                    class="home-friends-empty"
+                    hidden
+                >
+
+                    <strong>
+                        It's quiet in here.
+                    </strong>
+
+                    <span>
+                        Find another Nova player
+                        and send them a friend request.
+                    </span>
+
+                    <a
+                        href="friends.html"
+                        class="home-friends-find"
+                    >
+                        Find Friends
+                    </a>
+
+                </div>
 
 
-        </div>
+            </section>
 
 
 
-        <!-- FOOTER -->
+            <!-- =================================================
+                 FEATURED PLACES
+            ================================================== -->
 
-        <footer class="footer">
+            <section class="retro-box">
 
 
-            <div class="footer-logo">
-                ☕ NOVA
+                <div class="retro-box-title">
+
+                    <span>
+                        ★ Featured Places
+                    </span>
+
+                    <a href="games.html">
+                        see all →
+                    </a>
+
+                </div>
+
+
+                <div class="retro-box-content">
+
+
+                    <div class="game-grid">
+
+
+                        <article class="game-card">
+
+                            <a href="game.html?id=1">
+
+                                <img
+                                    src="assets/games/baseplate.png"
+                                    alt="Nova Baseplate"
+                                >
+
+                            </a>
+
+                            <div class="game-name">
+
+                                <a href="game.html?id=1">
+                                    Nova Baseplate
+                                </a>
+
+                            </div>
+
+                            <div class="game-description">
+                                Ground has been included
+                                at no additional charge.
+                            </div>
+
+                            <div class="game-card-actions">
+
+                                <a
+                                    class="tiny-button"
+                                    href="game.html?id=1"
+                                >
+                                    View
+                                </a>
+
+                                <button
+                                    class="tiny-button tiny-play"
+                                    type="button"
+                                    data-place-id="1"
+                                >
+                                    Play
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <article class="game-card">
+
+                            <a href="game.html?id=2">
+
+                                <img
+                                    src="assets/games/brickbattle.png"
+                                    alt="Brick Battle"
+                                >
+
+                            </a>
+
+                            <div class="game-name">
+
+                                <a href="game.html?id=2">
+                                    Brick Battle
+                                </a>
+
+                            </div>
+
+                            <div class="game-description">
+                                Solve disagreements
+                                using bricks.
+                            </div>
+
+                            <div class="game-card-actions">
+
+                                <a
+                                    class="tiny-button"
+                                    href="game.html?id=2"
+                                >
+                                    View
+                                </a>
+
+                                <button
+                                    class="tiny-button tiny-play"
+                                    type="button"
+                                    data-place-id="2"
+                                >
+                                    Play
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <article class="game-card">
+
+                            <a href="game.html?id=3">
+
+                                <img
+                                    src="assets/games/crossroads.png"
+                                    alt="Crossroads"
+                                >
+
+                            </a>
+
+                            <div class="game-name">
+
+                                <a href="game.html?id=3">
+                                    Crossroads
+                                </a>
+
+                            </div>
+
+                            <div class="game-description">
+                                Several roads.
+                                Nobody knows why.
+                            </div>
+
+                            <div class="game-card-actions">
+
+                                <a
+                                    class="tiny-button"
+                                    href="game.html?id=3"
+                                >
+                                    View
+                                </a>
+
+                                <button
+                                    class="tiny-button tiny-play"
+                                    type="button"
+                                    data-place-id="3"
+                                >
+                                    Play
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RECENTLY PLAYED
+                 HIDDEN UNTIL ACTUAL HISTORY EXISTS
+            ================================================== -->
+
+            <section
+                id="homeRecentSection"
+                class="home-recent-cinematic"
+                hidden
+            >
+
+
+                <div
+                    id="homeRecentBackdrop"
+                    class="home-recent-backdrop"
+                ></div>
+
+
+                <div class="home-recent-overlay"></div>
+
+
+                <div class="home-recent-content">
+
+
+                    <div class="home-recent-heading">
+                        RECENTLY PLAYED
+                    </div>
+
+
+                    <div class="home-recent-layout">
+
+
+                        <div class="home-recent-feature">
+
+                            <div
+                                id="homeRecentName"
+                                class="home-recent-name"
+                            ></div>
+
+                            <div
+                                id="homeRecentCreator"
+                                class="home-recent-creator"
+                            ></div>
+
+                            <p
+                                id="homeRecentDescription"
+                                class="home-recent-description"
+                            ></p>
+
+                            <a
+                                id="homeRecentQuickPlay"
+                                class="home-recent-quick-play"
+                                href="#"
+                            >
+                                ▶ Quick Play
+                            </a>
+
+                        </div>
+
+
+                        <div
+                            id="homeRecentRow"
+                            class="home-recent-row"
+                        ></div>
+
+
+                    </div>
+
+
+                    <a
+                        class="home-discover-more"
+                        href="games.html"
+                    >
+                        DISCOVER MORE EXPERIENCES
+                        <span>⌃</span>
+                    </a>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CREATOR
+            ================================================== -->
+
+            <section class="retro-box">
+
+
+                <div class="retro-box-title">
+                    ✎ Creator Corner
+                </div>
+
+
+                <div class="retro-box-content">
+
+
+                    <div class="creator-callout">
+
+
+                        <div>
+
+                            <h2>
+                                Make something!
+                            </h2>
+
+                            <p>
+                                Build a place,
+                                publish it,
+                                and eventually convince
+                                another human to play it.
+                            </p>
+
+                        </div>
+
+
+                        <div class="creator-buttons">
+
+                            <a
+                                class="retro-button"
+                                href="publish.html"
+                            >
+                                Publish a Place
+                            </a>
+
+                            <a
+                                class="retro-button"
+                                href="studio.html"
+                            >
+                                Open Nova Studio
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =================================================
+             NOVA COMMUNITY / NEWS / ADS
+        ================================================== -->
+
+        <aside class="nova-news-column">
+
+
+            <div class="nova-news-paper">
+
+
+                <div class="nova-news-top">
+
+                    <span class="nova-news-brand">
+                        ✦ NOVA NEWS
+                    </span>
+
+                    <span class="nova-news-trust">
+                        Journalism-ish.
+                    </span>
+
+                </div>
+
+
+                <img
+                    class="nova-news-banner"
+                    src="assets/banners/news-banner.png"
+                    alt="Extremely serious Nova newsroom"
+                >
+
+
+                <div class="nova-breaking-strip">
+                    BREAKING:
+                    our reporter has been sitting there
+                    for three hours.
+                </div>
+
+
+                <!-- NEWS STORY CHANGES WITH JAVASCRIPT -->
+
+                <article class="nova-news-story">
+
+
+                    <div
+                        id="novaNewsCategory"
+                        class="nova-news-category"
+                    ></div>
+
+
+                    <h2
+                        id="novaNewsHeadline"
+                        class="nova-news-headline"
+                    ></h2>
+
+
+                    <div
+                        id="novaNewsText"
+                        class="nova-news-text"
+                    ></div>
+
+
+                </article>
+
+
+                <div class="nova-news-controls">
+
+
+                    <button
+                        id="novaNewsPrevious"
+                        type="button"
+                    >
+                        ‹
+                    </button>
+
+
+                    <span
+                        id="novaNewsCounter"
+                        class="nova-news-counter"
+                    ></span>
+
+
+                    <button
+                        id="novaNewsNext"
+                        type="button"
+                    >
+                        ›
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ADS
+                ================================================== -->
+
+                <section class="nova-ads">
+
+
+                    <div class="nova-ad-heading">
+
+                        <strong>
+                            SPONSORED-ISH
+                        </strong>
+
+                        <span>
+                            Please don't call us.
+                        </span>
+
+                    </div>
+
+
+                    <div class="nova-ad-window">
+
+
+                        <button
+                            id="novaAdPrevious"
+                            class="nova-ad-arrow nova-ad-prev"
+                            type="button"
+                        >
+                            ‹
+                        </button>
+
+
+
+                        <!-- A/C -->
+
+                        <article
+                            class="nova-ad nova-ad-ac active"
+                        >
+
+                            <div class="nova-ad-icon">
+                                ❄
+                            </div>
+
+                            <div>
+
+                                <div class="nova-ad-company">
+                                    NOVA A/C & HEATING
+                                </div>
+
+                                <h3>
+                                    Is your baseplate
+                                    suspiciously warm?
+                                </h3>
+
+                                <p>
+                                    We'll cool your house,
+                                    server room,
+                                    and possibly your avatar.
+                                </p>
+
+                                <strong>
+                                    1-800-NOT-HOT
+                                </strong>
+
+                                <small>
+                                    Technician certification:
+                                    pending.
+                                </small>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <!-- LAW -->
+
+                        <article
+                            class="nova-ad nova-ad-law"
+                        >
+
+                            <div class="nova-ad-icon">
+                                ⚖
+                            </div>
+
+                            <div>
+
+                                <div class="nova-ad-company">
+                                    BLOCK, BLOCK & BLOCK
+                                </div>
+
+                                <h3>
+                                    Were you flung
+                                    across the map?
+                                </h3>
+
+                                <p>
+                                    You may be entitled
+                                    to absolutely nothing.
+                                </p>
+
+                                <strong>
+                                    FREE consultation!
+                                </strong>
+
+                                <small>
+                                    Consultation consists of
+                                    us saying
+                                    “wow that's crazy.”
+                                </small>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <!-- PIZZA -->
+
+                        <article
+                            class="nova-ad nova-ad-pizza"
+                        >
+
+                            <div class="nova-ad-icon">
+                                🍕
+                            </div>
+
+                            <div>
+
+                                <div class="nova-ad-company">
+                                    NOVA PIZZA
+                                </div>
+
+                                <h3>
+                                    Pizza delivered
+                                    directly to spawn.
+                                </h3>
+
+                                <p>
+                                    Cheese.
+                                    Sauce.
+                                    Triangles.
+                                </p>
+
+                                <strong>
+                                    Buy 2 slices,
+                                    receive 2 slices.
+                                </strong>
+
+                                <small>
+                                    Mathematicians hate us.
+                                </small>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <!-- INSURANCE -->
+
+                        <article
+                            class="nova-ad nova-ad-insurance"
+                        >
+
+                            <div class="nova-ad-icon">
+                                🧱
+                            </div>
+
+                            <div>
+
+                                <div class="nova-ad-company">
+                                    NOVA BASEPLATE INSURANCE
+                                </div>
+
+                                <h3>
+                                    Someone deleted
+                                    your entire house?
+                                </h3>
+
+                                <p>
+                                    You're probably
+                                    not covered.
+                                </p>
+
+                                <strong>
+                                    Plans from 14
+                                    imaginary coins.
+                                </strong>
+
+                                <small>
+                                    Void if house
+                                    was not anchored.
+                                </small>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <!-- TECH SUPPORT -->
+
+                        <article
+                            class="nova-ad nova-ad-tech"
+                        >
+
+                            <div class="nova-ad-icon">
+                                🖥
+                            </div>
+
+                            <div>
+
+                                <div class="nova-ad-company">
+                                    NOVA TECH SUPPORT
+                                </div>
+
+                                <h3>
+                                    Have you tried
+                                    turning Nova off
+                                    and back on?
+                                </h3>
+
+                                <p>
+                                    Neither have we.
+                                    We're afraid.
+                                </p>
+
+                                <strong>
+                                    Support hours:
+                                    eventually.
+                                </strong>
+
+                                <small>
+                                    Please stop refreshing.
+                                </small>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <!-- UNIVERSITY -->
+
+                        <article
+                            class="nova-ad nova-ad-school"
+                        >
+
+                            <div class="nova-ad-icon">
+                                🎓
+                            </div>
+
+                            <div>
+
+                                <div class="nova-ad-company">
+                                    NOVA UNIVERSITY
+                                </div>
+
+                                <h3>
+                                    Earn a degree
+                                    in Baseplate Studies.
+                                </h3>
+
+                                <p>
+                                    Four years studying
+                                    one completely flat surface.
+                                </p>
+
+                                <strong>
+                                    100% acceptance rate.
+                                </strong>
+
+                                <small>
+                                    We haven't figured out
+                                    rejection emails yet.
+                                </small>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <!-- SPACE -->
+
+                        <article
+                            class="nova-ad nova-ad-space"
+                        >
+
+                            <div class="nova-ad-icon">
+                                🚀
+                            </div>
+
+                            <div>
+
+                                <div class="nova-ad-company">
+                                    NOVA SPACEWAYS
+                                </div>
+
+                                <h3>
+                                    Need to leave
+                                    the map immediately?
+                                </h3>
+
+                                <p>
+                                    Our rockets go upward
+                                    until something happens.
+                                </p>
+
+                                <strong>
+                                    One-way tickets available.
+                                </strong>
+
+                                <small>
+                                    Return feature
+                                    on roadmap.
+                                </small>
+
+                            </div>
+
+                        </article>
+
+
+
+                        <button
+                            id="novaAdNext"
+                            class="nova-ad-arrow nova-ad-next"
+                            type="button"
+                        >
+                            ›
+                        </button>
+
+
+                    </div>
+
+
+                    <div
+                        id="novaAdDots"
+                        class="nova-ad-dots"
+                    ></div>
+
+
+                </section>
+
+
             </div>
 
 
-            <div class="footer-links">
-
-                <a href="about.html">
-                    About
-                </a>
-
-                <span>·</span>
-
-                <a href="help.html">
-                    Help
-                </a>
-
-                <span>·</span>
-
-                <a href="terms.html">
-                    Terms
-                </a>
-
-                <span>·</span>
-
-                <a href="privacy.html">
-                    Privacy
-                </a>
-
-            </div>
-
-
-            <p>
-                Built with too much coffee.
-            </p>
-
-
-        </footer>
+        </aside>
 
 
     </div>
@@ -877,112 +2087,1347 @@
 
 
     <!-- =====================================================
-         NOVA ACCOUNT SYSTEM
+         FOOTER
     ====================================================== -->
 
+    <footer class="footer">
+
+
+        <div class="footer-logo">
+            NOVA
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="about.html">
+                About
+            </a>
+
+            <span>·</span>
+
+            <a href="help.html">
+                Help
+            </a>
+
+            <span>·</span>
+
+            <a href="terms.html">
+                Terms
+            </a>
+
+            <span>·</span>
+
+            <a href="privacy.html">
+                Privacy
+            </a>
+
+        </div>
+
+
+        <p>
+            Build. Play. Accidentally break something.
+        </p>
+
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 <script src="js/nova-storage.js"></script>
+<script src="js/nova-supabase.js"></script>
 <script src="js/nova-auth.js"></script>
 <script src="js/nova-player.js"></script>
+<script src="js/nova-friends.js"></script>
+<script src="js/nova-history.js"></script>
 
-    <script src="shell.js"></script>
-
-    <script src="script.js"></script>
-
-
-    <script>
-
-
-        /* =================================================
-           HEADER
-        ================================================= */
-
-        renderShell();
+<script src="data.js"></script>
+<script src="shell.js"></script>
+<script src="script.js"></script>
 
 
 
-        /* =================================================
-           HOME USER
-        ================================================= */
-
-        const homeUser =
-            NovaAuth.getCurrentUser();
+<script>
 
 
-        const homeAvatar =
-            document.getElementById(
-                "homeAvatar"
-            );
+/* =========================================================
+   HEADER
+========================================================= */
+
+renderShell();
 
 
-        const homeWelcome =
-            document.getElementById(
-                "homeWelcome"
-            );
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
+const homeUser =
+    NovaAuth.getCurrentUser();
 
 
-        /* =================================================
-           LOGGED IN
-        ================================================= */
+const homeAvatar =
+    document.getElementById(
+        "homeAvatar"
+    );
+
+
+const homeWelcome =
+    document.getElementById(
+        "homeWelcome"
+    );
+
+
+if (
+    homeUser
+) {
+
+    homeAvatar.src =
+        homeUser.avatarImage
+        ||
+        homeUser.avatar
+        ||
+        "assets/avatars/guest.png";
+
+
+    homeAvatar.alt =
+        `${homeUser.username || "Nova"}'s Avatar`;
+
+
+    homeWelcome.textContent =
+        homeUser.username
+            ?
+            `Welcome back, ${homeUser.username}!`
+            :
+            "Welcome back to Nova!";
+
+}
+else {
+
+    homeAvatar.src =
+        "assets/avatars/guest.png";
+
+
+    homeWelcome.textContent =
+        "Welcome to Nova!";
+
+}
+
+
+
+/* =========================================================
+   REAL FRIENDS
+========================================================= */
+
+async function loadHomeFriends() {
+
+
+    const section =
+        document.getElementById(
+            "homeFriendsSection"
+        );
+
+
+    const row =
+        document.getElementById(
+            "homeFriendsRow"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "homeFriendsEmpty"
+        );
+
+
+    if (
+        !homeUser
+    ) {
+
+        section.hidden =
+            true;
+
+        return;
+
+    }
+
+
+    try {
+
+        const result =
+            await NovaFriends.getFriends();
+
 
         if (
-            homeUser
+            !result.success
         ) {
 
-            const avatarSource =
-                homeUser.avatarImage
-                ||
-                homeUser.avatar
-                ||
-                "assets/avatars/guest.png";
+            empty.hidden =
+                false;
 
-
-            homeAvatar.src =
-                avatarSource;
-
-
-            homeAvatar.alt =
-                `${homeUser.username || "Nova"}'s Avatar`;
-
-
-            if (
-                homeUser.username
-            ) {
-
-                homeWelcome.textContent =
-                    `Welcome back, ${homeUser.username}!`;
-
-            }
-            else {
-
-                homeWelcome.textContent =
-                    "Welcome back to Nova!";
-
-            }
+            return;
 
         }
 
 
-        /* =================================================
-           LOGGED OUT
-        ================================================= */
-
-        else {
-
-            homeAvatar.src =
-                "assets/avatars/guest.png";
+        const friends =
+            result.friends;
 
 
-            homeAvatar.alt =
-                "Guest Avatar";
+        row.innerHTML =
+            "";
 
 
-            homeWelcome.textContent =
-                "Welcome to Nova!";
+        if (
+            friends.length ===
+            0
+        ) {
+
+            empty.hidden =
+                false;
+
+            return;
 
         }
 
 
-    </script>
+        empty.hidden =
+            true;
+
+
+        friends.forEach(
+            friend => {
+
+
+                const card =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                card.className =
+                    "home-friend-card";
+
+
+                card.href =
+                    `profile.html?id=${
+                        encodeURIComponent(
+                            friend.id
+                        )
+                    }`;
+
+
+                const avatar =
+                    friend.avatar_url
+                    ||
+                    "assets/avatars/guest.png";
+
+
+                card.innerHTML = `
+
+                    <div class="home-friend-avatar-wrap">
+
+                        <img
+                            src="${avatar}"
+                            alt="${
+                                NovaFriends.escapeHtml(
+                                    friend.username
+                                )
+                            }"
+                        >
+
+                        <span
+                            class="home-friend-status-dot"
+                        ></span>
+
+                    </div>
+
+                    <strong>
+                        ${
+                            NovaFriends.escapeHtml(
+                                friend.username
+                            )
+                        }
+                    </strong>
+
+                `;
+
+
+                row.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+    catch (
+        error
+    ) {
+
+        console.error(
+            "Nova friends:",
+            error
+        );
+
+
+        empty.hidden =
+            false;
+
+    }
+
+}
+
+
+loadHomeFriends();
+
+
+
+/* =========================================================
+   RECENTLY PLAYED
+========================================================= */
+
+function showRecentGame(
+    game
+) {
+
+
+    document
+        .getElementById(
+            "homeRecentBackdrop"
+        )
+        .style
+        .backgroundImage =
+            `url("${game.thumbnail}")`;
+
+
+    document
+        .getElementById(
+            "homeRecentName"
+        )
+        .textContent =
+            game.name;
+
+
+    document
+        .getElementById(
+            "homeRecentCreator"
+        )
+        .textContent =
+            `By ${game.creator || "Nova"}`;
+
+
+    document
+        .getElementById(
+            "homeRecentDescription"
+        )
+        .textContent =
+            game.description || "";
+
+
+    document
+        .getElementById(
+            "homeRecentQuickPlay"
+        )
+        .href =
+            `game.html?id=${game.id}`;
+
+
+    document
+        .querySelectorAll(
+            ".home-recent-game"
+        )
+        .forEach(
+            card => {
+
+                card.classList.toggle(
+                    "selected",
+
+                    Number(
+                        card.dataset.placeId
+                    )
+                    ===
+                    Number(
+                        game.id
+                    )
+                );
+
+            }
+        );
+
+}
+
+
+
+function loadRecentlyPlayed() {
+
+
+    const section =
+        document.getElementById(
+            "homeRecentSection"
+        );
+
+
+    const row =
+        document.getElementById(
+            "homeRecentRow"
+        );
+
+
+    if (
+        typeof NovaHistory ===
+        "undefined"
+        ||
+        typeof NOVA_GAMES ===
+        "undefined"
+    ) {
+
+        section.hidden =
+            true;
+
+        return;
+
+    }
+
+
+    const recentIds =
+        NovaHistory
+            .getRecentPlaceIds();
+
+
+    const recentGames =
+        recentIds
+            .map(
+                placeId =>
+                    NOVA_GAMES.find(
+                        game =>
+                            Number(
+                                game.id
+                            )
+                            ===
+                            Number(
+                                placeId
+                            )
+                    )
+            )
+            .filter(
+                Boolean
+            );
+
+
+    if (
+        recentGames.length ===
+        0
+    ) {
+
+        section.hidden =
+            true;
+
+        return;
+
+    }
+
+
+    section.hidden =
+        false;
+
+
+    row.innerHTML =
+        "";
+
+
+    recentGames.forEach(
+        game => {
+
+
+            const card =
+                document.createElement(
+                    "button"
+                );
+
+
+            card.type =
+                "button";
+
+
+            card.className =
+                "home-recent-game";
+
+
+            card.dataset.placeId =
+                game.id;
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${game.thumbnail}"
+                    alt="${game.name}"
+                >
+
+                <span>
+                    ${game.name}
+                </span>
+
+            `;
+
+
+            card.addEventListener(
+                "click",
+
+                () => {
+
+                    showRecentGame(
+                        game
+                    );
+
+                }
+            );
+
+
+            row.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    showRecentGame(
+        recentGames[0]
+    );
+
+}
+
+
+loadRecentlyPlayed();
+
+
+
+/* =========================================================
+   NOVA NEWS
+========================================================= */
+
+const novaNewsStories = [
+
+
+    /* -----------------------------------------------------
+       ROBLOX MIGRATION
+    ------------------------------------------------------ */
+
+    {
+
+        category:
+            "NOVA NEWS • DEFINITELY UNBIASED",
+
+        headline:
+            "Roblox drama causes mysterious migration of block people",
+
+        html:
+            `
+
+            <p>
+                Reports indicate that some Roblox players
+                are getting tired of the usual drama
+                and have begun exploring other places.
+            </p>
+
+            <p>
+                Unfortunately for them,
+                some of those places include Nova.
+            </p>
+
+            <div class="nova-news-quote">
+
+                “Wait... this isn't Roblox?”
+
+                <span>
+                    — new Nova user,
+                    approximately four seconds
+                    after signing up
+                </span>
+
+            </div>
+
+            <p>
+                Nova developers responded to the
+                increase in visitors by pretending
+                everything was completely under control.
+            </p>
+
+            <p>
+                It was not completely under control.
+            </p>
+
+            `
+
+    },
+
+
+
+    /* -----------------------------------------------------
+       FLAT BASEPLATE
+    ------------------------------------------------------ */
+
+    {
+
+        category:
+            "BREAKING • GEOGRAPHY",
+
+        headline:
+            "Scientists confirm Nova Baseplate is still unbelievably flat",
+
+        html:
+            `
+
+            <p>
+                A six-month investigation involving
+                several highly trained researchers
+                and one guy with a ruler has concluded
+                that the Nova Baseplate remains flat.
+            </p>
+
+            <div class="nova-news-quote">
+
+                “We kept walking and it just...
+                kept being floor.”
+
+                <span>
+                    — exhausted researcher
+                </span>
+
+            </div>
+
+            <p>
+                Researchers briefly believed they had
+                discovered a mountain.
+            </p>
+
+            <p>
+                It was a spawn platform.
+            </p>
+
+            `
+
+    },
+
+
+
+    /* -----------------------------------------------------
+       BUTTON
+    ------------------------------------------------------ */
+
+    {
+
+        category:
+            "TECHNOLOGY • HISTORIC ACHIEVEMENT",
+
+        headline:
+            "Nova engineer creates button that works on first click, coworkers suspicious",
+
+        html:
+            `
+
+            <p>
+                Panic spread through Nova headquarters
+                this morning after an engineer created
+                a button and it worked immediately.
+            </p>
+
+            <p>
+                No console errors.
+                No refresh required.
+                No mysterious undefined variable.
+            </p>
+
+            <div class="nova-news-quote">
+
+                “Don't touch it.
+                Nobody touch anything.”
+
+                <span>
+                    — engineering department
+                </span>
+
+            </div>
+
+            <p>
+                The button has since been placed
+                behind protective glass.
+            </p>
+
+            `
+
+    },
+
+
+
+    /* -----------------------------------------------------
+       SERVER
+    ------------------------------------------------------ */
+
+    {
+
+        category:
+            "INFRASTRUCTURE • SOMEHOW",
+
+        headline:
+            "Nova server survives entire afternoon, receives employee of the month",
+
+        html:
+            `
+
+            <p>
+                A Nova server successfully remained
+                operational for an entire afternoon,
+                stunning engineers and nearby furniture.
+            </p>
+
+            <div class="nova-news-quote">
+
+                “At first we thought the monitoring
+                dashboard was frozen.”
+
+                <span>
+                    — Nova operations
+                </span>
+
+            </div>
+
+            <p>
+                The celebration ended after someone
+                realized nobody had connected to it.
+            </p>
+
+            `
+
+    },
+
+
+
+    /* -----------------------------------------------------
+       BUG
+    ------------------------------------------------------ */
+
+    {
+
+        category:
+            "PLATFORM UPDATE",
+
+        headline:
+            "Old Nova bug promoted to feature after surviving three updates",
+
+        html:
+            `
+
+            <p>
+                A bug originally scheduled to be fixed
+                several weeks ago has officially become
+                part of the Nova experience.
+            </p>
+
+            <p>
+                Developers say removing it now
+                “might break something.”
+            </p>
+
+            <div class="nova-news-quote">
+
+                “It's not a bug anymore.
+                It has seniority.”
+
+                <span>
+                    — Nova developer
+                </span>
+
+            </div>
+
+            `
+
+    },
+
+
+
+    /* -----------------------------------------------------
+       JUMP
+    ------------------------------------------------------ */
+
+    {
+
+        category:
+            "SPORTS • HUMAN ACHIEVEMENT",
+
+        headline:
+            "Local avatar jumps once, immediately considers professional career",
+
+        html:
+            `
+
+            <p>
+                A Nova avatar successfully pressed
+                the jump key Tuesday afternoon.
+            </p>
+
+            <p>
+                Witnesses say the avatar traveled
+                several feet into the air
+                before returning to the exact same floor.
+            </p>
+
+            <div class="nova-news-quote">
+
+                “I've basically mastered movement.”
+
+                <span>
+                    — player with seven minutes
+                    of experience
+                </span>
+
+            </div>
+
+            `
+
+    },
+
+
+
+    /* -----------------------------------------------------
+       ECONOMY
+    ------------------------------------------------------ */
+
+    {
+
+        category:
+            "BUSINESS • FINANCE",
+
+        headline:
+            "Nova economy remains incredibly stable due to complete lack of economy",
+
+        html:
+            `
+
+            <p>
+                Economists have praised Nova
+                for achieving zero inflation,
+                zero recession,
+                and zero market volatility.
+            </p>
+
+            <p>
+                Investigation later revealed
+                Nova currently has no currency.
+            </p>
+
+            <div class="nova-news-quote">
+
+                “Technically,
+                this is outstanding economic performance.”
+
+                <span>
+                    — economist trying to stay positive
+                </span>
+
+            </div>
+
+            `
+
+    },
+
+
+
+    /* -----------------------------------------------------
+       STUDIO
+    ------------------------------------------------------ */
+
+    {
+
+        category:
+            "CREATOR NEWS",
+
+        headline:
+            "Developer opens Nova Studio, spends 45 minutes moving one object",
+
+        html:
+            `
+
+            <p>
+                A productive development session
+                reportedly began at 9:00 AM.
+            </p>
+
+            <p>
+                By 9:45,
+                one cube had been moved approximately
+                eleven pixels to the left.
+            </p>
+
+            <div class="nova-news-quote">
+
+                “No, no.
+                It looks way better now.”
+
+                <span>
+                    — developer who moved it back
+                    five minutes later
+                </span>
+
+            </div>
+
+            `
+
+    },
+
+
+
+    /* -----------------------------------------------------
+       PLAYER
+    ------------------------------------------------------ */
+
+    {
+
+        category:
+            "COMMUNITY",
+
+        headline:
+            "Player asks when Nova will be finished, developers suddenly lose internet connection",
+
+        html:
+            `
+
+            <p>
+                A completely reasonable question
+                caused an unusual technical incident
+                at Nova headquarters.
+            </p>
+
+            <p>
+                Every developer immediately became
+                unavailable at exactly the same time.
+            </p>
+
+            <div class="nova-news-quote">
+
+                “Hello?
+                Guys?”
+
+                <span>
+                    — player,
+                    still waiting
+                </span>
+
+            </div>
+
+            `
+
+    }
+
+];
+
+
+
+const novaNewsCategory =
+    document.getElementById(
+        "novaNewsCategory"
+    );
+
+
+const novaNewsHeadline =
+    document.getElementById(
+        "novaNewsHeadline"
+    );
+
+
+const novaNewsText =
+    document.getElementById(
+        "novaNewsText"
+    );
+
+
+const novaNewsCounter =
+    document.getElementById(
+        "novaNewsCounter"
+    );
+
+
+let novaNewsIndex =
+    0;
+
+
+let novaNewsTimer =
+    null;
+
+
+
+function showNovaNews(
+    index
+) {
+
+
+    if (
+        index >=
+        novaNewsStories.length
+    ) {
+
+        index =
+            0;
+
+    }
+
+
+    if (
+        index <
+        0
+    ) {
+
+        index =
+            novaNewsStories.length - 1;
+
+    }
+
+
+    novaNewsIndex =
+        index;
+
+
+    const story =
+        novaNewsStories[
+            novaNewsIndex
+        ];
+
+
+    novaNewsCategory.textContent =
+        story.category;
+
+
+    novaNewsHeadline.textContent =
+        story.headline;
+
+
+    novaNewsText.innerHTML =
+        story.html;
+
+
+    novaNewsCounter.textContent =
+        `${novaNewsIndex + 1} / ${novaNewsStories.length}`;
+
+}
+
+
+
+function restartNovaNewsTimer() {
+
+
+    if (
+        novaNewsTimer
+    ) {
+
+        clearInterval(
+            novaNewsTimer
+        );
+
+    }
+
+
+    novaNewsTimer =
+        setInterval(
+            () => {
+
+                showNovaNews(
+                    novaNewsIndex + 1
+                );
+
+            },
+
+            25000
+        );
+
+}
+
+
+
+document
+    .getElementById(
+        "novaNewsPrevious"
+    )
+    .addEventListener(
+        "click",
+
+        () => {
+
+            showNovaNews(
+                novaNewsIndex - 1
+            );
+
+
+            restartNovaNewsTimer();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "novaNewsNext"
+    )
+    .addEventListener(
+        "click",
+
+        () => {
+
+            showNovaNews(
+                novaNewsIndex + 1
+            );
+
+
+            restartNovaNewsTimer();
+
+        }
+    );
+
+
+showNovaNews(
+    0
+);
+
+
+restartNovaNewsTimer();
+
+
+
+/* =========================================================
+   NOVA FAKE ADS
+========================================================= */
+
+const novaAds =
+    Array.from(
+        document.querySelectorAll(
+            ".nova-ad"
+        )
+    );
+
+
+const novaAdDots =
+    document.getElementById(
+        "novaAdDots"
+    );
+
+
+let novaAdIndex =
+    0;
+
+
+let novaAdTimer =
+    null;
+
+
+
+novaAds.forEach(
+    (
+        ad,
+        index
+    ) => {
+
+
+        const dot =
+            document.createElement(
+                "button"
+            );
+
+
+        dot.type =
+            "button";
+
+
+        dot.className =
+            "nova-ad-dot";
+
+
+        dot.addEventListener(
+            "click",
+
+            () => {
+
+                showNovaAd(
+                    index
+                );
+
+
+                restartNovaAdTimer();
+
+            }
+        );
+
+
+        novaAdDots.appendChild(
+            dot
+        );
+
+    }
+);
+
+
+
+function showNovaAd(
+    index
+) {
+
+
+    if (
+        index >=
+        novaAds.length
+    ) {
+
+        index =
+            0;
+
+    }
+
+
+    if (
+        index <
+        0
+    ) {
+
+        index =
+            novaAds.length - 1;
+
+    }
+
+
+    novaAdIndex =
+        index;
+
+
+    novaAds.forEach(
+        (
+            ad,
+            adIndex
+        ) => {
+
+            ad.classList.toggle(
+                "active",
+                adIndex ===
+                novaAdIndex
+            );
+
+        }
+    );
+
+
+    Array
+        .from(
+            novaAdDots.children
+        )
+        .forEach(
+            (
+                dot,
+                dotIndex
+            ) => {
+
+                dot.classList.toggle(
+                    "active",
+                    dotIndex ===
+                    novaAdIndex
+                );
+
+            }
+        );
+
+}
+
+
+
+function restartNovaAdTimer() {
+
+
+    if (
+        novaAdTimer
+    ) {
+
+        clearInterval(
+            novaAdTimer
+        );
+
+    }
+
+
+    novaAdTimer =
+        setInterval(
+            () => {
+
+                showNovaAd(
+                    novaAdIndex + 1
+                );
+
+            },
+
+            60000
+        );
+
+}
+
+
+
+document
+    .getElementById(
+        "novaAdPrevious"
+    )
+    .addEventListener(
+        "click",
+
+        () => {
+
+            showNovaAd(
+                novaAdIndex - 1
+            );
+
+
+            restartNovaAdTimer();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "novaAdNext"
+    )
+    .addEventListener(
+        "click",
+
+        () => {
+
+            showNovaAd(
+                novaAdIndex + 1
+            );
+
+
+            restartNovaAdTimer();
+
+        }
+    );
+
+
+showNovaAd(
+    0
+);
+
+
+restartNovaAdTimer();
+
+
+</script>
 
 
 </body>

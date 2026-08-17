@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Friends - Nova</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/favicon.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="nova-main-theme.css"
+    >
+
+    <style>
+
+        .friends-page {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .friends-hero {
+            margin-bottom: 18px;
+            padding: 20px;
+            color: #f7f0ff;
+            background:
+                radial-gradient(
+                    circle at 80% 0%,
+                    rgba(132, 112, 204, 0.28),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    120deg,
+                    #23243a,
+                    #191a2a
+                );
+            border: 1px solid #5c547c;
+            border-radius: 10px;
+        }
+
+        .friends-hero h1 {
+            margin: 0 0 6px;
+            font-size: 26px;
+        }
+
+        .friends-hero p {
+            margin: 0;
+            color: #cbbfd6;
+        }
+
+        .friends-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .friends-panel {
+            padding: 16px;
+            background: #fffaf0;
+            border: 1px solid #b7a3c2;
+            border-radius: 9px;
+        }
+
+        .friends-panel h2 {
+            margin: 0 0 12px;
+            color: #40334a;
+        }
+
+        .friend-search-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .friend-search-row input {
+            flex: 1;
+            min-width: 0;
+            padding: 9px 10px;
+            border: 1px solid #b7a5c2;
+            border-radius: 5px;
+        }
+
+        .friend-search-row button,
+        .friend-action {
+            padding: 8px 11px;
+            font-weight: 700;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .friend-search-row button,
+        .friend-primary {
+            color: white;
+            background: #6f63a8;
+            border: 1px solid #51477f;
+        }
+
+        .friend-secondary {
+            color: #493d52;
+            background: #eee4f1;
+            border: 1px solid #b9a5c3;
+        }
+
+        .friend-list {
+            margin-top: 13px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .friend-row {
+            padding: 9px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fffdf8;
+            border: 1px solid #d3c4d8;
+            border-radius: 7px;
+        }
+
+        .friend-row img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            background: #eee7f3;
+            border: 1px solid #9f89ae;
+            border-radius: 50%;
+        }
+
+        .friend-row-copy {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .friend-row-copy strong {
+            display: block;
+            color: #44364e;
+        }
+
+        .friend-row-copy span {
+            color: #8b7c92;
+            font-size: 9px;
+        }
+
+        .friend-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .friends-message {
+            margin-top: 10px;
+            min-height: 18px;
+            color: #725d7d;
+            font-weight: 700;
+        }
+
+        @media (max-width: 850px) {
+            .friends-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div id="site">
+
+    <div id="header"></div>
+
+
+    <main class="friends-page">
+
+        <section class="friends-hero">
+
+            <div class="games-kicker">
+                YOUR UNIVERSE
+            </div>
+
+            <h1>
+                Friends
+            </h1>
+
+            <p>
+                Find Nova players, send requests, and build your friends list.
+            </p>
+
+        </section>
+
+
+        <div class="friends-layout">
+
+            <section class="friends-panel">
+
+                <h2>
+                    Find Players
+                </h2>
+
+                <form
+                    id="friendSearchForm"
+                    class="friend-search-row"
+                >
+
+                    <input
+                        id="friendSearchInput"
+                        type="search"
+                        placeholder="Search username"
+                        autocomplete="off"
+                    >
+
+                    <button type="submit">
+                        Search
+                    </button>
+
+                </form>
+
+                <div
+                    id="friendSearchResults"
+                    class="friend-list"
+                ></div>
+
+                <div
+                    id="friendSearchMessage"
+                    class="friends-message"
+                ></div>
+
+            </section>
+
+
+            <section class="friends-panel">
+
+                <h2>
+                    Friend Requests
+                </h2>
+
+                <div
+                    id="friendRequests"
+                    class="friend-list"
+                ></div>
+
+            </section>
+
+
+            <section class="friends-panel">
+
+                <h2>
+                    Your Friends
+                </h2>
+
+                <div
+                    id="friendsList"
+                    class="friend-list"
+                ></div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            NOVA
+        </div>
+
+        <p>
+            Build. Play. Create.
+        </p>
+
+    </footer>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/nova-storage.js"></script>
+<script src="js/nova-supabase.js"></script>
+<script src="js/nova-auth.js"></script>
+<script src="js/nova-friends.js"></script>
+<script src="shell.js"></script>
+
+
+<script>
+
+    renderShell();
+
+
+    const currentUser =
+        NovaAuth.getCurrentUser();
+
+
+    if (
+        !currentUser
+    ) {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+
+    function playerRow(
+        profile,
+        actionsHtml =
+            ""
+    ) {
+
+        const avatar =
+            profile?.avatar_url
+            ||
+            "assets/avatars/guest.png";
+
+
+        return `
+
+            <div class="friend-row">
+
+                <img
+                    src="${avatar}"
+                    alt="${NovaFriends.escapeHtml(profile?.username || "Nova player")}"
+                >
+
+                <div class="friend-row-copy">
+
+                    <strong>
+                        ${NovaFriends.escapeHtml(profile?.username || "Nova player")}
+                    </strong>
+
+                    <span>
+                        ${NovaFriends.escapeHtml(profile?.display_name || "")}
+                    </span>
+
+                </div>
+
+                <div class="friend-actions">
+                    ${actionsHtml}
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    async function loadFriends() {
+
+        const container =
+            document.getElementById(
+                "friendsList"
+            );
+
+
+        const result =
+            await NovaFriends.getFriends();
+
+
+        if (
+            !result.success
+        ) {
+
+            container.textContent =
+                result.message;
+
+            return;
+
+        }
+
+
+        if (
+            result.friends.length === 0
+        ) {
+
+            container.innerHTML =
+                "<div>You have no friends yet.</div>";
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            result.friends
+                .map(
+                    profile =>
+                        playerRow(
+                            profile,
+                            `
+                                <button
+                                    class="friend-action friend-secondary"
+                                    data-remove-friend="${profile.id}"
+                                    type="button"
+                                >
+                                    Remove
+                                </button>
+                            `
+                        )
+                )
+                .join(
+                    ""
+                );
+
+
+        container
+            .querySelectorAll(
+                "[data-remove-friend]"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        async () => {
+
+                            await NovaFriends.removeFriend(
+                                button.dataset.removeFriend
+                            );
+
+
+                            loadFriends();
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+
+    async function loadRequests() {
+
+        const container =
+            document.getElementById(
+                "friendRequests"
+            );
+
+
+        const result =
+            await NovaFriends.getIncomingRequests();
+
+
+        if (
+            !result.success
+        ) {
+
+            container.textContent =
+                result.message || "Could not load requests.";
+
+            return;
+
+        }
+
+
+        if (
+            result.requests.length === 0
+        ) {
+
+            container.innerHTML =
+                "<div>No pending friend requests.</div>";
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            result.requests
+                .map(
+                    request =>
+                        playerRow(
+                            request.profile,
+                            `
+                                <button
+                                    class="friend-action friend-primary"
+                                    data-accept-request="${request.id}"
+                                    type="button"
+                                >
+                                    Accept
+                                </button>
+
+                                <button
+                                    class="friend-action friend-secondary"
+                                    data-decline-request="${request.id}"
+                                    type="button"
+                                >
+                                    Decline
+                                </button>
+                            `
+                        )
+                )
+                .join(
+                    ""
+                );
+
+
+        container
+            .querySelectorAll(
+                "[data-accept-request]"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        async () => {
+
+                            await NovaFriends.acceptRequest(
+                                button.dataset.acceptRequest
+                            );
+
+
+                            loadRequests();
+                            loadFriends();
+
+                        }
+                    );
+
+                }
+            );
+
+
+        container
+            .querySelectorAll(
+                "[data-decline-request]"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        async () => {
+
+                            await NovaFriends.declineRequest(
+                                button.dataset.declineRequest
+                            );
+
+
+                            loadRequests();
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+
+    document
+        .getElementById(
+            "friendSearchForm"
+        )
+        .addEventListener(
+            "submit",
+            async event => {
+
+                event.preventDefault();
+
+
+                const input =
+                    document.getElementById(
+                        "friendSearchInput"
+                    );
+
+
+                const results =
+                    document.getElementById(
+                        "friendSearchResults"
+                    );
+
+
+                const message =
+                    document.getElementById(
+                        "friendSearchMessage"
+                    );
+
+
+                const result =
+                    await NovaFriends.searchUsers(
+                        input.value
+                    );
+
+
+                message.textContent =
+                    "";
+
+
+                if (
+                    !result.success
+                ) {
+
+                    message.textContent =
+                        result.message;
+
+                    return;
+
+                }
+
+
+                if (
+                    result.users.length === 0
+                ) {
+
+                    results.innerHTML =
+                        "<div>No players found.</div>";
+
+                    return;
+
+                }
+
+
+                results.innerHTML =
+                    result.users
+                        .map(
+                            profile =>
+                                playerRow(
+                                    profile,
+                                    `
+                                        <button
+                                            class="friend-action friend-primary"
+                                            data-add-friend="${profile.id}"
+                                            type="button"
+                                        >
+                                            Add Friend
+                                        </button>
+                                    `
+                                )
+                        )
+                        .join(
+                            ""
+                        );
+
+
+                results
+                    .querySelectorAll(
+                        "[data-add-friend]"
+                    )
+                    .forEach(
+                        button => {
+
+                            button.addEventListener(
+                                "click",
+                                async () => {
+
+                                    const sendResult =
+                                        await NovaFriends.sendRequest(
+                                            button.dataset.addFriend
+                                        );
+
+
+                                    message.textContent =
+                                        sendResult.message;
+
+
+                                    if (
+                                        sendResult.success
+                                    ) {
+
+                                        button.disabled =
+                                            true;
+
+
+                                        button.textContent =
+                                            "Sent";
+
+                                    }
+
+                                }
+                            );
+
+                        }
+                    );
+
+            }
+        );
+
+
+    loadRequests();
+    loadFriends();
+
+</script>
+
+</body>
+</html>

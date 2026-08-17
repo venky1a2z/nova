@@ -1,162 +1,831 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <title>
-        Games - Nova
-    </title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Games - Nova</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/favicon.png"
+    >
 
     <link
         rel="stylesheet"
         href="styles.css"
     >
 
+    <link
+        rel="stylesheet"
+        href="nova-main-theme.css"
+    >
 </head>
 
-<body>
+<body class="nova-games-page">
 
 <div id="site">
 
     <div id="header"></div>
 
+    <main class="nova-games-main">
 
-    <div class="page-body">
+        <section class="games-page-top">
 
-        <!-- LEFT -->
+            <div>
 
-        <aside>
-
-            <div class="left-title">
-                Games
-            </div>
-
-            <div class="left-heading">
-                Browse
-            </div>
-
-            <nav class="left-menu">
-
-                <a
-                    class="selected"
-                    href="#"
-                >
-                    Most Popular
-                </a>
-
-                <a href="#">
-                    Recently Updated
-                </a>
-
-                <a href="#">
-                    Featured Games
-                </a>
-
-            </nav>
-
-
-            <div class="left-heading">
-                Genre
-            </div>
-
-            <nav class="left-menu">
-
-                <a href="#">
-                    Building
-                </a>
-
-                <a href="#">
-                    Adventure
-                </a>
-
-                <a href="#">
-                    Action
-                </a>
-
-                <a href="#">
-                    Obby
-                </a>
-
-                <a href="#">
-                    Racing
-                </a>
-
-            </nav>
-
-        </aside>
-
-
-        <!-- CENTER -->
-
-        <main>
-
-            <div class="center-heading">
+                <div class="games-kicker">
+                    DISCOVER
+                </div>
 
                 <h1>
                     Games
                 </h1>
 
+                <p>
+                    Browse Nova experiences, pick something fun,
+                    and jump straight in.
+                </p>
+
             </div>
+
+
+            <div class="games-search-panel">
+
+                <input
+                    id="gameSearch"
+                    type="search"
+                    placeholder="Search experiences"
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- =============================================
+             FEATURED / SELECTED EXPERIENCE
+        ============================================== -->
+
+        <section
+            id="featuredExperience"
+            class="featured-experience"
+        >
+
+            <div
+                id="featuredBackdrop"
+                class="featured-experience-backdrop"
+            ></div>
+
+            <div class="featured-experience-overlay"></div>
+
+
+            <div class="featured-experience-content">
+
+                <div class="featured-experience-copy">
+
+                    <div class="featured-label">
+                        FEATURED EXPERIENCE
+                    </div>
+
+                    <h2 id="featuredName">
+                        Nova Baseplate
+                    </h2>
+
+                    <div
+                        id="featuredCreator"
+                        class="featured-creator"
+                    >
+                        By Nova
+                    </div>
+
+                    <p
+                        id="featuredDescription"
+                        class="featured-description"
+                    >
+                        Build, experiment, and test Nova features.
+                    </p>
+
+
+                    <div class="featured-actions">
+
+                        <a
+                            id="featuredQuickPlay"
+                            class="featured-play-button"
+                            href="game.html?id=1"
+                        >
+                            ▶ Quick Play
+                        </a>
+
+                        <a
+                            id="featuredDetails"
+                            class="featured-details-button"
+                            href="game.html?id=1"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="featured-stats">
+
+                    <div class="featured-stat">
+
+                        <span>
+                            Place ID
+                        </span>
+
+                        <strong id="featuredPlaceId">
+                            1
+                        </strong>
+
+                    </div>
+
+
+                    <div class="featured-stat">
+
+                        <span>
+                            Creator
+                        </span>
+
+                        <strong id="featuredCreatorStat">
+                            Nova
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =============================================
+             EXPERIENCE SCROLLER
+        ============================================== -->
+
+        <section class="experience-strip-section">
+
+            <div class="experience-strip-header">
+
+                <div>
+
+                    <div class="games-kicker">
+                        EXPERIENCES
+                    </div>
+
+                    <h2>
+                        Explore Nova
+                    </h2>
+
+                </div>
+
+
+                <div class="experience-strip-controls">
+
+                    <button
+                        id="scrollLeftButton"
+                        type="button"
+                        aria-label="Scroll left"
+                    >
+                        ‹
+                    </button>
+
+                    <button
+                        id="scrollRightButton"
+                        type="button"
+                        aria-label="Scroll right"
+                    >
+                        ›
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="experienceStrip"
+                class="experience-strip"
+                tabindex="0"
+            ></div>
+
+
+            <div class="experience-strip-note">
+                Scroll through the experiences — the large panel above follows your selection.
+            </div>
+
+        </section>
+
+
+        <!-- =============================================
+             ORIGINAL BROWSE / GENRES — KEPT
+        ============================================== -->
+
+        <section class="games-browse-section">
+
+            <div class="games-browse-heading">
+
+                <div>
+
+                    <div class="games-kicker">
+                        BROWSE
+                    </div>
+
+                    <h2>
+                        Find your kind of game
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="gameFilters"
+                class="games-filter-row"
+            >
+
+                <button
+                    class="games-filter selected"
+                    data-filter="all"
+                    type="button"
+                >
+                    All
+                </button>
+
+                <button
+                    class="games-filter"
+                    data-filter="building"
+                    type="button"
+                >
+                    Building
+                </button>
+
+                <button
+                    class="games-filter"
+                    data-filter="adventure"
+                    type="button"
+                >
+                    Adventure
+                </button>
+
+                <button
+                    class="games-filter"
+                    data-filter="action"
+                    type="button"
+                >
+                    Action
+                </button>
+
+                <button
+                    class="games-filter"
+                    data-filter="obby"
+                    type="button"
+                >
+                    Obby
+                </button>
+
+                <button
+                    class="games-filter"
+                    data-filter="racing"
+                    type="button"
+                >
+                    Racing
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =============================================
+             GAME GRID — KEPT
+        ============================================== -->
+
+        <section class="games-grid-section">
+
+            <div class="games-grid-header">
+
+                <div>
+
+                    <div class="games-kicker">
+                        MORE TO PLAY
+                    </div>
+
+                    <h2>
+                        Browse all experiences
+                    </h2>
+
+                </div>
+
+            </div>
+
 
             <div
                 id="gameGrid"
-                class="game-grid"
+                class="games-modern-grid"
             ></div>
 
-        </main>
+        </section>
 
 
-        <!-- ADS -->
+        <!-- =============================================
+             COMMUNITY / UPDATES — KEPT, SMALLER
+        ============================================== -->
 
-        <aside
-            id="ads"
-            class="ad-column"
-        ></aside>
+        <section class="games-community-section">
 
-    </div>
+            <div>
+
+                <div class="games-kicker">
+                    NOVA COMMUNITY
+                </div>
+
+                <h2>
+                    What’s happening
+                </h2>
+
+                <p>
+                    New experiences, creator updates,
+                    and things happening around Nova.
+                </p>
+
+            </div>
 
 
-    <div class="footer">
+            <a
+                class="community-link-button"
+                href="index.html"
+            >
+                Back to My NOVA
+            </a>
 
-        Nova
+        </section>
 
-    </div>
+    </main>
+
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            NOVA
+        </div>
+
+        <p>
+            Build. Play. Create.
+        </p>
+
+    </footer>
 
 </div>
 
 
 <script src="data.js"></script>
-
 <script src="shell.js"></script>
 
 <script>
 
-renderShell(
-    "games"
-);
-
-const grid =
-    document.getElementById(
-        "gameGrid"
+    renderShell(
+        "games"
     );
 
-NOVA_GAMES.forEach(
-    game => {
+
+    const experienceStrip =
+        document.getElementById(
+            "experienceStrip"
+        );
+
+
+    const gameGrid =
+        document.getElementById(
+            "gameGrid"
+        );
+
+
+    const searchInput =
+        document.getElementById(
+            "gameSearch"
+        );
+
+
+    const featuredBackdrop =
+        document.getElementById(
+            "featuredBackdrop"
+        );
+
+
+    const featuredName =
+        document.getElementById(
+            "featuredName"
+        );
+
+
+    const featuredCreator =
+        document.getElementById(
+            "featuredCreator"
+        );
+
+
+    const featuredDescription =
+        document.getElementById(
+            "featuredDescription"
+        );
+
+
+    const featuredQuickPlay =
+        document.getElementById(
+            "featuredQuickPlay"
+        );
+
+
+    const featuredDetails =
+        document.getElementById(
+            "featuredDetails"
+        );
+
+
+    const featuredPlaceId =
+        document.getElementById(
+            "featuredPlaceId"
+        );
+
+
+    const featuredCreatorStat =
+        document.getElementById(
+            "featuredCreatorStat"
+        );
+
+
+    let currentFilter =
+        "all";
+
+
+    let currentSearch =
+        "";
+
+
+    let currentFeaturedId =
+        NOVA_GAMES[0]?.id
+        ?? null;
+
+
+    function getGameCategory(
+        game
+    ) {
+
+        const searchable =
+            `${game.name || ""} ${game.description || ""}`
+                .toLowerCase();
+
+
+        if (
+            searchable.includes(
+                "obby"
+            )
+            ||
+            searchable.includes(
+                "obstacle"
+            )
+        ) {
+
+            return "obby";
+
+        }
+
+
+        if (
+            searchable.includes(
+                "race"
+            )
+            ||
+            searchable.includes(
+                "racing"
+            )
+            ||
+            searchable.includes(
+                "car"
+            )
+        ) {
+
+            return "racing";
+
+        }
+
+
+        if (
+            searchable.includes(
+                "battle"
+            )
+            ||
+            searchable.includes(
+                "combat"
+            )
+            ||
+            searchable.includes(
+                "action"
+            )
+        ) {
+
+            return "action";
+
+        }
+
+
+        if (
+            searchable.includes(
+                "build"
+            )
+            ||
+            searchable.includes(
+                "baseplate"
+            )
+        ) {
+
+            return "building";
+
+        }
+
+
+        return "adventure";
+
+    }
+
+
+    function getFilteredGames() {
+
+        return NOVA_GAMES.filter(
+            game => {
+
+                const categoryMatches =
+                    currentFilter ===
+                    "all"
+                    ||
+                    getGameCategory(
+                        game
+                    ) ===
+                    currentFilter;
+
+
+                const searchText =
+                    `${game.name || ""} ${game.description || ""} ${game.creator || ""}`
+                        .toLowerCase();
+
+
+                const searchMatches =
+                    !currentSearch
+                    ||
+                    searchText.includes(
+                        currentSearch
+                    );
+
+
+                return (
+                    categoryMatches
+                    &&
+                    searchMatches
+                );
+
+            }
+        );
+
+    }
+
+
+    function updateFeaturedExperience(
+        game,
+        shouldCenterCard = false
+    ) {
+
+        if (
+            !game
+        ) {
+
+            return;
+
+        }
+
+
+        currentFeaturedId =
+            game.id;
+
+
+        featuredBackdrop.classList.add(
+            "is-changing"
+        );
+
+
+        window.setTimeout(
+            () => {
+
+                featuredBackdrop.style.backgroundImage =
+                    `url("${game.thumbnail}")`;
+
+
+                window.requestAnimationFrame(
+                    () => {
+
+                        featuredBackdrop.classList.remove(
+                            "is-changing"
+                        );
+
+                    }
+                );
+
+            },
+            120
+        );
+
+
+        featuredName.textContent =
+            game.name;
+
+
+        featuredCreator.textContent =
+            `By ${game.creator || "Nova"}`;
+
+
+        featuredDescription.textContent =
+            game.description
+            ||
+            "Explore this Nova experience.";
+
+
+        featuredQuickPlay.href =
+            `game.html?id=${game.id}`;
+
+
+        featuredDetails.href =
+            `game.html?id=${game.id}`;
+
+
+        featuredPlaceId.textContent =
+            game.id;
+
+
+        featuredCreatorStat.textContent =
+            game.creator
+            ||
+            "Nova";
+
+
+        document
+            .querySelectorAll(
+                ".experience-tile"
+            )
+            .forEach(
+                tile => {
+
+                    tile.classList.toggle(
+                        "active",
+                        Number(
+                            tile.dataset.gameId
+                        )
+                        ===
+                        Number(
+                            game.id
+                        )
+                    );
+
+                }
+            );
+
+
+        if (
+            shouldCenterCard
+        ) {
+
+            const activeTile =
+                document.querySelector(
+                    `.experience-tile[data-game-id="${game.id}"]`
+                );
+
+
+            activeTile?.scrollIntoView(
+                {
+                    behavior:
+                        "smooth",
+
+                    block:
+                        "nearest",
+
+                    inline:
+                        "center"
+                }
+            );
+
+        }
+
+    }
+
+
+    function createExperienceTile(
+        game
+    ) {
+
+        const tile =
+            document.createElement(
+                "article"
+            );
+
+
+        tile.className =
+            "experience-tile";
+
+
+        tile.dataset.gameId =
+            game.id;
+
+
+        tile.innerHTML = `
+
+            <button
+                class="experience-tile-button"
+                type="button"
+            >
+
+                <div class="experience-tile-image-wrap">
+
+                    <img
+                        src="${game.thumbnail}"
+                        alt="${game.name}"
+                    >
+
+                    <div class="experience-tile-hover">
+                        Select
+                    </div>
+
+                </div>
+
+
+                <div class="experience-tile-text">
+
+                    <strong>
+                        ${game.name}
+                    </strong>
+
+                    <span>
+                        ${game.creator || "Nova"}
+                    </span>
+
+                </div>
+
+            </button>
+
+        `;
+
+
+        tile
+            .querySelector(
+                ".experience-tile-button"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    updateFeaturedExperience(
+                        game,
+                        true
+                    );
+
+                }
+            );
+
+
+        return tile;
+
+    }
+
+
+    function createModernGameCard(
+        game
+    ) {
 
         const card =
             document.createElement(
                 "article"
             );
 
+
         card.className =
-            "game-card";
+            "modern-game-card";
+
 
         card.innerHTML = `
 
             <a
+                class="modern-game-card-image-link"
                 href="game.html?id=${game.id}"
             >
 
@@ -167,39 +836,465 @@ NOVA_GAMES.forEach(
 
             </a>
 
-            <div class="game-name">
 
-                <a
-                    href="game.html?id=${game.id}"
-                >
-                    ${game.name}
-                </a>
+            <div class="modern-game-card-body">
 
-            </div>
+                <div>
 
-            <div class="game-description">
+                    <a
+                        class="modern-game-card-name"
+                        href="game.html?id=${game.id}"
+                    >
+                        ${game.name}
+                    </a>
 
-                ${game.description}
+                    <div class="modern-game-card-creator">
+                        By ${game.creator || "Nova"}
+                    </div>
 
-            </div>
+                </div>
 
-            <div class="creator-name">
 
-                Creator:
-                ${game.creator}
+                <p>
+                    ${game.description}
+                </p>
+
+
+                <div class="modern-game-card-actions">
+
+                    <button
+                        class="modern-select-button"
+                        type="button"
+                        data-select-game="${game.id}"
+                    >
+                        Preview
+                    </button>
+
+                    <a
+                        class="modern-play-button"
+                        href="game.html?id=${game.id}"
+                    >
+                        ▶ Play
+                    </a>
+
+                </div>
 
             </div>
 
         `;
 
-        grid.appendChild(
-            card
-        );
+
+        card
+            .querySelector(
+                "[data-select-game]"
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    updateFeaturedExperience(
+                        game,
+                        true
+                    );
+
+
+                    document
+                        .getElementById(
+                            "featuredExperience"
+                        )
+                        .scrollIntoView(
+                            {
+                                behavior:
+                                    "smooth"
+                            }
+                        );
+
+                }
+            );
+
+
+        return card;
+
     }
-);
+
+
+    function renderGames() {
+
+        const games =
+            getFilteredGames();
+
+
+        experienceStrip.innerHTML =
+            "";
+
+
+        gameGrid.innerHTML =
+            "";
+
+
+        if (
+            games.length === 0
+        ) {
+
+            experienceStrip.innerHTML = `
+
+                <div class="games-empty">
+                    No experiences found.
+                </div>
+
+            `;
+
+
+            gameGrid.innerHTML = `
+
+                <div class="games-empty">
+                    Try another search or category.
+                </div>
+
+            `;
+
+
+            return;
+
+        }
+
+
+        games.forEach(
+            game => {
+
+                experienceStrip.appendChild(
+                    createExperienceTile(
+                        game
+                    )
+                );
+
+
+                gameGrid.appendChild(
+                    createModernGameCard(
+                        game
+                    )
+                );
+
+            }
+        );
+
+
+        let featuredGame =
+            games.find(
+                game =>
+                    Number(
+                        game.id
+                    )
+                    ===
+                    Number(
+                        currentFeaturedId
+                    )
+            );
+
+
+        if (
+            !featuredGame
+        ) {
+
+            featuredGame =
+                games[0];
+
+        }
+
+
+        updateFeaturedExperience(
+            featuredGame
+        );
+
+    }
+
+
+    function selectNearestExperience() {
+
+        const tiles =
+            [
+                ...experienceStrip
+                    .querySelectorAll(
+                        ".experience-tile"
+                    )
+            ];
+
+
+        if (
+            tiles.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        const stripBox =
+            experienceStrip
+                .getBoundingClientRect();
+
+
+        const stripCenter =
+            stripBox.left
+            +
+            stripBox.width / 2;
+
+
+        let closestTile =
+            tiles[0];
+
+
+        let closestDistance =
+            Infinity;
+
+
+        tiles.forEach(
+            tile => {
+
+                const tileBox =
+                    tile
+                        .getBoundingClientRect();
+
+
+                const tileCenter =
+                    tileBox.left
+                    +
+                    tileBox.width / 2;
+
+
+                const distance =
+                    Math.abs(
+                        tileCenter
+                        -
+                        stripCenter
+                    );
+
+
+                if (
+                    distance <
+                    closestDistance
+                ) {
+
+                    closestDistance =
+                        distance;
+
+
+                    closestTile =
+                        tile;
+
+                }
+
+            }
+        );
+
+
+        const game =
+            NOVA_GAMES.find(
+                item =>
+                    Number(
+                        item.id
+                    )
+                    ===
+                    Number(
+                        closestTile
+                            .dataset
+                            .gameId
+                    )
+            );
+
+
+        if (
+            game
+            &&
+            Number(
+                game.id
+            )
+            !==
+            Number(
+                currentFeaturedId
+            )
+        ) {
+
+            updateFeaturedExperience(
+                game
+            );
+
+        }
+
+    }
+
+
+    let scrollTimeout =
+        null;
+
+
+    experienceStrip.addEventListener(
+        "scroll",
+        () => {
+
+            clearTimeout(
+                scrollTimeout
+            );
+
+
+            scrollTimeout =
+                setTimeout(
+                    selectNearestExperience,
+                    80
+                );
+
+        },
+        {
+            passive:
+                true
+        }
+    );
+
+
+    experienceStrip.addEventListener(
+        "wheel",
+        event => {
+
+            if (
+                Math.abs(
+                    event.deltaY
+                )
+                >
+                Math.abs(
+                    event.deltaX
+                )
+            ) {
+
+                event.preventDefault();
+
+
+                experienceStrip.scrollLeft +=
+                    event.deltaY;
+
+            }
+
+        },
+        {
+            passive:
+                false
+        }
+    );
+
+
+    document
+        .getElementById(
+            "scrollLeftButton"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                experienceStrip.scrollBy(
+                    {
+                        left:
+                            -340,
+
+                        behavior:
+                            "smooth"
+                    }
+                );
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "scrollRightButton"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                experienceStrip.scrollBy(
+                    {
+                        left:
+                            340,
+
+                        behavior:
+                            "smooth"
+                    }
+                );
+
+            }
+        );
+
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            currentSearch =
+                searchInput
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            renderGames();
+
+        }
+    );
+
+
+    document
+        .querySelectorAll(
+            ".games-filter"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        document
+                            .querySelectorAll(
+                                ".games-filter"
+                            )
+                            .forEach(
+                                otherButton => {
+
+                                    otherButton
+                                        .classList
+                                        .remove(
+                                            "selected"
+                                        );
+
+                                }
+                            );
+
+
+                        button
+                            .classList
+                            .add(
+                                "selected"
+                            );
+
+
+                        currentFilter =
+                            button
+                                .dataset
+                                .filter;
+
+
+                        renderGames();
+
+                    }
+                );
+
+            }
+        );
+
+
+    renderGames();
 
 </script>
 
 </body>
-
 </html>

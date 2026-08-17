@@ -259,6 +259,12 @@ export default defineConfig({
                         __dirname,
                         "signup.html"
                     ),
+                    
+                friends:
+                    resolve(
+                        __dirname,
+                        "friends.html"
+                    ),
 
                 studio:
                     resolve(

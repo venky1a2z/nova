@@ -1091,3 +1091,2451 @@ body {
     }
 
 }
+
+/* =========================================================
+   CELESTIAL NOVA THEME OVERRIDES
+   Warm cream content + midnight / violet shell
+========================================================= */
+
+:root {
+    --nova-midnight: #171827;
+    --nova-midnight-2: #202238;
+    --nova-violet: #6f63b7;
+    --nova-violet-soft: #9488d7;
+    --nova-gold: #e8c27a;
+    --nova-cream: #fff7e8;
+    --nova-cream-2: #f4ead7;
+    --nova-ink: #352b3f;
+    --nova-green: #66864d;
+}
+
+/* Main page atmosphere */
+
+html {
+    background: var(--nova-midnight);
+}
+
+body {
+    color: #3e3447;
+    background:
+        radial-gradient(
+            circle at 18% 8%,
+            rgba(124, 105, 196, 0.22),
+            transparent 29%
+        ),
+        radial-gradient(
+            circle at 86% 16%,
+            rgba(93, 113, 180, 0.18),
+            transparent 27%
+        ),
+        linear-gradient(
+            180deg,
+            #191a2b 0%,
+            #25243b 35%,
+            #e8decf 74%,
+            #efe6d8 100%
+        );
+}
+
+/* subtle starfield without needing extra assets */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.42;
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,0.90) 0 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(220,211,255,0.70) 0 1px, transparent 1.5px);
+    background-size:
+        85px 85px,
+        137px 137px;
+    background-position:
+        17px 24px,
+        58px 31px;
+}
+
+/* Keep content warm instead of making everything dark */
+
+#site {
+    background: rgba(255, 249, 239, 0.97);
+    border-color: rgba(115, 98, 146, 0.58);
+    box-shadow:
+        0 18px 46px rgba(12, 11, 25, 0.30),
+        0 0 0 1px rgba(255,255,255,0.10);
+}
+
+/* Header now feels like the login/signup identity, but celestial */
+
+.top-banner {
+    background:
+        radial-gradient(
+            circle at 50% 140%,
+            rgba(128, 104, 199, 0.40),
+            transparent 50%
+        ),
+        linear-gradient(
+            90deg,
+            #151626,
+            #24243c 44%,
+            #30294b 70%,
+            #171827
+        );
+    border-bottom-color: #49405f;
+}
+
+.banner-scene {
+    opacity: 0.10;
+    filter: saturate(0.75) hue-rotate(24deg);
+}
+
+.banner-overlay {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(10, 11, 22, 0.60),
+            transparent 35%,
+            transparent 65%,
+            rgba(10, 11, 22, 0.62)
+        );
+}
+
+.top-banner-logo {
+    filter:
+        drop-shadow(0 4px 7px rgba(0,0,0,0.45))
+        drop-shadow(0 0 10px rgba(159, 139, 224, 0.16));
+}
+
+/* Header account controls */
+
+.login-link {
+    color: #fff6e4;
+    background: rgba(21, 19, 37, 0.86);
+    border-color: rgba(174, 157, 225, 0.42);
+}
+
+.login-link:hover {
+    background: rgba(44, 39, 73, 0.96);
+}
+
+.signup-button {
+    color: #2d2638;
+    background:
+        linear-gradient(
+            #f2d995,
+            #d9b667
+        );
+    border-color: #876f49;
+}
+
+.signup-button:hover {
+    background: #f4dda1;
+}
+
+/* Navigation */
+
+.top-nav {
+    background:
+        linear-gradient(
+            #302e4d,
+            #25253f
+        );
+    border-bottom-color: #494565;
+}
+
+.top-nav a {
+    color: #f8ecdb;
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(197, 181, 234, 0.24);
+    box-shadow: none;
+}
+
+.top-nav a:hover {
+    color: white;
+    background: rgba(143, 125, 205, 0.22);
+    border-color: rgba(199, 182, 239, 0.45);
+}
+
+/* Sidebar */
+
+.page-title,
+.left-heading {
+    color: #43374f;
+}
+
+.left-heading {
+    border-bottom-color: #c9b9d4;
+}
+
+.left-menu a {
+    color: #51435e;
+    background: #fff9ef;
+    border-color: #d6c7d8;
+}
+
+.left-menu a:hover {
+    color: #362b43;
+    background: #f1e9f7;
+    border-color: #ab98c7;
+}
+
+/* Hero */
+
+.cafe-hero {
+    background:
+        radial-gradient(
+            circle at 82% 22%,
+            rgba(148, 129, 211, 0.20),
+            transparent 34%
+        ),
+        linear-gradient(
+            120deg,
+            #fffaf0,
+            #efe7f4
+        );
+    border-color: #a68db5;
+    box-shadow:
+        0 5px 16px rgba(55, 43, 75, 0.14);
+}
+
+.hero-avatar {
+    border-color: #625370;
+    background: #f5ecf6;
+}
+
+.hero-small-text {
+    color: #7f6d97;
+}
+
+.cafe-hero h1 {
+    color: #3a3045;
+}
+
+.cafe-hero p {
+    color: #62556e;
+}
+
+/* Card language */
+
+.retro-box {
+    background: #fffaf1;
+    border-color: #bea9c7;
+}
+
+.retro-box-title {
+    color: #41364b;
+    background:
+        linear-gradient(
+            #ebe2f0,
+            #d8cbe2
+        );
+    border-bottom-color: #b8a2c4;
+}
+
+.image-feature-card,
+.game-card,
+.feature-card {
+    background: #fffaf0;
+    border-color: #c7b4ca;
+}
+
+.image-feature-card:hover,
+.game-card:hover,
+.feature-card:hover {
+    background: #fffdf8;
+}
+
+.image-feature-card h3,
+.feature-card h3,
+.game-name {
+    color: #463650;
+}
+
+.game-description,
+.feature-card p,
+.image-feature-card p {
+    color: #6d6074;
+}
+
+/* Buttons */
+
+.retro-button {
+    color: #403448;
+    background:
+        linear-gradient(
+            #fff8e9,
+            #e9d9ec
+        );
+    border-color: #9f89ae;
+}
+
+.retro-button:hover {
+    color: #31273a;
+    background: #f4eaf6;
+}
+
+.play-button,
+.tiny-play {
+    color: white;
+    background:
+        linear-gradient(
+            #78995d,
+            #587443
+        );
+    border-color: #405d33;
+}
+
+/* Tip / quote */
+
+.sticky-note,
+.coffee-quote {
+    color: #4f4155;
+    background: #fff4c9;
+    border-color: #d8be7a;
+}
+
+/* Community panel */
+
+.ad-column {
+    background:
+        linear-gradient(
+            #ddd0e4,
+            #c9b6d3
+        );
+    border-color: #725f7d;
+}
+
+.ad-column::before {
+    content: "✦ NOVA COMMUNITY";
+    color: #41364b;
+}
+
+/* Footer */
+
+.footer {
+    color: #cfc7df;
+    background:
+        linear-gradient(
+            90deg,
+            #171827,
+            #24243c,
+            #171827
+        );
+    border-top-color: #4d4668;
+}
+
+.footer-logo {
+    color: #fff4df;
+}
+
+.footer a {
+    color: #d9c5f0;
+}
+
+
+/* =========================================================
+   CELESTIAL GAMES PAGE
+========================================================= */
+
+.nova-games-page {
+    background: #12131f;
+}
+
+.nova-games-page #site {
+    background: #171827;
+    border-color: #4b4568;
+}
+
+.nova-games-main {
+    background:
+        radial-gradient(
+            circle at 75% 0%,
+            rgba(112, 91, 181, 0.18),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            #1b1c2e,
+            #151622
+        );
+}
+
+.games-kicker {
+    color: #d5b8ff;
+}
+
+.games-page-top h1,
+.experience-strip-header h2,
+.games-browse-heading h2,
+.games-grid-header h2,
+.games-community-section h2 {
+    color: #fff8ea;
+}
+
+.games-page-top p,
+.experience-strip-note,
+.games-community-section p {
+    color: #bdb2cc;
+}
+
+.games-search-panel input {
+    color: #fffaf2;
+    background: rgba(10, 11, 21, 0.78);
+    border-color: #5d567b;
+}
+
+.games-search-panel input:focus {
+    border-color: #9687d4;
+    box-shadow: 0 0 0 3px rgba(150, 135, 212, 0.12);
+}
+
+/* Featured game: softer, less abrupt and more integrated */
+
+.featured-experience {
+    border-color: #514a73;
+    background: #11121d;
+    box-shadow:
+        0 18px 42px rgba(0,0,0,0.32),
+        0 0 28px rgba(111, 99, 183, 0.08);
+}
+
+.featured-experience-backdrop {
+    opacity: 1;
+    transition:
+        opacity 180ms ease,
+        transform 380ms ease,
+        filter 220ms ease;
+    will-change: opacity, transform;
+}
+
+.featured-experience-backdrop.is-changing {
+    opacity: 0.18;
+    transform: scale(1.085);
+    filter: blur(2px) saturate(0.65);
+}
+
+.featured-experience-overlay {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(16, 16, 30, 0.97) 0%,
+            rgba(18, 18, 34, 0.86) 34%,
+            rgba(22, 21, 39, 0.35) 68%,
+            rgba(16, 16, 30, 0.55) 100%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(14, 14, 26, 0.84),
+            transparent 58%
+        );
+}
+
+.featured-label {
+    color: #d9bdff;
+}
+
+.featured-creator {
+    color: #d2c5dc;
+}
+
+.featured-description {
+    color: #f2eaf5;
+}
+
+.featured-details-button {
+    background: rgba(37, 35, 58, 0.82);
+    border-color: rgba(186, 169, 233, 0.36);
+}
+
+.featured-details-button:hover {
+    background: rgba(65, 59, 96, 0.92);
+}
+
+.featured-stats {
+    background: rgba(20, 19, 35, 0.72);
+    border-color: rgba(179, 162, 224, 0.28);
+}
+
+.featured-stat {
+    background: rgba(255,255,255,0.05);
+}
+
+.featured-stat span {
+    color: #b7aac7;
+}
+
+.experience-strip-controls button {
+    background: #2c2c46;
+    border-color: #57516f;
+}
+
+.experience-strip-controls button:hover {
+    background: #403b61;
+}
+
+.experience-strip {
+    scrollbar-color: #665e90 #181923;
+}
+
+.experience-tile-button,
+.modern-game-card {
+    background: #232438;
+}
+
+.experience-tile.active {
+    border-color: #9f8fe0;
+    box-shadow:
+        0 0 0 2px rgba(159, 143, 224, 0.12),
+        0 12px 25px rgba(0,0,0,0.24);
+}
+
+.experience-tile-text strong,
+.modern-game-card-name {
+    color: #fff6e8;
+}
+
+.experience-tile-text span,
+.modern-game-card-creator,
+.modern-game-card-body p {
+    color: #b9adc4;
+}
+
+.games-browse-section,
+.games-community-section {
+    background:
+        linear-gradient(
+            120deg,
+            #26263d,
+            #1f2033
+        );
+    border-color: #4d4868;
+}
+
+.games-filter {
+    color: #cdc1d7;
+    background: #191a28;
+    border-color: #514b68;
+}
+
+.games-filter:hover,
+.games-filter.selected {
+    color: #241f2c;
+    background: #c6b0e8;
+    border-color: #c6b0e8;
+}
+
+.modern-game-card {
+    border-color: #4d4866;
+}
+
+.modern-game-card:hover {
+    border-color: #8475ae;
+}
+
+.modern-select-button {
+    color: #ded4e5;
+    background: #333248;
+    border-color: #5d5774;
+}
+
+.modern-select-button:hover {
+    background: #46415e;
+}
+
+.community-link-button {
+    color: #2d2637;
+    background: #e4c57e;
+    border-color: #9e814b;
+}
+
+/* =========================================================
+   CELESTIAL HOME — FRIENDS + RECENT EXPERIENCES
+========================================================= */
+
+.home-social-strip,
+.home-experience-section {
+    margin-bottom: 18px;
+    padding: 18px;
+    background:
+        linear-gradient(
+            120deg,
+            rgba(255, 250, 240, 0.97),
+            rgba(239, 232, 247, 0.97)
+        );
+    border: 1px solid #b9a6c4;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(55, 43, 75, 0.10);
+}
+
+.home-section-heading-row {
+    margin-bottom: 13px;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.home-section-heading-row h2 {
+    margin: 3px 0 0;
+    color: #3e3349;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.home-section-link {
+    color: #665686;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.home-section-link:hover {
+    color: #4e3f70;
+    text-decoration: none;
+}
+
+
+/* FRIENDS */
+
+.home-friends-row {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 3px 2px 7px;
+    scrollbar-width: thin;
+    scrollbar-color: #a797bd transparent;
+}
+
+.home-friend-card {
+    flex: 0 0 94px;
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #44374d;
+    text-align: center;
+    border-radius: 8px;
+    transition:
+        transform 0.12s ease,
+        background 0.12s ease;
+}
+
+.home-friend-card:hover {
+    color: #32293b;
+    text-decoration: none;
+    background: rgba(134, 114, 174, 0.09);
+    transform: translateY(-2px);
+}
+
+.home-friend-avatar-wrap {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.home-friend-avatar-wrap img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    background: #f5edf8;
+    border: 2px solid #8d79a2;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(47, 36, 59, 0.14);
+}
+
+.home-friend-status-dot {
+    position: absolute;
+    right: 2px;
+    bottom: 3px;
+    width: 13px;
+    height: 13px;
+    background: #66864d;
+    border: 2px solid #fffaf0;
+    border-radius: 50%;
+}
+
+.home-friend-card strong {
+    max-width: 90px;
+    overflow: hidden;
+    color: #45384f;
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.home-friend-card > span:last-child {
+    color: #8b7b93;
+    font-size: 8px;
+}
+
+
+/* RECENT EXPERIENCES */
+
+.home-experience-row {
+    display: flex;
+    gap: 13px;
+    overflow-x: auto;
+    padding: 3px 2px 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #a797bd transparent;
+}
+
+.home-experience-card {
+    flex: 0 0 220px;
+    overflow: hidden;
+    color: #45384f;
+    background: #fffaf0;
+    border: 1px solid #b8a7c3;
+    border-radius: 8px;
+    box-shadow: 0 3px 9px rgba(51, 39, 66, 0.08);
+    transition:
+        transform 0.13s ease,
+        box-shadow 0.13s ease,
+        border-color 0.13s ease;
+}
+
+.home-experience-card:hover {
+    color: #352b40;
+    text-decoration: none;
+    border-color: #8f79aa;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(48, 37, 61, 0.14);
+}
+
+.home-experience-image-wrap {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #282338;
+}
+
+.home-experience-image-wrap img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.18s ease;
+}
+
+.home-experience-card:hover img {
+    transform: scale(1.04);
+}
+
+.home-experience-play {
+    position: absolute;
+    left: 9px;
+    bottom: 9px;
+    padding: 5px 8px;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    background: rgba(71, 95, 54, 0.92);
+    border: 1px solid rgba(52, 78, 38, 0.95);
+    border-radius: 4px;
+    opacity: 0;
+    transform: translateY(3px);
+    transition:
+        opacity 0.13s ease,
+        transform 0.13s ease;
+}
+
+.home-experience-card:hover .home-experience-play {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-experience-copy {
+    padding: 10px 11px 11px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.home-experience-copy strong {
+    color: #41344b;
+    font-size: 12px;
+}
+
+.home-experience-copy span {
+    color: #887991;
+    font-size: 9px;
+}
+
+
+@media (max-width: 760px) {
+
+    .home-section-heading-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .home-experience-card {
+        flex-basis: 190px;
+    }
+
+}
+
+/* =========================================================
+   HOME V2 — REAL FRIENDS / CINEMATIC RECENTS / NEWS
+========================================================= */
+
+/* Make room for the larger editorial news column */
+.page-body {
+    grid-template-columns:
+        190px
+        minmax(0, 1fr)
+        315px;
+    gap: 20px;
+}
+
+/* Real friends */
+.home-real-friends {
+    background:
+        linear-gradient(
+            120deg,
+            #fffaf0,
+            #f0e9f6
+        );
+}
+
+.home-friends-empty {
+    padding: 22px;
+    color: #655770;
+    text-align: center;
+    background: rgba(255,255,255,0.50);
+    border: 1px dashed #baa7c7;
+    border-radius: 7px;
+}
+
+.home-friends-empty strong,
+.home-friends-empty span {
+    display: block;
+}
+
+.home-friends-empty strong {
+    margin-bottom: 5px;
+    color: #40334a;
+}
+
+.home-friends-find {
+    margin-top: 12px;
+    padding: 7px 11px;
+    display: inline-block;
+    color: #fff;
+    font-weight: 700;
+    background: #6f63a8;
+    border: 1px solid #51477f;
+    border-radius: 5px;
+}
+
+.home-friends-find:hover {
+    color: white;
+    text-decoration: none;
+    background: #8174ba;
+}
+
+/* News editorial column */
+.nova-news-column {
+    min-width: 0;
+}
+
+.nova-news-article {
+    overflow: hidden;
+    position: sticky;
+    top: 18px;
+    color: #3e3348;
+    background: #fff9ee;
+    border: 1px solid #9d88ad;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(42, 33, 55, 0.14);
+}
+
+.nova-news-label {
+    padding: 10px 13px;
+    color: #e7dcf2;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    background:
+        linear-gradient(
+            90deg,
+            #24243c,
+            #393354
+        );
+}
+
+.nova-news-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    display: block;
+    object-fit: cover;
+    background: #25243c;
+}
+
+.nova-news-body {
+    padding: 16px;
+}
+
+.nova-news-date {
+    margin-bottom: 7px;
+    color: #89759b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.nova-news-body h2 {
+    margin: 0 0 10px;
+    color: #3c3047;
+    font-size: 20px;
+    line-height: 1.18;
+}
+
+.nova-news-body p {
+    margin: 0;
+    color: #66586f;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.nova-news-read {
+    margin-top: 15px;
+    display: inline-block;
+    color: #665184;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.nova-news-read:hover {
+    color: #4b3a68;
+    text-decoration: none;
+}
+
+/* Recently played — cinematic, screenshot-inspired */
+.home-recent-cinematic {
+    position: relative;
+    min-height: 300px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    color: white;
+    background: #131421;
+    border: 1px solid #51496d;
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(20, 17, 31, 0.24);
+}
+
+.home-recent-backdrop {
+    position: absolute;
+    inset: -12px;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(0.88);
+    transform: scale(1.04);
+    transition:
+        background-image 180ms ease,
+        transform 300ms ease;
+}
+
+.home-recent-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(15, 15, 28, 0.92),
+            rgba(17, 17, 31, 0.48) 50%,
+            rgba(13, 14, 25, 0.60)
+        ),
+        linear-gradient(
+            0deg,
+            rgba(12, 13, 24, 0.94),
+            transparent 70%
+        );
+}
+
+.home-recent-content {
+    position: relative;
+    z-index: 2;
+    min-height: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-recent-heading {
+    margin-bottom: 12px;
+    color: #cdb9ec;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.home-recent-layout {
+    display: grid;
+    grid-template-columns: 235px 1fr;
+    gap: 14px;
+    align-items: end;
+}
+
+.home-recent-feature {
+    padding: 12px;
+    align-self: stretch;
+    background: rgba(15, 15, 27, 0.58);
+    border: 1px solid rgba(205, 185, 236, 0.22);
+    border-radius: 7px;
+    backdrop-filter: blur(5px);
+}
+
+.home-recent-name {
+    color: white;
+    font-size: 19px;
+    font-weight: 750;
+}
+
+.home-recent-creator {
+    margin-top: 3px;
+    color: #c9bbd5;
+    font-size: 9px;
+}
+
+.home-recent-description {
+    margin: 10px 0 13px;
+    color: #efe7f4;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.home-recent-quick-play {
+    padding: 7px 10px;
+    display: inline-block;
+    color: white;
+    font-size: 9px;
+    font-weight: 800;
+    background: #66864d;
+    border: 1px solid #405d33;
+    border-radius: 4px;
+}
+
+.home-recent-quick-play:hover {
+    color: white;
+    text-decoration: none;
+    background: #76975b;
+}
+
+.home-recent-row {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #76669d transparent;
+}
+
+.home-recent-game {
+    flex: 0 0 185px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    color: white;
+    text-align: left;
+    background: #202135;
+    border: 2px solid transparent;
+    border-radius: 7px;
+    cursor: pointer;
+    transition:
+        transform 120ms ease,
+        border-color 120ms ease;
+}
+
+.home-recent-game:hover {
+    transform: translateY(-2px);
+}
+
+.home-recent-game.selected {
+    border-color: #b6a0e3;
+}
+
+.home-recent-game img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: block;
+    object-fit: cover;
+}
+
+.home-recent-game span {
+    padding: 7px 8px;
+    display: block;
+    overflow: hidden;
+    font-size: 9px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.home-discover-more {
+    margin-top: auto;
+    padding-top: 15px;
+    align-self: center;
+    color: #f4edf8;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.9px;
+    text-align: center;
+}
+
+.home-discover-more span {
+    display: block;
+    margin-top: 3px;
+    font-size: 17px;
+}
+
+.home-discover-more:hover {
+    color: white;
+    text-decoration: none;
+}
+
+@media (max-width: 1180px) {
+    .page-body {
+        grid-template-columns:
+            175px
+            minmax(0, 1fr)
+            250px;
+    }
+
+    .home-recent-layout {
+        grid-template-columns: 1fr;
+    }
+}
+/* =========================================================
+   NOVA GAMES PAGE
+========================================================= */
+
+.nova-games-page {
+    background: #12131f;
+}
+
+.nova-games-page #site {
+    width: min(1560px, 96vw);
+    margin-top: 14px;
+    background: #171827;
+    border-color: #4b4568;
+}
+
+.nova-games-main {
+    padding: 26px 30px 36px;
+
+    color: #fff8eb;
+
+    background:
+        radial-gradient(
+            circle at 75% 0%,
+            rgba(112, 91, 181, 0.18),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            #1b1c2e,
+            #151622
+        );
+}
+
+
+/* TOP */
+
+.games-page-top {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 22px;
+}
+
+.games-page-top h1 {
+    margin: 3px 0 5px;
+
+    color: white;
+
+    font-size: 31px;
+}
+
+.games-page-top p {
+    margin: 0;
+
+    color: #bdb2cc;
+}
+
+.games-kicker {
+    color: #d5b8ff;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.4px;
+}
+
+
+/* SEARCH */
+
+.games-search-panel {
+    width: min(390px, 38vw);
+}
+
+.games-search-panel input {
+    width: 100%;
+    height: 43px;
+
+    padding: 0 15px;
+
+    color: #fffaf2;
+
+    background:
+        rgba(
+            10,
+            11,
+            21,
+            0.78
+        );
+
+    border:
+        1px solid
+        #5d567b;
+
+    border-radius: 7px;
+
+    outline: none;
+}
+
+.games-search-panel input:focus {
+    border-color: #9687d4;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            150,
+            135,
+            212,
+            0.12
+        );
+}
+
+
+/* =========================================================
+   FEATURED EXPERIENCE
+========================================================= */
+
+.featured-experience {
+    position: relative;
+
+    min-height: 430px;
+
+    overflow: hidden;
+
+    background: #11121d;
+
+    border:
+        1px solid
+        #514a73;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 18px 42px
+        rgba(
+            0,
+            0,
+            0,
+            0.32
+        );
+}
+
+.featured-experience-backdrop {
+    position: absolute;
+
+    inset: -18px;
+
+    background-position: center;
+    background-size: cover;
+
+    transform: scale(1.04);
+
+    filter:
+        saturate(0.88);
+
+    transition:
+        opacity 180ms ease,
+        transform 380ms ease,
+        filter 220ms ease;
+}
+
+.featured-experience-backdrop.is-changing {
+    opacity: 0.18;
+
+    transform:
+        scale(1.085);
+
+    filter:
+        blur(2px)
+        saturate(0.65);
+}
+
+.featured-experience-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(16, 16, 30, 0.97) 0%,
+            rgba(18, 18, 34, 0.86) 34%,
+            rgba(22, 21, 39, 0.35) 68%,
+            rgba(16, 16, 30, 0.55) 100%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(14, 14, 26, 0.84),
+            transparent 58%
+        );
+}
+
+.featured-experience-content {
+    position: relative;
+
+    z-index: 2;
+
+    min-height: 430px;
+
+    padding: 48px;
+
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    gap: 36px;
+}
+
+.featured-experience-copy {
+    width: min(610px, 70%);
+}
+
+.featured-label {
+    margin-bottom: 9px;
+
+    color: #d9bdff;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.6px;
+}
+
+.featured-experience-copy h2 {
+    margin: 0 0 6px;
+
+    color: white;
+
+    font-size: 39px;
+}
+
+.featured-creator {
+    margin-bottom: 16px;
+
+    color: #d2c5dc;
+}
+
+.featured-description {
+    max-width: 560px;
+
+    margin: 0 0 23px;
+
+    color: #f2eaf5;
+
+    font-size: 15px;
+
+    line-height: 1.58;
+}
+
+.featured-actions {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.featured-play-button,
+.featured-details-button {
+    min-height: 42px;
+
+    padding: 0 18px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 6px;
+
+    font-weight: 700;
+}
+
+.featured-play-button {
+    color: white;
+
+    background: #66864d;
+
+    border:
+        1px solid
+        #405d33;
+}
+
+.featured-details-button {
+    color: #fff3df;
+
+    background:
+        rgba(
+            37,
+            35,
+            58,
+            0.82
+        );
+
+    border:
+        1px solid
+        rgba(
+            186,
+            169,
+            233,
+            0.36
+        );
+}
+
+
+/* =========================================================
+   HORIZONTAL EXPERIENCE STRIP
+========================================================= */
+
+.experience-strip-section {
+    margin-top: 27px;
+}
+
+.experience-strip-header {
+    margin-bottom: 12px;
+
+    display: flex;
+
+    align-items: end;
+    justify-content: space-between;
+}
+
+.experience-strip-header h2 {
+    margin: 3px 0 0;
+
+    color: #fff7e8;
+}
+
+.experience-strip-controls {
+    display: flex;
+
+    gap: 7px;
+}
+
+.experience-strip-controls button {
+    width: 36px;
+    height: 36px;
+
+    color: white;
+
+    font-size: 24px;
+
+    background: #2c2c46;
+
+    border:
+        1px solid
+        #57516f;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.experience-strip {
+    display: flex;
+
+    gap: 14px;
+
+    padding: 4px 2px 14px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+}
+
+.experience-tile {
+    flex:
+        0 0 285px;
+
+    overflow: hidden;
+
+    border:
+        2px solid
+        transparent;
+
+    border-radius: 10px;
+
+    scroll-snap-align: center;
+}
+
+.experience-tile.active {
+    border-color: #9f8fe0;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(
+            159,
+            143,
+            224,
+            0.12
+        );
+}
+
+.experience-tile-button {
+    width: 100%;
+
+    padding: 0;
+
+    color: inherit;
+
+    text-align: left;
+
+    background: #232438;
+
+    border: 0;
+
+    cursor: pointer;
+}
+
+.experience-tile-image-wrap {
+    position: relative;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+}
+
+.experience-tile-image-wrap img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.experience-tile-text {
+    padding: 11px 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.experience-tile-text strong {
+    color: #fff6e8;
+}
+
+.experience-tile-text span {
+    color: #b9adc4;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   BROWSE FILTERS
+========================================================= */
+
+.games-browse-section {
+    margin-top: 24px;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #26263d,
+            #1f2033
+        );
+
+    border:
+        1px solid
+        #4d4868;
+
+    border-radius: 9px;
+}
+
+.games-filter-row {
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+.games-filter {
+    padding: 8px 13px;
+
+    color: #cdc1d7;
+
+    background: #191a28;
+
+    border:
+        1px solid
+        #514b68;
+
+    border-radius: 999px;
+
+    cursor: pointer;
+}
+
+.games-filter:hover,
+.games-filter.selected {
+    color: #241f2c;
+
+    background: #c6b0e8;
+
+    border-color: #c6b0e8;
+}
+
+
+/* =========================================================
+   FULL GAME GRID
+========================================================= */
+
+.games-grid-section {
+    margin-top: 26px;
+}
+
+.games-modern-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 15px;
+}
+
+.modern-game-card {
+    overflow: hidden;
+
+    background: #232438;
+
+    border:
+        1px solid
+        #4d4866;
+
+    border-radius: 9px;
+}
+
+.modern-game-card-image-link {
+    display: block;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+}
+
+.modern-game-card-image-link img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.modern-game-card-body {
+    padding: 13px;
+}
+
+.modern-game-card-name {
+    color: #fff6e8;
+
+    font-weight: 700;
+}
+
+.modern-game-card-creator {
+    margin-top: 3px;
+
+    color: #b9adc4;
+
+    font-size: 9px;
+}
+
+.modern-game-card-body p {
+    min-height: 36px;
+
+    margin: 10px 0 12px;
+
+    color: #b9adc4;
+
+    line-height: 1.45;
+}
+
+.modern-game-card-actions {
+    display: flex;
+
+    gap: 7px;
+}
+
+.modern-select-button {
+    padding: 7px 11px;
+
+    color: #ded4e5;
+
+    background: #333248;
+
+    border:
+        1px solid
+        #5d5774;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.modern-play-button {
+    padding: 7px 11px;
+
+    color: white;
+
+    background: #66864d;
+
+    border:
+        1px solid
+        #405d33;
+
+    border-radius: 5px;
+}
+
+
+/* =========================================================
+   COMMUNITY
+========================================================= */
+
+.games-community-section {
+    margin-top: 26px;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #26263d,
+            #1f2033
+        );
+
+    border:
+        1px solid
+        #4d4868;
+
+    border-radius: 9px;
+}
+
+.games-community-section h2 {
+    color: #fff7e8;
+}
+
+.games-community-section p {
+    color: #bdb2cc;
+}
+/* =========================================================
+   NOVA FAKE ADS
+========================================================= */
+
+.nova-ad-section {
+
+    margin-top:
+        20px;
+
+    padding-top:
+        15px;
+
+    border-top:
+        1px dashed
+        #b9a7c4;
+
+}
+
+
+.nova-ad-header {
+
+    margin-bottom:
+        8px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        8px;
+
+}
+
+
+.nova-ad-header span {
+
+    color:
+        #66527d;
+
+    font-size:
+        9px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1.2px;
+
+}
+
+
+.nova-ad-header small {
+
+    color:
+        #9a8aa0;
+
+    font-size:
+        7px;
+
+    text-align:
+        right;
+
+}
+
+
+/* =========================================================
+   SHELL
+========================================================= */
+
+.nova-ad-shell {
+
+    position:
+        relative;
+
+}
+
+
+.nova-ad-track {
+
+    display:
+        flex;
+
+    overflow-x:
+        auto;
+
+    overflow-y:
+        hidden;
+
+    scroll-behavior:
+        smooth;
+
+    scroll-snap-type:
+        x mandatory;
+
+    scrollbar-width:
+        none;
+
+    border:
+        1px solid
+        #9b88ab;
+
+    border-radius:
+        8px;
+
+    background:
+        #f5edf8;
+
+}
+
+
+.nova-ad-track::-webkit-scrollbar {
+
+    display:
+        none;
+
+}
+
+
+/* =========================================================
+   INDIVIDUAL AD
+========================================================= */
+
+.nova-fake-ad {
+
+    min-width:
+        100%;
+
+    min-height:
+        185px;
+
+    padding:
+        18px;
+
+    box-sizing:
+        border-box;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        16px;
+
+    scroll-snap-align:
+        start;
+
+}
+
+
+.nova-ad-icon {
+
+    width:
+        70px;
+
+    height:
+        70px;
+
+    flex:
+        0 0 70px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        37px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.65
+        );
+
+    border:
+        1px solid
+        rgba(
+            69,
+            54,
+            78,
+            0.28
+        );
+
+    border-radius:
+        15px;
+
+}
+
+
+.nova-ad-copy {
+
+    min-width:
+        0;
+
+}
+
+
+.nova-ad-company {
+
+    margin-bottom:
+        4px;
+
+    font-size:
+        8px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1.1px;
+
+    opacity:
+        0.72;
+
+}
+
+
+.nova-ad-copy h3 {
+
+    margin:
+        0
+        0
+        7px;
+
+    font-size:
+        16px;
+
+    line-height:
+        1.2;
+
+}
+
+
+.nova-ad-copy p {
+
+    margin:
+        0
+        0
+        8px;
+
+    font-size:
+        9px;
+
+    line-height:
+        1.5;
+
+}
+
+
+.nova-ad-copy strong {
+
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    font-size:
+        9px;
+
+}
+
+
+.nova-ad-copy small {
+
+    display:
+        block;
+
+    font-size:
+        7px;
+
+    opacity:
+        0.65;
+
+}
+
+
+/* =========================================================
+   DIFFERENT FAKE COMPANY LOOKS
+========================================================= */
+
+.nova-ac-ad {
+
+    color:
+        #23485f;
+
+    background:
+        linear-gradient(
+            120deg,
+            #dff7ff,
+            #ecfaff
+        );
+
+}
+
+
+.nova-insurance-ad {
+
+    color:
+        #5c3d26;
+
+    background:
+        linear-gradient(
+            120deg,
+            #fff0c9,
+            #ffe4a5
+        );
+
+}
+
+
+.nova-pizza-ad {
+
+    color:
+        #642e24;
+
+    background:
+        linear-gradient(
+            120deg,
+            #ffe1bd,
+            #ffd2a0
+        );
+
+}
+
+
+.nova-law-ad {
+
+    color:
+        #3c3545;
+
+    background:
+        linear-gradient(
+            120deg,
+            #eee8f1,
+            #dad0e0
+        );
+
+}
+
+
+.nova-antivirus-ad {
+
+    color:
+        #234a3d;
+
+    background:
+        linear-gradient(
+            120deg,
+            #d9f3e6,
+            #c8ead9
+        );
+
+}
+
+
+.nova-space-ad {
+
+    color:
+        #f5eeff;
+
+    background:
+        linear-gradient(
+            120deg,
+            #252542,
+            #43336c
+        );
+
+}
+
+
+.nova-job-ad {
+
+    color:
+        #483929;
+
+    background:
+        linear-gradient(
+            120deg,
+            #fff7df,
+            #ead4ad
+        );
+
+}
+
+
+/* =========================================================
+   ARROWS
+========================================================= */
+
+.nova-ad-arrow {
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    z-index:
+        4;
+
+    width:
+        29px;
+
+    height:
+        40px;
+
+    padding:
+        0;
+
+    color:
+        white;
+
+    font-size:
+        25px;
+
+    background:
+        rgba(
+            23,
+            24,
+            39,
+            0.76
+        );
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.22
+        );
+
+    cursor:
+        pointer;
+
+    transform:
+        translateY(
+            -50%
+        );
+
+}
+
+
+.nova-ad-arrow:hover {
+
+    background:
+        rgba(
+            50,
+            43,
+            76,
+            0.96
+        );
+
+}
+
+
+.nova-ad-arrow-left {
+
+    left:
+        6px;
+
+    border-radius:
+        5px;
+
+}
+
+
+.nova-ad-arrow-right {
+
+    right:
+        6px;
+
+    border-radius:
+        5px;
+
+}
+
+
+/* =========================================================
+   DOTS
+========================================================= */
+
+.nova-ad-dots {
+
+    margin-top:
+        8px;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+}
+
+
+.nova-ad-dot {
+
+    width:
+        6px;
+
+    height:
+        6px;
+
+    padding:
+        0;
+
+    background:
+        #c1b4c7;
+
+    border:
+        0;
+
+    border-radius:
+        50%;
+
+    cursor:
+        pointer;
+
+}
+
+
+.nova-ad-dot.active {
+
+    background:
+        #66568b;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+    max-width:
+        650px
+) {
+
+    .nova-fake-ad {
+
+        min-height:
+            210px;
+
+        padding:
+            16px
+            36px;
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .nova-ad-icon {
+
+        width:
+            50px;
+
+        height:
+            50px;
+
+        flex-basis:
+            50px;
+
+        font-size:
+            25px;
+
+    }
+
+}
+/* =========================================================
+   RANDOM NOVA NEWS
+========================================================= */
+
+.nova-random-news {
+
+    margin-top:
+        18px;
+
+    padding:
+        14px;
+
+    background:
+        #f1e9f5;
+
+    border:
+        1px solid
+        #c5b4cc;
+
+    border-radius:
+        6px;
+
+}
+
+
+.nova-random-news-label {
+
+    margin-bottom:
+        7px;
+
+    color:
+        #796789;
+
+    font-size:
+        8px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1px;
+
+}
+
+
+.nova-random-headline {
+
+    margin-bottom:
+        6px;
+
+    color:
+        #3f3448;
+
+    font-size:
+        13px;
+
+    font-weight:
+        800;
+
+    line-height:
+        1.25;
+
+}
+
+
+.nova-random-story {
+
+    color:
+        #6d6074;
+
+    font-size:
+        9px;
+
+    line-height:
+        1.55;
+
+}
