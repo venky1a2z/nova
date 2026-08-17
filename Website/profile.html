@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -15,345 +16,1203 @@
     </title>
 
     <link
+        rel="icon"
+        type="image/png"
+        href="/favicon.png"
+    >
+
+    <link
         rel="stylesheet"
         href="styles.css"
     >
+
+
+    <style>
+
+        /* =====================================================
+           PROFILE PAGE
+        ===================================================== */
+
+        .nova-profile-page {
+
+            max-width:
+                1050px;
+
+            margin:
+                0 auto;
+
+            padding:
+                25px;
+
+        }
+
+
+        .nova-profile-hero {
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+            margin-bottom:
+                18px;
+
+            padding:
+                28px;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                155px
+                minmax(
+                    0,
+                    1fr
+                );
+
+            gap:
+                24px;
+
+            color:
+                #f9f4ff;
+
+            background:
+                radial-gradient(
+                    circle at 85% 0%,
+                    rgba(
+                        139,
+                        119,
+                        213,
+                        0.32
+                    ),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    120deg,
+                    #24253c,
+                    #181927
+                );
+
+            border:
+                1px solid
+                #574f75;
+
+            border-radius:
+                12px;
+
+            box-shadow:
+                0 14px 30px
+                rgba(
+                    15,
+                    14,
+                    28,
+                    0.23
+                );
+
+        }
+
+
+        .nova-profile-picture-wrap {
+
+            width:
+                145px;
+
+            height:
+                145px;
+
+            position:
+                relative;
+
+        }
+
+
+        .nova-profile-picture {
+
+            width:
+                145px;
+
+            height:
+                145px;
+
+            display:
+                block;
+
+            object-fit:
+                cover;
+
+            background:
+                #eee7f3;
+
+            border:
+                3px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.75
+                );
+
+            border-radius:
+                18px;
+
+            box-shadow:
+                0 7px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.28
+                );
+
+        }
+
+
+        .nova-online-dot {
+
+            position:
+                absolute;
+
+            right:
+                7px;
+
+            bottom:
+                7px;
+
+            width:
+                18px;
+
+            height:
+                18px;
+
+            background:
+                #6f9557;
+
+            border:
+                3px solid
+                #222338;
+
+            border-radius:
+                50%;
+
+        }
+
+
+        .nova-profile-display-name {
+
+            margin:
+                3px
+                0
+                2px;
+
+            color:
+                white;
+
+            font-size:
+                30px;
+
+            line-height:
+                1.1;
+
+        }
+
+
+        .nova-profile-handle {
+
+            margin-bottom:
+                13px;
+
+            color:
+                #bfb3d1;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .nova-profile-bio {
+
+            max-width:
+                620px;
+
+            margin:
+                0
+                0
+                14px;
+
+            color:
+                #eee8f4;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        .nova-profile-meta {
+
+            color:
+                #bdb2c7;
+
+            font-size:
+                9px;
+
+        }
+
+
+        .nova-profile-actions {
+
+            margin-top:
+                17px;
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                8px;
+
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .nova-profile-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(
+                    0,
+                    1.3fr
+                )
+                minmax(
+                    280px,
+                    0.7fr
+                );
+
+            gap:
+                18px;
+
+        }
+
+
+        .nova-profile-panel {
+
+            margin-bottom:
+                18px;
+
+            overflow:
+                hidden;
+
+            background:
+                #fffaf0;
+
+            border:
+                1px solid
+                #bdaac7;
+
+            border-radius:
+                9px;
+
+        }
+
+
+        .nova-profile-panel-title {
+
+            padding:
+                10px
+                13px;
+
+            color:
+                #43374e;
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                0.5px;
+
+            background:
+                linear-gradient(
+                    #ece3f0,
+                    #d9cce1
+                );
+
+            border-bottom:
+                1px solid
+                #bdaac7;
+
+        }
+
+
+        .nova-profile-panel-body {
+
+            padding:
+                16px;
+
+        }
+
+
+        /* =====================================================
+           EDIT PROFILE
+        ===================================================== */
+
+        .profile-edit-field {
+
+            margin-bottom:
+                13px;
+
+        }
+
+
+        .profile-edit-field label {
+
+            margin-bottom:
+                5px;
+
+            display:
+                block;
+
+            color:
+                #55445f;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .profile-edit-field input,
+        .profile-edit-field textarea {
+
+            width:
+                100%;
+
+            box-sizing:
+                border-box;
+
+            padding:
+                9px
+                10px;
+
+            color:
+                #44384d;
+
+            font:
+                inherit;
+
+            background:
+                #fffdf8;
+
+            border:
+                1px solid
+                #b9a7c2;
+
+            border-radius:
+                5px;
+
+            outline:
+                none;
+
+        }
+
+
+        .profile-edit-field textarea {
+
+            min-height:
+                90px;
+
+            resize:
+                vertical;
+
+        }
+
+
+        .profile-edit-field input:focus,
+        .profile-edit-field textarea:focus {
+
+            border-color:
+                #8170ab;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    129,
+                    112,
+                    171,
+                    0.12
+                );
+
+        }
+
+
+        .profile-bio-counter {
+
+            margin-top:
+                4px;
+
+            color:
+                #95869d;
+
+            font-size:
+                8px;
+
+            text-align:
+                right;
+
+        }
+
+
+        /* =====================================================
+           PICTURE UPLOAD
+        ===================================================== */
+
+        .profile-upload-area {
+
+            padding:
+                14px;
+
+            background:
+                #f4edf7;
+
+            border:
+                1px dashed
+                #a995b7;
+
+            border-radius:
+                7px;
+
+        }
+
+
+        .profile-upload-area input {
+
+            max-width:
+                100%;
+
+        }
+
+
+        .profile-upload-preview {
+
+            width:
+                100px;
+
+            height:
+                100px;
+
+            margin:
+                12px
+                0;
+
+            object-fit:
+                cover;
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #9884a7;
+
+            border-radius:
+                10px;
+
+        }
+
+
+        .profile-upload-note {
+
+            margin:
+                8px
+                0;
+
+            color:
+                #88768f;
+
+            font-size:
+                8px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* =====================================================
+           CHARACTER
+        ===================================================== */
+
+        .profile-character-note {
+
+            color:
+                #6d6074;
+
+            font-size:
+                10px;
+
+            line-height:
+                1.55;
+
+        }
+
+
+        .profile-character-grid {
+
+            margin:
+                13px
+                0;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap:
+                7px;
+
+        }
+
+
+        .profile-character-value {
+
+            padding:
+                8px;
+
+            color:
+                #584a62;
+
+            font-size:
+                9px;
+
+            background:
+                #f4edf6;
+
+            border:
+                1px solid
+                #d0c1d5;
+
+            border-radius:
+                5px;
+
+        }
+
+
+        .profile-character-value strong {
+
+            margin-bottom:
+                3px;
+
+            display:
+                block;
+
+            color:
+                #413449;
+
+            font-size:
+                8px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        .profile-message {
+
+            position:
+                fixed;
+
+            right:
+                20px;
+
+            bottom:
+                20px;
+
+            z-index:
+                100;
+
+            max-width:
+                340px;
+
+            padding:
+                11px
+                15px;
+
+            color:
+                white;
+
+            font-weight:
+                700;
+
+            background:
+                #66864d;
+
+            border:
+                1px solid
+                #405d33;
+
+            border-radius:
+                7px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.22
+                );
+
+        }
+
+
+        .profile-message.error {
+
+            background:
+                #a84f58;
+
+            border-color:
+                #74363d;
+
+        }
+
+
+        /* =====================================================
+           DANGER ZONE
+        ===================================================== */
+
+        .profile-danger-zone {
+
+            border-color:
+                #ca8c91;
+
+        }
+
+
+        .profile-danger-zone
+        .nova-profile-panel-title {
+
+            color:
+                #692f36;
+
+            background:
+                #f1cfd1;
+
+            border-color:
+                #ca8c91;
+
+        }
+
+
+        .profile-danger-button {
+
+            padding:
+                9px
+                12px;
+
+            color:
+                white;
+
+            font-weight:
+                800;
+
+            background:
+                #a94852;
+
+            border:
+                1px solid
+                #75323a;
+
+            border-radius:
+                5px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .profile-danger-button:hover {
+
+            background:
+                #b95761;
+
+        }
+
+
+        /* =====================================================
+           DELETE MODAL
+        ===================================================== */
+
+        .profile-delete-modal {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            z-index:
+                999;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                20px;
+
+            background:
+                rgba(
+                    10,
+                    10,
+                    18,
+                    0.72
+                );
+
+        }
+
+
+        .profile-delete-modal[hidden] {
+
+            display:
+                none;
+
+        }
+
+
+        .profile-delete-box {
+
+            width:
+                min(
+                    430px,
+                    100%
+                );
+
+            padding:
+                22px;
+
+            background:
+                #fff8ee;
+
+            border:
+                2px solid
+                #a94852;
+
+            border-radius:
+                10px;
+
+            box-shadow:
+                0 18px 45px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.4
+                );
+
+        }
+
+
+        .profile-delete-box h2 {
+
+            margin-top:
+                0;
+
+            color:
+                #6b3037;
+
+        }
+
+
+        .profile-delete-box input {
+
+            width:
+                100%;
+
+            box-sizing:
+                border-box;
+
+            margin:
+                9px
+                0
+                14px;
+
+            padding:
+                9px;
+
+        }
+
+
+        .profile-delete-actions {
+
+            display:
+                flex;
+
+            gap:
+                8px;
+
+            justify-content:
+                flex-end;
+
+        }
+
+
+        .profile-fatal-error {
+
+            padding:
+                30px;
+
+            text-align:
+                center;
+
+        }
+
+
+        @media (
+            max-width:
+                800px
+        ) {
+
+            .nova-profile-hero {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .nova-profile-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
 
 <body>
 
+
 <div id="header"></div>
 
 
 <div id="site">
 
-    <div class="page-body">
+
+    <main
+        id="profilePageContent"
+        class="nova-profile-page"
+    >
 
 
-        <!-- LEFT SIDEBAR -->
+        <!-- =================================================
+             PROFILE HERO
+        ================================================== -->
 
-        <aside>
-
-            <h1 class="page-title">
-                Profile
-            </h1>
+        <section class="nova-profile-hero">
 
 
-            <nav class="left-menu">
+            <div class="nova-profile-picture-wrap">
 
-                <a
-                    class="selected"
-                    href="profile.html"
+                <img
+                    id="profilePicture"
+                    class="nova-profile-picture"
+                    src="assets/avatars/guest.png"
+                    alt="Profile picture"
                 >
-                    ☕ Profile
-                </a>
 
-                <a href="friends.html">
-                    Friends
-                </a>
+                <span class="nova-online-dot"></span>
 
-                <a href="messages.html">
-                    Messages
-                </a>
-
-                <a href="inventory.html">
-                    Inventory
-                </a>
-
-                <a href="character.html">
-                    Character
-                </a>
-
-            </nav>
-
-        </aside>
+            </div>
 
 
+            <div>
 
-        <!-- MAIN PROFILE -->
 
-        <main>
-
-            <section class="retro-box">
-
-                <div class="retro-box-title">
-                    My Profile
+                <div
+                    id="profileHandle"
+                    class="nova-profile-handle"
+                >
+                    @user
                 </div>
 
 
-                <div class="retro-box-content">
+                <h1
+                    id="profileDisplayName"
+                    class="nova-profile-display-name"
+                >
+                    Nova User
+                </h1>
 
 
-                    <div class="classic-profile-layout">
+                <div
+                    id="profileUsername"
+                    hidden
+                ></div>
 
 
-                        <!-- LEFT SIDE -->
-
-                        <div class="classic-profile-left">
-
-
-                            <div class="profile-avatar-card">
-
-                                <img
-                                    id="profileAvatar"
-                                    class="classic-profile-avatar"
-                                    src="assets/avatars/guest.png"
-                                    alt="Nova Avatar"
-                                >
-
-                                <div class="profile-status">
-                                    Online
-                                </div>
-
-                            </div>
+                <p
+                    id="profileBio"
+                    class="nova-profile-bio"
+                >
+                    Loading profile...
+                </p>
 
 
-                            <div class="profile-info-block">
+                <div class="nova-profile-meta">
 
-                                <h1
-                                    id="profileUsername"
-                                    class="classic-profile-name"
-                                >
-                                    Guest
-                                </h1>
+                    Joined Nova:
 
+                    <span id="profileJoined">
+                        ...
+                    </span>
 
-                                <p
-                                    id="profileBio"
-                                    class="classic-profile-bio"
-                                ></p>
+                </div>
 
 
-                                <p class="profile-detail">
+                <!-- OTHER USER -->
 
-                                    <strong>
-                                        Joined:
-                                    </strong>
+                <div
+                    id="otherUserControls"
+                    class="nova-profile-actions"
+                    hidden
+                >
 
-                                    <span
-                                        id="profileJoined"
-                                    ></span>
+                    <button
+                        id="profileFriendButton"
+                        class="retro-button play-button"
+                        type="button"
+                    >
+                        Add Friend
+                    </button>
 
-                                </p>
-
-
-                                <div class="profile-buttons">
-
-                                    <a
-                                        class="retro-button"
-                                        href="character.html"
-                                    >
-                                        Edit Character
-                                    </a>
-
-                                    <button
-                                        id="logoutButton"
-                                        class="retro-button"
-                                        type="button"
-                                    >
-                                        Logout
-                                    </button>
-
-                                </div>
-
-                            </div>
+                </div>
 
 
-                            <!-- BADGES -->
+                <!-- OWNER -->
 
-                            <div class="profile-section">
+                <div
+                    id="ownerControls"
+                    class="nova-profile-actions"
+                    hidden
+                >
 
-                                <div class="profile-section-title">
-                                    Nova Badges
-                                </div>
+                    <a
+                        class="retro-button"
+                        href="character.html"
+                    >
+                        ★ Customize Character
+                    </a>
 
+                    <button
+                        id="logoutButton"
+                        class="retro-button"
+                        type="button"
+                    >
+                        Logout
+                    </button>
 
-                                <div class="badge-grid">
-
-                                    <div class="badge-item">
-
-                                        <div class="badge-icon">
-                                            ☕
-                                        </div>
-
-                                        <span>
-                                            First Login
-                                        </span>
-
-                                    </div>
-
-
-                                    <div class="badge-item">
-
-                                        <div class="badge-icon">
-                                            🛠
-                                        </div>
-
-                                        <span>
-                                            Builder
-                                        </span>
-
-                                    </div>
+                </div>
 
 
-                                    <div class="badge-item">
-
-                                        <div class="badge-icon">
-                                            🎮
-                                        </div>
-
-                                        <span>
-                                            Player
-                                        </span>
-
-                                    </div>
+            </div>
 
 
-                                    <div class="badge-item">
+        </section>
 
-                                        <div class="badge-icon">
-                                            ★
-                                        </div>
 
-                                        <span>
-                                            Nova Member
-                                        </span>
 
-                                    </div>
+        <div class="nova-profile-grid">
 
-                                </div>
 
-                            </div>
+            <!-- =================================================
+                 LEFT
+            ================================================== -->
 
+            <div>
+
+
+                <!-- EDIT PROFILE -->
+
+                <section
+                    id="editProfilePanel"
+                    class="nova-profile-panel"
+                >
+
+
+                    <div class="nova-profile-panel-title">
+                        ✎ Edit Profile
+                    </div>
+
+
+                    <div class="nova-profile-panel-body">
+
+
+                        <div class="profile-edit-field">
+
+                            <label for="editUsername">
+                                USERNAME
+                            </label>
+
+                            <input
+                                id="editUsername"
+                                type="text"
+                                maxlength="20"
+                                autocomplete="off"
+                            >
 
                         </div>
 
 
+                        <div class="profile-edit-field">
 
-                        <!-- RIGHT SIDE -->
+                            <label for="editDisplayName">
+                                DISPLAY NAME
+                            </label>
 
-                        <div class="classic-profile-right">
+                            <input
+                                id="editDisplayName"
+                                type="text"
+                                maxlength="40"
+                                autocomplete="off"
+                                placeholder="Optional"
+                            >
 
-
-                            <div class="profile-section">
-
-                                <div class="profile-section-title">
-                                    My Places
-                                </div>
-
-
-                                <div
-                                    id="profilePlaces"
-                                    class="profile-place-list"
-                                >
-
-                                    <div class="profile-place-card">
-
-                                        <img
-                                            src="assets/games/baseplate.png"
-                                            alt="Nova Baseplate"
-                                        >
-
-                                        <div>
-
-                                            <a
-                                                class="profile-place-name"
-                                                href="game.html?id=1"
-                                            >
-                                                Nova Baseplate
-                                            </a>
-
-                                            <p>
-                                                Your default place.
-                                            </p>
-
-                                            <div class="profile-place-actions">
-
-                                                <button
-                                                    class="tiny-button tiny-play"
-                                                    data-place-id="1"
-                                                    type="button"
-                                                >
-                                                    Play
-                                                </button>
-
-                                                <a
-                                                    class="tiny-button"
-                                                    href="creator.html"
-                                                >
-                                                    Edit
-                                                </a>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
+                        </div>
 
 
-                                <a
-                                    class="retro-button"
-                                    href="creator.html"
-                                >
-                                    Create a Place
-                                </a>
+                        <div class="profile-edit-field">
 
+                            <label for="editBio">
+                                BIO
+                            </label>
+
+                            <textarea
+                                id="editBio"
+                                maxlength="200"
+                                placeholder="Tell Nova something about yourself."
+                            ></textarea>
+
+                            <div
+                                id="bioCounter"
+                                class="profile-bio-counter"
+                            >
+                                0 / 200
                             </div>
 
+                        </div>
 
 
-                            <div class="profile-section">
+                        <button
+                            id="saveProfileButton"
+                            class="retro-button play-button"
+                            type="button"
+                        >
+                            Save Profile
+                        </button>
 
-                                <div class="profile-section-title">
-                                    Character
-                                </div>
+
+                    </div>
 
 
-                                <div
-                                    style="
-                                        display:flex;
-                                        align-items:center;
-                                        gap:18px;
-                                        margin-bottom:15px;
-                                    "
-                                >
+                </section>
 
-                                    <img
-                                        id="profileCharacterPreview"
-                                        src="assets/avatars/guest.png"
-                                        alt="Character"
-                                        style="
-                                            width:120px;
-                                            height:120px;
-                                            object-fit:cover;
-                                            border:3px solid #9b704e;
-                                            border-radius:8px;
-                                            background:#fff7e8;
-                                        "
-                                    >
 
-                                    <div>
 
-                                        <p>
-                                            Customize how you look around Nova.
-                                        </p>
+                <!-- PROFILE PICTURE -->
 
-                                        <a
-                                            class="retro-button"
-                                            href="character.html"
-                                        >
-                                            Customize Character
-                                        </a>
+                <section
+                    id="profilePicturePanel"
+                    class="nova-profile-panel"
+                >
 
-                                    </div>
 
-                                </div>
+                    <div class="nova-profile-panel-title">
+                        ★ Profile Picture
+                    </div>
 
-                            </div>
+
+                    <div class="nova-profile-panel-body">
+
+
+                        <div class="profile-upload-area">
+
+
+                            <input
+                                id="profilePictureInput"
+                                type="file"
+                                accept="image/png,image/jpeg,image/webp,image/gif"
+                            >
+
+
+                            <img
+                                id="profilePicturePreview"
+                                class="profile-upload-preview"
+                                alt="Selected profile picture"
+                                hidden
+                            >
+
+
+                            <p class="profile-upload-note">
+
+                                PNG, JPG, WEBP or GIF.
+
+                                <br>
+
+                                Maximum size: 5 MB.
+
+                                <br><br>
+
+                                This image is your Nova
+                                social profile picture.
+
+                                Your in-game character
+                                stays completely separate.
+
+                            </p>
+
+
+                            <button
+                                id="uploadProfilePictureButton"
+                                class="retro-button"
+                                type="button"
+                            >
+                                Upload Profile Picture
+                            </button>
 
 
                         </div>
@@ -362,199 +1221,382 @@
                     </div>
 
 
-                </div>
-
-            </section>
-
-        </main>
+                </section>
 
 
+            </div>
 
-        <!-- ADS -->
 
-        <aside>
 
-            <div
-                id="ads"
-                class="ad-column"
-            ></div>
+            <!-- =================================================
+                 RIGHT
+            ================================================== -->
 
-        </aside>
+            <div>
+
+
+                <!-- CHARACTER -->
+
+                <section class="nova-profile-panel">
+
+
+                    <div class="nova-profile-panel-title">
+                        🎮 In-Game Character
+                    </div>
+
+
+                    <div class="nova-profile-panel-body">
+
+
+                        <p class="profile-character-note">
+
+                            Your profile picture is
+                            what people see around Nova.
+
+                            <br><br>
+
+                            When you actually join a game,
+                            Nova uses this character instead.
+
+                        </p>
+
+
+                        <div class="profile-character-grid">
+
+
+                            <div class="profile-character-value">
+
+                                <strong>
+                                    Skin
+                                </strong>
+
+                                <span id="characterSkin">
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="profile-character-value">
+
+                                <strong>
+                                    Face
+                                </strong>
+
+                                <span id="characterFace">
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="profile-character-value">
+
+                                <strong>
+                                    Shirt
+                                </strong>
+
+                                <span id="characterShirt">
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="profile-character-value">
+
+                                <strong>
+                                    Pants
+                                </strong>
+
+                                <span id="characterPants">
+                                    -
+                                </span>
+
+                            </div>
+
+
+                            <div class="profile-character-value">
+
+                                <strong>
+                                    Hat
+                                </strong>
+
+                                <span id="characterHat">
+                                    -
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <a
+                            id="characterEditButton"
+                            class="retro-button"
+                            href="character.html"
+                        >
+                            Customize Character
+                        </a>
+
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- DANGER -->
+
+                <section
+                    id="dangerZone"
+                    class="nova-profile-panel profile-danger-zone"
+                >
+
+
+                    <div class="nova-profile-panel-title">
+                        ⚠ Danger Zone
+                    </div>
+
+
+                    <div class="nova-profile-panel-body">
+
+
+                        <p class="profile-character-note">
+
+                            This button does exactly
+                            what it sounds like.
+
+                            We checked twice.
+
+                        </p>
+
+
+                        <button
+                            id="deleteAccountButton"
+                            class="profile-danger-button"
+                            type="button"
+                        >
+                            Delete My Account
+                        </button>
+
+
+                    </div>
+
+
+                </section>
+
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            NOVA
+        </div>
+
+        <p>
+            Build. Play. Create.
+        </p>
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     MESSAGE
+========================================================= -->
+
+<div
+    id="profileMessage"
+    class="profile-message"
+    hidden
+></div>
+
+
+
+<!-- =========================================================
+     DELETE ACCOUNT MODAL
+========================================================= -->
+
+<div
+    id="deleteAccountModal"
+    class="profile-delete-modal"
+    hidden
+>
+
+
+    <div class="profile-delete-box">
+
+
+        <h2>
+            Delete your Nova account?
+        </h2>
+
+
+        <p>
+
+            This deletes your profile,
+            friendships,
+            uploaded profile pictures,
+            and Nova account.
+
+        </p>
+
+
+        <p>
+
+            Type your exact username to continue:
+
+        </p>
+
+
+        <input
+            id="deleteUsernameConfirm"
+            type="text"
+            autocomplete="off"
+        >
+
+
+        <div class="profile-delete-actions">
+
+
+            <button
+                id="cancelDeleteButton"
+                class="retro-button"
+                type="button"
+            >
+                Never mind, I enjoy existing
+            </button>
+
+
+            <button
+                id="confirmDeleteButton"
+                class="profile-danger-button"
+                type="button"
+            >
+                DELETE ACCOUNT FOREVER
+            </button>
+
+
+        </div>
 
 
     </div>
 
 
-    <footer class="footer">
-        ☕ Nova
-    </footer>
-
 </div>
 
 
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
 <script src="js/nova-storage.js"></script>
+
+<script src="js/nova-supabase.js"></script>
+
 <script src="js/nova-auth.js"></script>
+
+<script src="js/nova-friends.js"></script>
+
 <script src="shell.js"></script>
-<script src="script.js"></script>
+
+<script src="js/nova-profile.js"></script>
 
 
 <script>
 
-renderShell();
+    renderShell();
 
 
-/* =========================================================
-   USER
-========================================================= */
-
-const user =
-    NovaAuth.getCurrentUser();
+    NovaProfile.init();
 
 
-if (!user) {
+    /*
+        Hide editing panels when looking
+        at somebody else's profile.
+    */
 
-    window.location.href =
-        "login.html";
-
-}
-else {
-
-    /* =====================================================
-       USERNAME
-    ===================================================== */
-
-    document
-        .getElementById(
-            "profileUsername"
-        )
-        .textContent =
-            user.username ||
-            "Guest";
-
-
-    /* =====================================================
-       RENDERED AVATAR
-
-       Priority:
-
-       1. avatarImage
-       2. old avatar
-       3. guest.png
-    ===================================================== */
-
-    const avatarSource =
-        user.avatarImage
-        ||
-        user.avatar
-        ||
-        "assets/avatars/guest.png";
-
-
-    document
-        .getElementById(
-            "profileAvatar"
-        )
-        .src =
-            avatarSource;
-
-
-    document
-        .getElementById(
-            "profileCharacterPreview"
-        )
-        .src =
-            avatarSource;
-
-
-    /* =====================================================
-       BIO
-    ===================================================== */
-
-    document
-        .getElementById(
-            "profileBio"
-        )
-        .textContent =
-            user.bio
-            ||
-            "Hey! I'm new to Nova.";
-
-
-    /* =====================================================
-       JOIN DATE
-    ===================================================== */
-
-    if (
-        user.joinedAt
-    ) {
-
-        const joinedDate =
-            new Date(
-                user.joinedAt
-            );
-
-
-        if (
-            !Number.isNaN(
-                joinedDate.getTime()
-            )
-        ) {
-
-            document
-                .getElementById(
-                    "profileJoined"
-                )
-                .textContent =
-                    joinedDate
-                        .toLocaleDateString();
-
-        }
-        else {
-
-            document
-                .getElementById(
-                    "profileJoined"
-                )
-                .textContent =
-                    "Unknown";
-
-        }
-
-    }
-    else {
-
-        document
-            .getElementById(
-                "profileJoined"
-            )
-            .textContent =
-                "Unknown";
-
-    }
-
-
-    /* =====================================================
-       LOGOUT
-    ===================================================== */
-
-    document
-        .getElementById(
-            "logoutButton"
-        )
-        .addEventListener(
-            "click",
+    const observer =
+        new MutationObserver(
             () => {
 
-                NovaAuth.logout();
+
+                if (
+                    NovaProfile.profile
+                ) {
 
 
-                window.location.href =
-                    "index.html";
+                    document
+                        .getElementById(
+                            "editProfilePanel"
+                        )
+                        .hidden =
+                            !NovaProfile
+                                .viewingOwnProfile;
+
+
+                    document
+                        .getElementById(
+                            "profilePicturePanel"
+                        )
+                        .hidden =
+                            !NovaProfile
+                                .viewingOwnProfile;
+
+
+                    document
+                        .getElementById(
+                            "dangerZone"
+                        )
+                        .hidden =
+                            !NovaProfile
+                                .viewingOwnProfile;
+
+
+                    document
+                        .getElementById(
+                            "characterEditButton"
+                        )
+                        .hidden =
+                            !NovaProfile
+                                .viewingOwnProfile;
+
+
+                    observer.disconnect();
+
+                }
 
             }
         );
 
-}
+
+    observer.observe(
+        document.body,
+        {
+
+            childList:
+                true,
+
+            subtree:
+                true
+
+        }
+    );
 
 </script>
 
