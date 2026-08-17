@@ -1,14 +1,19 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 
+
 namespace Nova.Player;
+
 
 internal static class Program
 {
-    [STAThread]
-    private static async Task Main(
+
+
+    private static void Main(
         string[] args)
     {
+
+
         string launchUrl =
             args.Length > 0
                 ?
@@ -18,33 +23,8 @@ internal static class Program
 
 
         /*
-         * UPDATE CHECK
-         *
-         * Debug builds skip this automatically.
-         * Release builds check version.json.
-         *
-         * If an update installer starts,
-         * exit the old Player immediately.
-         */
-
-        bool updaterStarted =
-            await UpdateChecker
-                .CheckAndInstallUpdateAsync(
-                    launchUrl
-                );
-
-
-        if (
-            updaterStarted
-        )
-        {
-            return;
-        }
-
-
-        /*
-         * Parse both the game AND
-         * character from the URL.
+         * Parse the place and
+         * character from the Nova URL.
          */
 
         AvatarConfig avatar =
@@ -52,6 +32,10 @@ internal static class Program
                 launchUrl
             );
 
+
+        /*
+         * Load the selected Nova place.
+         */
 
         WorldData world =
             WorldLoader.Load(
@@ -63,13 +47,11 @@ internal static class Program
             "=============================="
         );
 
+
         Console.WriteLine(
             "NOVA PLAYER"
         );
 
-        Console.WriteLine(
-            $"VERSION {VersionInfo.CurrentVersion}"
-        );
 
         Console.WriteLine(
             "=============================="
@@ -148,14 +130,17 @@ internal static class Program
         var nativeWindowSettings =
             new NativeWindowSettings
             {
+
                 ClientSize =
                     new Vector2i(
                         1280,
                         720
                     ),
 
+
                 Title =
-                    $"Nova Player {VersionInfo.CurrentVersion} - {world.Name}"
+                    $"Nova Player - {world.Name}"
+
             };
 
 
@@ -169,5 +154,7 @@ internal static class Program
 
 
         game.Run();
+
     }
+
 }

@@ -187,6 +187,12 @@ export default defineConfig({
                         __dirname,
                         "character.html"
                     ),
+                    
+                catalogAdmin:
+                    resolve(
+                        __dirname,
+                        "catalog-admin.html"
+                    ),
 
                 create:
                     resolve(
@@ -265,7 +271,11 @@ export default defineConfig({
                         __dirname,
                         "friends.html"
                     ),
-
+                people:
+                    resolve(
+                        __dirname,
+                        "people.html"
+                    ),
                 studio:
                     resolve(
                         __dirname,

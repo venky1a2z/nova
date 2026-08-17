@@ -31,10 +31,11 @@ const NOVA_DEFAULT_CHARACTER = {
 
 
 /* =========================================================
-   GET CURRENT CHARACTER
+   GET CURRENT NOVA USER
 ========================================================= */
 
-function getNovaSavedCharacter() {
+function getNovaCurrentUser() {
+
 
     if (
         typeof NovaAuth ===
@@ -46,16 +47,43 @@ function getNovaSavedCharacter() {
         );
 
 
-        return {
-            ...NOVA_DEFAULT_CHARACTER
-        };
+        return null;
 
     }
 
 
-    const user =
-        NovaAuth
+    try {
+
+        return NovaAuth
             .getCurrentUser();
+
+    }
+    catch (
+        error
+    ) {
+
+        console.warn(
+            "Could not read Nova user:",
+            error
+        );
+
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================================
+   GET CURRENT CHARACTER
+========================================================= */
+
+function getNovaSavedCharacter() {
+
+
+    const user =
+        getNovaCurrentUser();
 
 
     if (
@@ -118,6 +146,110 @@ function getNovaSavedCharacter() {
 
 
 /* =========================================================
+   GET MULTIPLAYER IDENTITY
+========================================================= */
+
+function getNovaPlayerIdentity() {
+
+
+    const user =
+        getNovaCurrentUser();
+
+
+    if (
+        !user
+    ) {
+
+        /*
+         * Guest fallback.
+         *
+         * This is mainly useful when
+         * testing the Player manually.
+         */
+
+        let guestId =
+            sessionStorage.getItem(
+                "nova_guest_player_id"
+            );
+
+
+        if (
+            !guestId
+        ) {
+
+            guestId =
+                "guest-"
+                +
+                crypto.randomUUID();
+
+
+            sessionStorage.setItem(
+                "nova_guest_player_id",
+                guestId
+            );
+
+        }
+
+
+        return {
+
+            userId:
+                guestId,
+
+            username:
+                "NovaPlayer"
+
+        };
+
+    }
+
+
+    /*
+     * Different versions of NovaAuth
+     * may expose the Supabase UUID
+     * slightly differently.
+     */
+
+    const userId =
+        user.id
+        ||
+        user.userId
+        ||
+        user.uid
+        ||
+        user.authId
+        ||
+        "";
+
+
+    const username =
+        user.username
+        ||
+        user.display_name
+        ||
+        user.displayName
+        ||
+        "NovaPlayer";
+
+
+    return {
+
+        userId:
+            String(
+                userId
+            ),
+
+        username:
+            String(
+                username
+            )
+
+    };
+
+}
+
+
+/* =========================================================
    BUILD NOVA PROTOCOL URL
 ========================================================= */
 
@@ -125,13 +257,20 @@ function buildNovaPlayerUrl(
     placeId
 ) {
 
+
     const character =
         getNovaSavedCharacter();
+
+
+    const identity =
+        getNovaPlayerIdentity();
 
 
     const params =
         new URLSearchParams();
 
+
+    /* GAME */
 
     params.set(
         "placeId",
@@ -140,6 +279,22 @@ function buildNovaPlayerUrl(
         )
     );
 
+
+    /* PLAYER IDENTITY */
+
+    params.set(
+        "userId",
+        identity.userId
+    );
+
+
+    params.set(
+        "username",
+        identity.username
+    );
+
+
+    /* CHARACTER */
 
     params.set(
         "skin",
@@ -178,6 +333,16 @@ function buildNovaPlayerUrl(
 
 
     console.log(
+        "Nova player identity:"
+    );
+
+
+    console.log(
+        identity
+    );
+
+
+    console.log(
         "Nova character:"
     );
 
@@ -209,6 +374,7 @@ function buildNovaPlayerUrl(
 function launchNovaPlayer(
     placeId
 ) {
+
 
     if (
         placeId === undefined
@@ -246,6 +412,7 @@ function launchNovaPlayer(
 
 function connectNovaPlayButtons() {
 
+
     const buttons =
         document.querySelectorAll(
             "[data-place-id]"
@@ -255,9 +422,10 @@ function connectNovaPlayButtons() {
     buttons.forEach(
         button => {
 
+
             /*
-             * Prevent the launcher from
-             * attaching twice.
+             * Prevent attaching
+             * the launcher twice.
              */
 
             if (
@@ -280,6 +448,7 @@ function connectNovaPlayButtons() {
             button.addEventListener(
                 "click",
                 event => {
+
 
                     const placeId =
                         button.dataset
@@ -346,6 +515,9 @@ window.NovaPlayer = {
         buildNovaPlayerUrl,
 
     getCharacter:
-        getNovaSavedCharacter
+        getNovaSavedCharacter,
+
+    getIdentity:
+        getNovaPlayerIdentity
 
 };

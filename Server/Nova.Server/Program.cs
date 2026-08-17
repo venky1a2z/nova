@@ -252,7 +252,7 @@ Console.WriteLine(
 );
 
 Console.WriteLine(
-    "ws://localhost:5163/game"
+    $"Nova Websocket endpoint: /game"
 );
 
 Console.WriteLine(

@@ -322,8 +322,20 @@ const NovaProfile = {
                     "user_id",
                     this.profile.id
                 )
+                
                 .maybeSingle();
+if (
+    me ===
+    them
+) {
 
+    otherControls.hidden =
+        true;
+
+
+    return;
+
+}
 
         if (
             error

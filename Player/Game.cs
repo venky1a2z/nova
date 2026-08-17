@@ -52,6 +52,25 @@ public sealed class Game :
     private MouseCursor?
         _novaCursor;
 
+private MultiplayerClient?
+    _multiplayer;
+
+
+private readonly Dictionary<
+    string,
+    RemotePlayer
+>
+    _remotePlayers =
+        new();
+
+
+private float
+    _networkSendTimer;
+
+
+private const float
+    NetworkSendInterval =
+        0.05f;
 
     private bool
         _shiftLock;
@@ -267,6 +286,8 @@ public sealed class Game :
 
         LoadNovaCursor();
 
+        StartMultiplayer();
+
 
         Console.WriteLine(
             $"Rendering {_world.Parts.Count} " +
@@ -357,6 +378,418 @@ public sealed class Game :
         }
     }
 
+private void StartMultiplayer()
+{
+
+
+    _multiplayer =
+        new MultiplayerClient();
+
+
+    _ =
+        ConnectMultiplayerAsync();
+
+}
+
+private void ProcessMultiplayerEvents()
+{
+
+
+    if (
+        _multiplayer
+        is null
+    )
+    {
+
+        return;
+
+    }
+
+
+    while (
+        _multiplayer
+            .TryDequeueEvent(
+                out MultiplayerEvent?
+                    multiplayerEvent
+            )
+    )
+    {
+
+
+        if (
+            multiplayerEvent
+            is null
+        )
+        {
+
+            continue;
+
+        }
+
+
+        switch (
+            multiplayerEvent.Type
+                .ToLowerInvariant()
+        )
+        {
+
+
+            case "player_joined":
+
+                AddRemotePlayer(
+                    multiplayerEvent
+                );
+
+                break;
+
+
+            case "player_moved":
+
+                MoveRemotePlayer(
+                    multiplayerEvent
+                );
+
+                break;
+
+
+            case "player_left":
+
+                RemoveRemotePlayer(
+                    multiplayerEvent.PlayerId
+                );
+
+                break;
+
+
+            case "disconnected":
+
+                Console.WriteLine(
+                    "Disconnected from Nova multiplayer."
+                );
+
+                break;
+
+        }
+
+    }
+
+}
+
+
+private void AddRemotePlayer(
+    MultiplayerEvent multiplayerEvent)
+{
+
+
+    NetworkPlayerData?
+        data =
+            multiplayerEvent.Player;
+
+
+    if (
+        data
+        is null
+    )
+    {
+
+        return;
+
+    }
+
+
+    if (
+        string.IsNullOrWhiteSpace(
+            data.PlayerId
+        )
+    )
+    {
+
+        return;
+
+    }
+
+
+    /*
+     * If this player already exists,
+     * don't create duplicate GL resources.
+     */
+
+    if (
+        _remotePlayers.ContainsKey(
+            data.PlayerId
+        )
+    )
+    {
+
+        return;
+
+    }
+
+
+    if (
+        _guestModel
+        is null
+    )
+    {
+
+        Console.WriteLine(
+            "Cannot render remote player: " +
+            "Guest model is unavailable."
+        );
+
+
+        return;
+
+    }
+
+
+    try
+    {
+
+
+        var remotePlayer =
+            new RemotePlayer(
+                data,
+                _guestModel
+            );
+
+
+        _remotePlayers[
+            data.PlayerId
+        ] =
+            remotePlayer;
+
+
+        Console.WriteLine(
+            $"[MULTIPLAYER] " +
+            $"{data.Username} appeared."
+        );
+
+    }
+    catch (
+        Exception exception
+    )
+    {
+
+        Console.WriteLine(
+            $"Remote player failed: " +
+            $"{exception.Message}"
+        );
+
+    }
+
+}
+
+
+private void MoveRemotePlayer(
+    MultiplayerEvent multiplayerEvent)
+{
+
+
+    if (
+        string.IsNullOrWhiteSpace(
+            multiplayerEvent.PlayerId
+        )
+    )
+    {
+
+        return;
+
+    }
+
+
+    if (
+        !_remotePlayers.TryGetValue(
+            multiplayerEvent.PlayerId,
+            out RemotePlayer?
+                remotePlayer
+        )
+    )
+    {
+
+        return;
+
+    }
+
+
+    remotePlayer.ApplyMovement(
+        multiplayerEvent
+    );
+
+}
+
+
+private void RemoveRemotePlayer(
+    string? playerId)
+{
+
+
+    if (
+        string.IsNullOrWhiteSpace(
+            playerId
+        )
+    )
+    {
+
+        return;
+
+    }
+
+
+    if (
+        !_remotePlayers.Remove(
+            playerId,
+            out RemotePlayer?
+                remotePlayer
+        )
+    )
+    {
+
+        return;
+
+    }
+
+
+    Console.WriteLine(
+        $"[MULTIPLAYER] " +
+        $"{remotePlayer.Username} left."
+    );
+
+
+    remotePlayer.Dispose();
+
+}
+
+
+private void UpdateRemotePlayers(
+    float deltaTime)
+{
+
+
+    foreach (
+        RemotePlayer remotePlayer
+        in _remotePlayers.Values
+    )
+    {
+
+        remotePlayer.Update(
+            deltaTime
+        );
+
+    }
+
+}
+
+
+private void UpdateMultiplayerMovement(
+    float deltaTime)
+{
+
+
+    if (
+        _multiplayer
+        is null
+        ||
+        !_multiplayer
+            .IsConnected
+    )
+    {
+
+        return;
+
+    }
+
+
+    _networkSendTimer +=
+        deltaTime;
+
+
+    if (
+        _networkSendTimer <
+        NetworkSendInterval
+    )
+    {
+
+        return;
+
+    }
+
+
+    _networkSendTimer =
+        0f;
+
+
+    _ =
+        _multiplayer
+            .SendMovementAsync(
+                _player.Position.X,
+                _player.Position.Y,
+                _player.Position.Z,
+                _player.FacingYaw,
+                _player.IsMoving,
+                _player.IsGrounded,
+                _player.VerticalVelocity
+            );
+
+}
+
+private async Task
+    ConnectMultiplayerAsync()
+{
+
+
+    if (
+        _multiplayer
+        is null
+    )
+    {
+
+        return;
+
+    }
+
+
+await _multiplayer
+    .ConnectAsync(
+        "wss://nova-multiplayer.onrender.com/game"
+    );
+
+
+    if (
+        !_multiplayer
+            .IsConnected
+    )
+    {
+
+        Console.WriteLine(
+            "Nova multiplayer is offline."
+        );
+
+
+        return;
+
+    }
+
+
+    Console.WriteLine(
+        $"Joining multiplayer as " +
+        $"{_avatar.Username}"
+    );
+
+
+    await _multiplayer
+        .JoinAsync(
+            _avatar.UserId,
+            _avatar.Username,
+            _avatar.PlaceId,
+            _avatar,
+            _player.Position.X,
+            _player.Position.Y,
+            _player.Position.Z,
+            _player.FacingYaw
+        );
+
+}
 
     private void LoadGuest()
     {
@@ -796,10 +1229,36 @@ public sealed class Game :
             );
         }
 
+DrawRemotePlayers(
+    view,
+    projection
+);
+
+
 
         SwapBuffers();
     }
 
+private void DrawRemotePlayers(
+    Matrix4 view,
+    Matrix4 projection)
+{
+
+
+    foreach (
+        RemotePlayer remotePlayer
+        in _remotePlayers.Values
+    )
+    {
+
+        remotePlayer.Draw(
+            view,
+            projection
+        );
+
+    }
+
+}
 
     private void PrepareWorldShader(
         Matrix4 view,
@@ -1019,6 +1478,13 @@ public sealed class Game :
                 0.05f
             );
 
+            ProcessMultiplayerEvents();
+
+
+    UpdateRemotePlayers(
+        deltaTime
+    );
+
 
         /*
          * SHIFT LOCK TOGGLE
@@ -1077,6 +1543,9 @@ public sealed class Game :
             _camera.Yaw
         );
 
+UpdateMultiplayerMovement(
+    deltaTime
+);
 
         /*
          * CAMERA TARGET
@@ -1201,6 +1670,47 @@ public sealed class Game :
         Cursor =
             MouseCursor.Default;
 
+foreach (
+    RemotePlayer remotePlayer
+    in _remotePlayers.Values
+)
+{
+
+    remotePlayer.Dispose();
+
+}
+
+
+_remotePlayers.Clear();
+
+
+if (
+    _multiplayer
+    is not null
+)
+{
+
+    try
+    {
+
+        _multiplayer
+            .DisconnectAsync()
+            .GetAwaiter()
+            .GetResult();
+
+    }
+    catch
+    {
+    }
+
+
+    _multiplayer.Dispose();
+
+
+    _multiplayer =
+        null;
+
+}
 
         _hatRenderer?.Dispose();
 

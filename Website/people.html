@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>People - Nova</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/favicon.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           PEOPLE PAGE
+        ===================================================== */
+
+        .nova-people-page {
+
+            width:
+                calc(100% - 40px);
+
+            max-width:
+                1120px;
+
+            margin:
+                0 auto;
+
+            padding:
+                32px 0 70px;
+
+        }
+
+
+        .people-heading {
+
+            margin-bottom:
+                22px;
+
+        }
+
+
+        .people-kicker {
+
+            margin-bottom:
+                6px;
+
+            color:
+                #c7ae69;
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1.8px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .people-heading h1 {
+
+            margin:
+                0;
+
+            color:
+                #f6f1ff;
+
+            font-size:
+                36px;
+
+        }
+
+
+        .people-heading p {
+
+            max-width:
+                620px;
+
+            margin:
+                8px 0 0;
+
+            color:
+                #aaa0bd;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .people-search-box {
+
+            display:
+                flex;
+
+            gap:
+                9px;
+
+            margin-bottom:
+                24px;
+
+            padding:
+                14px;
+
+            background:
+                linear-gradient(
+                    110deg,
+                    #222038,
+                    #1a192a
+                );
+
+            border:
+                1px solid
+                rgba(
+                    172,
+                    150,
+                    221,
+                    0.3
+                );
+
+            border-radius:
+                11px;
+
+        }
+
+
+        .people-search-input {
+
+            flex:
+                1;
+
+            min-width:
+                0;
+
+            padding:
+                10px 12px;
+
+            color:
+                #42394a;
+
+            font:
+                inherit;
+
+            background:
+                #fffaf0;
+
+            border:
+                1px solid
+                #b9a9c0;
+
+            border-radius:
+                6px;
+
+            outline:
+                none;
+
+        }
+
+
+        .people-search-input:focus {
+
+            border-color:
+                #8e79bc;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    142,
+                    121,
+                    188,
+                    0.15
+                );
+
+        }
+
+
+        .people-search-button {
+
+            min-width:
+                110px;
+
+        }
+
+
+
+        /* =====================================================
+           SECTION HEADER
+        ===================================================== */
+
+        .people-section-heading {
+
+            display:
+                flex;
+
+            align-items:
+                end;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+
+            margin-bottom:
+                13px;
+
+        }
+
+
+        .people-section-heading h2 {
+
+            margin:
+                0;
+
+            color:
+                #eee9f8;
+
+            font-size:
+                20px;
+
+        }
+
+
+        .people-result-note {
+
+            color:
+                #9287a4;
+
+            font-size:
+                9px;
+
+        }
+
+
+
+        /* =====================================================
+           GRID
+        ===================================================== */
+
+        .people-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+
+            gap:
+                13px;
+
+        }
+
+
+
+        /* =====================================================
+           PERSON CARD
+        ===================================================== */
+
+        .person-card {
+
+            overflow:
+                hidden;
+
+            background:
+                #fffaf0;
+
+            border:
+                1px solid
+                #c5b7cc;
+
+            border-radius:
+                10px;
+
+            box-shadow:
+                0 7px 18px
+                rgba(
+                    7,
+                    6,
+                    17,
+                    0.14
+                );
+
+            transition:
+                transform
+                0.15s ease,
+                box-shadow
+                0.15s ease;
+
+        }
+
+
+        .person-card:hover {
+
+            transform:
+                translateY(
+                    -2px
+                );
+
+            box-shadow:
+                0 11px 25px
+                rgba(
+                    7,
+                    6,
+                    17,
+                    0.22
+                );
+
+        }
+
+
+        .person-main {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                78px
+                minmax(
+                    0,
+                    1fr
+                );
+
+            gap:
+                12px;
+
+            padding:
+                14px;
+
+        }
+
+
+        .person-avatar-link {
+
+            display:
+                block;
+
+            width:
+                78px;
+
+            height:
+                78px;
+
+        }
+
+
+        .person-avatar {
+
+            display:
+                block;
+
+            width:
+                78px;
+
+            height:
+                78px;
+
+            object-fit:
+                cover;
+
+            background:
+                #eee7f2;
+
+            border:
+                1px solid
+                #b9a8c3;
+
+            border-radius:
+                9px;
+
+        }
+
+
+        .person-info {
+
+            min-width:
+                0;
+
+        }
+
+
+        .person-name-row {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                5px;
+
+            min-width:
+                0;
+
+        }
+
+
+        .person-display-name {
+
+            overflow:
+                hidden;
+
+            color:
+                #463b4e;
+
+            font-size:
+                13px;
+
+            font-weight:
+                900;
+
+            text-decoration:
+                none;
+
+            text-overflow:
+                ellipsis;
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        .person-display-name:hover {
+
+            text-decoration:
+                underline;
+
+        }
+
+
+        .person-verified {
+
+            width:
+                16px;
+
+            height:
+                16px;
+
+            flex:
+                0 0 auto;
+
+            object-fit:
+                contain;
+
+        }
+
+
+        .person-username {
+
+            overflow:
+                hidden;
+
+            margin-top:
+                2px;
+
+            color:
+                #93869a;
+
+            font-size:
+                9px;
+
+            text-overflow:
+                ellipsis;
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        .person-bio {
+
+            overflow:
+                hidden;
+
+            margin-top:
+                8px;
+
+            color:
+                #6b5e70;
+
+            font-size:
+                9px;
+
+            line-height:
+                1.45;
+
+            display:
+                -webkit-box;
+
+            -webkit-line-clamp:
+                2;
+
+            -webkit-box-orient:
+                vertical;
+
+        }
+
+
+
+        /* =====================================================
+           CARD ACTIONS
+        ===================================================== */
+
+        .person-actions {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
+
+            padding:
+                10px 14px;
+
+            background:
+                #f1e9f2;
+
+            border-top:
+                1px solid
+                #d4c6d8;
+
+        }
+
+
+        .person-actions .retro-button {
+
+            padding:
+                6px 9px;
+
+            font-size:
+                8px;
+
+        }
+
+
+        .person-self-label {
+
+            color:
+                #84758d;
+
+            font-size:
+                8px;
+
+            font-weight:
+                800;
+
+        }
+
+
+
+        /* =====================================================
+           EMPTY / STATUS
+        ===================================================== */
+
+        .people-message {
+
+            grid-column:
+                1 / -1;
+
+            padding:
+                30px;
+
+            color:
+                #a79bb5;
+
+            font-size:
+                10px;
+
+            text-align:
+                center;
+
+            background:
+                rgba(
+                    27,
+                    25,
+                    44,
+                    0.65
+                );
+
+            border:
+                1px dashed
+                rgba(
+                    173,
+                    151,
+                    216,
+                    0.3
+                );
+
+            border-radius:
+                10px;
+
+        }
+
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (
+            max-width:
+                850px
+        ) {
+
+            .people-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(
+                            0,
+                            1fr
+                        )
+                    );
+
+            }
+
+        }
+
+
+        @media (
+            max-width:
+                560px
+        ) {
+
+            .nova-people-page {
+
+                width:
+                    calc(
+                        100% - 20px
+                    );
+
+            }
+
+
+            .people-search-box {
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .people-search-button {
+
+                width:
+                    100%;
+
+            }
+
+
+            .people-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div id="header"></div>
+
+
+<div id="site">
+
+
+    <main class="nova-people-page">
+
+
+        <header class="people-heading">
+
+
+            <div class="people-kicker">
+                THE QUESTIONABLE POPULATION OF NOVA
+            </div>
+
+
+            <h1>
+                People
+            </h1>
+
+
+            <p>
+                Find Nova users, inspect their profiles,
+                and potentially make the questionable decision
+                to become friends with them.
+            </p>
+
+
+        </header>
+
+
+
+        <!-- SEARCH -->
+
+        <section class="people-search-box">
+
+
+            <input
+                id="peopleSearchInput"
+                class="people-search-input"
+                type="search"
+                placeholder="Search usernames..."
+                autocomplete="off"
+                maxlength="50"
+            >
+
+
+            <button
+                id="peopleSearchButton"
+                class="retro-button play-button people-search-button"
+                type="button"
+            >
+                Search
+            </button>
+
+
+        </section>
+
+
+
+        <!-- RESULTS -->
+
+        <section>
+
+
+            <div class="people-section-heading">
+
+
+                <h2 id="peopleSectionTitle">
+                    Around Nova
+                </h2>
+
+
+                <div
+                    id="peopleResultNote"
+                    class="people-result-note"
+                ></div>
+
+
+            </div>
+
+
+            <div
+                id="peopleGrid"
+                class="people-grid"
+            >
+
+                <div class="people-message">
+                    Looking around Nova...
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            NOVA
+        </div>
+
+        <p>
+            Build. Play. Create.
+        </p>
+
+    </footer>
+
+
+</div>
+
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="js/nova-storage.js"></script>
+
+<script src="js/nova-supabase.js"></script>
+
+<script src="js/nova-notifications.js"></script>
+
+<script src="js/nova-auth.js"></script>
+
+<script src="js/nova-friends.js"></script>
+
+<script src="shell.js"></script>
+
+<script src="js/nova-people.js"></script>
+
+
+<script>
+
+    renderShell();
+
+    NovaPeople.init();
+
+</script>
+
+
+</body>
+
+</html>

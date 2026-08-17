@@ -116,7 +116,7 @@ export const NOVA_ITEMS = {
 
         classic: {
             id: "classic",
-            name: "Kitty Paw",
+            name: "Nova Classic",
             type: "shirt",
 
             icon:

@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Catalog Publisher - Nova
+    </title>
+
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+
+    <style>
+
+        .catalog-admin-page {
+
+            width:
+                calc(100% - 40px);
+
+            max-width:
+                850px;
+
+            margin:
+                0 auto;
+
+            padding:
+                35px 0 70px;
+
+        }
+
+
+        .catalog-admin-header {
+
+            margin-bottom:
+                22px;
+
+        }
+
+
+        .catalog-admin-kicker {
+
+            margin-bottom:
+                6px;
+
+            color:
+                #c9ad67;
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                1.5px;
+
+        }
+
+
+        .catalog-admin-header h1 {
+
+            margin:
+                0;
+
+            color:
+                #f4efff;
+
+            font-size:
+                32px;
+
+        }
+
+
+        .catalog-admin-header p {
+
+            color:
+                #aaa0b9;
+
+            font-size:
+                10px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        .catalog-admin-card {
+
+            overflow:
+                hidden;
+
+            background:
+                #fffaf0;
+
+            border:
+                1px solid
+                #bbaac4;
+
+            border-radius:
+                11px;
+
+            box-shadow:
+                0 15px 35px
+                rgba(
+                    5,
+                    5,
+                    15,
+                    0.25
+                );
+
+        }
+
+
+        .catalog-admin-title {
+
+            padding:
+                11px 14px;
+
+            color:
+                #493b51;
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+            background:
+                linear-gradient(
+                    #eee5f1,
+                    #ddd0e3
+                );
+
+            border-bottom:
+                1px solid
+                #bbaac4;
+
+        }
+
+
+        .catalog-admin-body {
+
+            padding:
+                20px;
+
+        }
+
+
+        .catalog-field {
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .catalog-field label {
+
+            display:
+                block;
+
+            margin-bottom:
+                5px;
+
+            color:
+                #56475f;
+
+            font-size:
+                9px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .catalog-field input,
+        .catalog-field textarea,
+        .catalog-field select {
+
+            width:
+                100%;
+
+            box-sizing:
+                border-box;
+
+            padding:
+                9px 10px;
+
+            color:
+                #44384d;
+
+            font:
+                inherit;
+
+            background:
+                #fffdf8;
+
+            border:
+                1px solid
+                #b9a7c2;
+
+            border-radius:
+                5px;
+
+        }
+
+
+        .catalog-field textarea {
+
+            min-height:
+                100px;
+
+            resize:
+                vertical;
+
+        }
+
+
+        .catalog-preview {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                150px
+                minmax(
+                    0,
+                    1fr
+                );
+
+            gap:
+                15px;
+
+            margin:
+                18px 0;
+
+            padding:
+                14px;
+
+            background:
+                #f2ebf4;
+
+            border:
+                1px dashed
+                #aa96b5;
+
+            border-radius:
+                7px;
+
+        }
+
+
+        .catalog-preview img {
+
+            width:
+                150px;
+
+            height:
+                150px;
+
+            object-fit:
+                contain;
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #c4b4ca;
+
+            border-radius:
+                7px;
+
+        }
+
+
+        .catalog-preview h3 {
+
+            margin:
+                0 0 5px;
+
+            color:
+                #47394e;
+
+        }
+
+
+        .catalog-preview p {
+
+            color:
+                #75667b;
+
+            font-size:
+                9px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .catalog-publish-button {
+
+            padding:
+                11px 20px;
+
+            color:
+                white;
+
+            font:
+                inherit;
+
+            font-weight:
+                900;
+
+            background:
+                linear-gradient(
+                    #72a452,
+                    #527d3c
+                );
+
+            border:
+                1px solid
+                #3e632d;
+
+            border-radius:
+                7px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .catalog-publish-button:disabled {
+
+            opacity:
+                0.55;
+
+            cursor:
+                default;
+
+        }
+
+
+        .catalog-status {
+
+            margin-top:
+                14px;
+
+            min-height:
+                20px;
+
+            color:
+                #66556f;
+
+            font-size:
+                9px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .catalog-status.error {
+
+            color:
+                #a44852;
+
+        }
+
+
+        .catalog-status.success {
+
+            color:
+                #577b42;
+
+        }
+
+
+        .catalog-access-denied {
+
+            padding:
+                40px;
+
+            color:
+                #b8acc7;
+
+            text-align:
+                center;
+
+        }
+
+
+        @media (
+            max-width:
+                600px
+        ) {
+
+            .catalog-preview {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .catalog-preview img {
+
+                width:
+                    100%;
+
+                height:
+                    auto;
+
+                aspect-ratio:
+                    1 / 1;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div id="header"></div>
+
+
+<div id="site">
+
+
+    <main class="catalog-admin-page">
+
+
+        <header class="catalog-admin-header">
+
+            <div class="catalog-admin-kicker">
+                NOVA ADMIN
+            </div>
+
+            <h1>
+                Catalog Publisher
+            </h1>
+
+            <p>
+                Put things into the catalog.
+                Try not to destroy the economy.
+            </p>
+
+        </header>
+
+
+
+        <div
+            id="catalogAccessDenied"
+            class="catalog-access-denied"
+            hidden
+        >
+            You do not have permission
+            to use the catalog publisher.
+        </div>
+
+
+
+        <section
+            id="catalogAdminCard"
+            class="catalog-admin-card"
+            hidden
+        >
+
+
+            <div class="catalog-admin-title">
+                ✦ New Catalog Item
+            </div>
+
+
+            <div class="catalog-admin-body">
+
+
+                <div class="catalog-field">
+
+                    <label for="catalogName">
+                        ITEM NAME
+                    </label>
+
+                    <input
+                        id="catalogName"
+                        type="text"
+                        maxlength="60"
+                        placeholder="Extremely Normal Hat"
+                    >
+
+                </div>
+
+
+
+                <div class="catalog-field">
+
+                    <label for="catalogCategory">
+                        CATEGORY
+                    </label>
+
+                    <select id="catalogCategory">
+
+                        <option value="Hat">
+                            Hat
+                        </option>
+
+                        <option value="Face">
+                            Face
+                        </option>
+
+                        <option value="Shirt">
+                            Shirt
+                        </option>
+
+                        <option value="Pants">
+                            Pants
+                        </option>
+
+                        <option value="Accessory">
+                            Accessory
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="catalog-field">
+
+                    <label for="catalogDescription">
+                        DESCRIPTION
+                    </label>
+
+                    <textarea
+                        id="catalogDescription"
+                        maxlength="300"
+                        placeholder="Explain this questionable object..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <div class="catalog-field">
+
+                    <label for="catalogPrice">
+                        PRICE
+                    </label>
+
+                    <input
+                        id="catalogPrice"
+                        type="number"
+                        min="0"
+                        step="1"
+                        value="0"
+                    >
+
+                </div>
+
+
+
+                <div class="catalog-field">
+
+                    <label for="catalogCreator">
+                        CREATOR
+                    </label>
+
+                    <input
+                        id="catalogCreator"
+                        type="text"
+                        maxlength="60"
+                        placeholder="Nova"
+                    >
+
+                </div>
+
+
+
+                <div class="catalog-field">
+
+                    <label for="catalogImage">
+                        IMAGE
+                    </label>
+
+                    <input
+                        id="catalogImage"
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp,image/gif"
+                    >
+
+                </div>
+
+
+
+                <div
+                    id="catalogPreview"
+                    class="catalog-preview"
+                    hidden
+                >
+
+                    <img
+                        id="catalogPreviewImage"
+                        alt="Catalog preview"
+                    >
+
+
+                    <div>
+
+                        <h3 id="catalogPreviewName">
+                            Item
+                        </h3>
+
+                        <p id="catalogPreviewDescription">
+                            Description
+                        </p>
+
+                        <strong id="catalogPreviewPrice">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <button
+                    id="catalogPublishButton"
+                    class="catalog-publish-button"
+                    type="button"
+                >
+                    Publish to Catalog
+                </button>
+
+
+                <div
+                    id="catalogStatus"
+                    class="catalog-status"
+                ></div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="js/nova-storage.js"></script>
+
+<script src="js/nova-supabase.js"></script>
+
+<script src="js/nova-auth.js"></script>
+
+<script src="shell.js"></script>
+
+<script src="js/nova-catalog-admin.js"></script>
+
+
+<script>
+
+    renderShell();
+
+    NovaCatalogAdmin.init();
+
+</script>
+
+
+</body>
+
+</html>

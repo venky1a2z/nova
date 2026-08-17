@@ -1,30 +1,95 @@
 using OpenTK.Mathematics;
 
+
 namespace Nova.Player;
+
 
 public sealed class AvatarConfig
 {
-    public int PlaceId { get; set; } = 1;
 
-    public string Skin { get; set; } =
+
+    public int PlaceId
+    {
+        get;
+        set;
+    } =
+        1;
+
+
+    /*
+     * Multiplayer identity.
+     */
+
+    public string UserId
+    {
+        get;
+        set;
+    } =
+        Guid.NewGuid()
+            .ToString();
+    
+
+    public string Username
+    {
+        get;
+        set;
+    } =
+        "NovaPlayer";
+
+
+    /*
+     * Character appearance.
+     */
+
+    public string Skin
+    {
+        get;
+        set;
+    } =
         "yellow";
 
-    public string Face { get; set; } =
+
+    public string Face
+    {
+        get;
+        set;
+    } =
         "happy";
 
-    public string Shirt { get; set; } =
+
+    public string Shirt
+    {
+        get;
+        set;
+    } =
         "cafe";
 
-    public string Pants { get; set; } =
+
+    public string Pants
+    {
+        get;
+        set;
+    } =
         "black";
 
-    public string Hat { get; set; } =
+
+    public string Hat
+    {
+        get;
+        set;
+    } =
         "none";
 
+
+    /* =====================================================
+       PARSE NOVA LAUNCH URL
+    ====================================================== */
 
     public static AvatarConfig FromLaunchUrl(
         string launchUrl)
     {
+
+
         var config =
             new AvatarConfig();
 
@@ -37,115 +102,196 @@ public sealed class AvatarConfig
             )
         )
         {
+
             return config;
+
         }
 
 
-        Dictionary<string, string> query =
-            ParseQuery(
-                uri.Query
-            );
+        Dictionary<string, string>
+            query =
+                ParseQuery(
+                    uri.Query
+                );
 
+
+        /* PLACE */
 
         if (
             query.TryGetValue(
                 "placeId",
-                out string? placeIdText
-            ) &&
+                out string?
+                    placeIdText
+            )
+            &&
             int.TryParse(
                 placeIdText,
                 out int placeId
             )
         )
         {
+
             config.PlaceId =
                 placeId;
+
         }
 
+
+        /* USER ID */
+
+        if (
+            query.TryGetValue(
+                "userId",
+                out string?
+                    userId
+            )
+        )
+        {
+
+            config.UserId =
+                CleanId(
+                    userId,
+                    config.UserId
+                );
+
+        }
+
+
+        /* USERNAME */
+
+        if (
+            query.TryGetValue(
+                "username",
+                out string?
+                    username
+            )
+        )
+        {
+
+            config.Username =
+                CleanValue(
+                    username,
+                    config.Username
+                );
+
+        }
+
+
+        /* SKIN */
 
         if (
             query.TryGetValue(
                 "skin",
-                out string? skin
+                out string?
+                    skin
             )
         )
         {
+
             config.Skin =
                 CleanValue(
                     skin,
                     config.Skin
                 );
+
         }
 
+
+        /* FACE */
 
         if (
             query.TryGetValue(
                 "face",
-                out string? face
+                out string?
+                    face
             )
         )
         {
+
             config.Face =
                 CleanValue(
                     face,
                     config.Face
                 );
+
         }
 
+
+        /* SHIRT */
 
         if (
             query.TryGetValue(
                 "shirt",
-                out string? shirt
+                out string?
+                    shirt
             )
         )
         {
+
             config.Shirt =
                 CleanValue(
                     shirt,
                     config.Shirt
                 );
+
         }
 
+
+        /* PANTS */
 
         if (
             query.TryGetValue(
                 "pants",
-                out string? pants
+                out string?
+                    pants
             )
         )
         {
+
             config.Pants =
                 CleanValue(
                     pants,
                     config.Pants
                 );
+
         }
 
+
+        /* HAT */
 
         if (
             query.TryGetValue(
                 "hat",
-                out string? hat
+                out string?
+                    hat
             )
         )
         {
+
             config.Hat =
                 CleanValue(
                     hat,
                     config.Hat
                 );
+
         }
 
 
         return config;
+
     }
 
+
+    /* =====================================================
+       QUERY PARSER
+    ====================================================== */
 
     private static Dictionary<string, string>
         ParseQuery(
             string queryString)
     {
+
+
         var result =
             new Dictionary<
                 string,
@@ -167,7 +313,9 @@ public sealed class AvatarConfig
             )
         )
         {
+
             return result;
+
         }
 
 
@@ -180,6 +328,8 @@ public sealed class AvatarConfig
             )
         )
         {
+
+
             string[] pair =
                 section.Split(
                     '=',
@@ -213,36 +363,36 @@ public sealed class AvatarConfig
 
             result[key] =
                 value;
+
         }
 
 
         return result;
+
     }
 
+
+    /* =====================================================
+       SAFE ITEM / USERNAME VALUE
+    ====================================================== */
 
     private static string CleanValue(
         string value,
         string fallback)
     {
+
+
         if (
             string.IsNullOrWhiteSpace(
                 value
             )
         )
         {
+
             return fallback;
+
         }
 
-
-        /*
-         * Only allow simple item IDs.
-         *
-         * Prevent things like:
-         *
-         * ../../file
-         *
-         * from becoming asset paths.
-         */
 
         string safe =
             new string(
@@ -251,9 +401,14 @@ public sealed class AvatarConfig
                         character =>
                             char.IsLetterOrDigit(
                                 character
-                            ) ||
-                            character == '-' ||
+                            )
+                            ||
+                            character == '-'
+                            ||
                             character == '_'
+                    )
+                    .Take(
+                        50
                     )
                     .ToArray()
             );
@@ -267,46 +422,116 @@ public sealed class AvatarConfig
                 fallback
                 :
                 safe;
+
     }
 
 
+    /* =====================================================
+       USER ID
+
+       Allows UUID dashes.
+    ====================================================== */
+
+    private static string CleanId(
+        string value,
+        string fallback)
+    {
+
+
+        if (
+            string.IsNullOrWhiteSpace(
+                value
+            )
+        )
+        {
+
+            return fallback;
+
+        }
+
+
+        string safe =
+            new string(
+                value
+                    .Where(
+                        character =>
+                            char.IsLetterOrDigit(
+                                character
+                            )
+                            ||
+                            character == '-'
+                    )
+                    .Take(
+                        64
+                    )
+                    .ToArray()
+            );
+
+
+        return
+            string.IsNullOrWhiteSpace(
+                safe
+            )
+                ?
+                fallback
+                :
+                safe;
+
+    }
+
+
+    /* =====================================================
+       SKIN COLOR
+    ====================================================== */
+
     public Vector4 GetSkinColor()
     {
+
+
         return Skin
             .ToLowerInvariant()
             switch
             {
+
                 "light" =>
                     HexColor(
                         "#f2c7a5"
                     ),
+
 
                 "tan" =>
                     HexColor(
                         "#c98f65"
                     ),
 
+
                 "brown" =>
                     HexColor(
                         "#8c5a3c"
                     ),
+
 
                 "dark" =>
                     HexColor(
                         "#5a3728"
                     ),
 
+
                 _ =>
                     HexColor(
                         "#f4d84a"
                     )
+
             };
+
     }
 
 
     private static Vector4 HexColor(
         string hex)
     {
+
+
         string clean =
             hex.TrimStart('#');
 
@@ -347,5 +572,7 @@ public sealed class AvatarConfig
             blue / 255f,
             1f
         );
+
     }
+
 }
