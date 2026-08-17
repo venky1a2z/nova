@@ -279,7 +279,82 @@
                 8px;
 
         }
+/* =====================================================
+   VERIFIED
+===================================================== */
 
+.nova-profile-name-row {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+}
+
+
+.nova-verified-badge {
+
+    width:
+        22px;
+
+    height:
+        22px;
+
+    object-fit:
+        contain;
+
+    flex:
+        0 0 auto;
+
+}
+
+
+.nova-admin-controls {
+
+    margin-top:
+        9px;
+
+    padding-top:
+        9px;
+
+    border-top:
+        1px dashed
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+
+}
+
+
+.nova-admin-controls::before {
+
+    content:
+        "NOVA ADMIN";
+
+    margin-right:
+        7px;
+
+    color:
+        #bdb3d2;
+
+    font-size:
+        7px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1px;
+
+}
 
         /* =====================================================
            CONTENT
@@ -971,12 +1046,26 @@
                 </div>
 
 
-                <h1
-                    id="profileDisplayName"
-                    class="nova-profile-display-name"
-                >
-                    Nova User
-                </h1>
+<div class="nova-profile-name-row">
+
+    <h1
+        id="profileDisplayName"
+        class="nova-profile-display-name"
+    >
+        Nova User
+    </h1>
+
+
+    <img
+        id="profileVerifiedBadge"
+        class="nova-verified-badge"
+        src="assets/decorations/verified.png"
+        alt="Verified"
+        title="Verified Nova user"
+        hidden
+    >
+
+</div>
 
 
                 <div
@@ -1022,6 +1111,21 @@
 
                 </div>
 
+                <div
+    id="novaAdminControls"
+    class="nova-profile-actions nova-admin-controls"
+    hidden
+>
+
+    <button
+        id="novaVerifyButton"
+        class="retro-button"
+        type="button"
+    >
+        ✓ Verify User
+    </button>
+
+</div>
 
                 <!-- OWNER -->
 

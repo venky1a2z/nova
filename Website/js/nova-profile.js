@@ -13,6 +13,18 @@ const NovaProfile = {
         false,
 
 
+    isAdmin:
+        false,
+
+
+    isVerified:
+        false,
+
+
+    messageTimer:
+        null,
+
+
     /* =====================================================
        INITIALIZE
     ====================================================== */
@@ -22,17 +34,45 @@ const NovaProfile = {
 
         const {
             data:
-                authData
+                authData,
+            error:
+                authError
         } =
             await NovaSupabase
                 .auth
                 .getUser();
 
 
+        if (
+            authError
+        ) {
+
+            console.warn(
+                "Nova auth check:",
+                authError
+            );
+
+        }
+
+
         this.currentAuthUser =
             authData?.user
             ||
             null;
+
+
+        /*
+            Check whether the currently
+            logged-in account is a Nova admin.
+        */
+
+        if (
+            this.currentAuthUser
+        ) {
+
+            await this.loadAdminStatus();
+
+        }
 
 
         const params =
@@ -50,6 +90,11 @@ const NovaProfile = {
         let profileId =
             requestedId;
 
+
+        /*
+            No ID means:
+            open your own profile.
+        */
 
         if (
             !profileId
@@ -86,6 +131,48 @@ const NovaProfile = {
         await this.loadProfile(
             profileId
         );
+
+    },
+
+
+    /* =====================================================
+       ADMIN STATUS
+    ====================================================== */
+
+    async loadAdminStatus() {
+
+
+        const {
+            data,
+            error
+        } =
+            await NovaSupabase
+                .rpc(
+                    "is_nova_admin"
+                );
+
+
+        if (
+            error
+        ) {
+
+            console.error(
+                "Nova admin check:",
+                error
+            );
+
+
+            this.isAdmin =
+                false;
+
+
+            return;
+
+        }
+
+
+        this.isAdmin =
+            data === true;
 
     },
 
@@ -135,6 +222,7 @@ const NovaProfile = {
         ) {
 
             console.error(
+                "Profile load error:",
                 error
             );
 
@@ -142,6 +230,7 @@ const NovaProfile = {
             this.showError(
                 error.message
             );
+
 
             return;
 
@@ -156,6 +245,7 @@ const NovaProfile = {
                 "That Nova user doesn't exist."
             );
 
+
             return;
 
         }
@@ -163,6 +253,14 @@ const NovaProfile = {
 
         this.profile =
             data;
+
+
+        /*
+            Check whether this user
+            currently has the blue check.
+        */
+
+        await this.loadVerifiedStatus();
 
 
         this.renderProfile();
@@ -181,14 +279,93 @@ const NovaProfile = {
 
         }
 
+
+        /*
+            If logged-in account is
+            an official Nova admin,
+            show verify controls.
+        */
+
+        this.setupAdminVerificationControls();
+
     },
 
 
     /* =====================================================
-       RENDER
+       VERIFIED STATUS
+    ====================================================== */
+
+    async loadVerifiedStatus() {
+
+
+        if (
+            !this.profile
+        ) {
+
+            return;
+
+        }
+
+
+        const {
+            data,
+            error
+        } =
+            await NovaSupabase
+                .from(
+                    "verified_users"
+                )
+                .select(
+                    "user_id"
+                )
+                .eq(
+                    "user_id",
+                    this.profile.id
+                )
+                .maybeSingle();
+
+
+        if (
+            error
+        ) {
+
+            console.error(
+                "Nova verification check:",
+                error
+            );
+
+
+            this.isVerified =
+                false;
+
+
+            return;
+
+        }
+
+
+        this.isVerified =
+            Boolean(
+                data
+            );
+
+    },
+
+
+    /* =====================================================
+       RENDER PROFILE
     ====================================================== */
 
     renderProfile() {
+
+
+        if (
+            !this.profile
+        ) {
+
+            return;
+
+        }
 
 
         const profile =
@@ -199,12 +376,20 @@ const NovaProfile = {
             `${profile.username} - Nova`;
 
 
-        document
-            .getElementById(
+        const usernameElement =
+            document.getElementById(
                 "profileUsername"
-            )
-            .textContent =
+            );
+
+
+        if (
+            usernameElement
+        ) {
+
+            usernameElement.textContent =
                 profile.username;
+
+        }
 
 
         const displayName =
@@ -213,77 +398,142 @@ const NovaProfile = {
             profile.username;
 
 
-        document
-            .getElementById(
+        const displayNameElement =
+            document.getElementById(
                 "profileDisplayName"
-            )
-            .textContent =
+            );
+
+
+        if (
+            displayNameElement
+        ) {
+
+            displayNameElement.textContent =
                 displayName;
 
+        }
 
-        document
-            .getElementById(
+
+        const bioElement =
+            document.getElementById(
                 "profileBio"
-            )
-            .textContent =
+            );
+
+
+        if (
+            bioElement
+        ) {
+
+            bioElement.textContent =
                 profile.bio
                 ||
                 "This user has not written a bio yet.";
 
-
-        const image =
-            profile.avatar_url
-            ||
-            "assets/avatars/guest.png";
+        }
 
 
-        document
-            .getElementById(
+        const profilePicture =
+            document.getElementById(
                 "profilePicture"
-            )
-            .src =
-                image;
+            );
 
 
-        document
-            .getElementById(
-                "profilePicture"
-            )
-            .alt =
+        if (
+            profilePicture
+        ) {
+
+
+            profilePicture.src =
+                profile.avatar_url
+                ||
+                "assets/avatars/guest.png";
+
+
+            profilePicture.alt =
                 `${profile.username}'s profile picture`;
 
-
-        const joined =
-            profile.created_at
-                ?
-                new Date(
-                    profile.created_at
-                )
-                :
-                null;
+        }
 
 
-        document
-            .getElementById(
+        const handle =
+            document.getElementById(
+                "profileHandle"
+            );
+
+
+        if (
+            handle
+        ) {
+
+            handle.textContent =
+                `@${profile.username}`;
+
+        }
+
+
+        const joinedElement =
+            document.getElementById(
                 "profileJoined"
-            )
-            .textContent =
+            );
+
+
+        if (
+            joinedElement
+        ) {
+
+
+            const joined =
+                profile.created_at
+                    ?
+                    new Date(
+                        profile.created_at
+                    )
+                    :
+                    null;
+
+
+            joinedElement.textContent =
                 joined
                     ?
                     joined.toLocaleDateString()
                     :
                     "Unknown";
 
-
-        document
-            .getElementById(
-                "profileHandle"
-            )
-            .textContent =
-                `@${profile.username}`;
+        }
 
 
         this.renderCharacterInfo();
+
+
+        this.renderVerifiedBadge();
+
+    },
+
+
+    /* =====================================================
+       VERIFIED BADGE
+    ====================================================== */
+
+    renderVerifiedBadge() {
+
+
+        const badge =
+            document.getElementById(
+                "profileVerifiedBadge"
+            );
+
+
+        if (
+            !badge
+        ) {
+
+            return;
+
+        }
+
+
+        badge.hidden =
+            !this.isVerified;
 
     },
 
@@ -295,31 +545,45 @@ const NovaProfile = {
     renderCharacterInfo() {
 
 
+        if (
+            !this.profile
+        ) {
+
+            return;
+
+        }
+
+
         const profile =
             this.profile;
 
 
         const values = {
 
+
             skin:
                 profile.skin
                 ||
                 "yellow",
+
 
             face:
                 profile.face
                 ||
                 "happy",
 
+
             shirt:
                 profile.shirt
                 ||
                 "none",
 
+
             pants:
                 profile.pants
                 ||
                 "none",
+
 
             hat:
                 profile.hat
@@ -329,44 +593,34 @@ const NovaProfile = {
         };
 
 
-        document
-            .getElementById(
-                "characterSkin"
-            )
-            .textContent =
-                values.skin;
+        this.setText(
+            "characterSkin",
+            values.skin
+        );
 
 
-        document
-            .getElementById(
-                "characterFace"
-            )
-            .textContent =
-                values.face;
+        this.setText(
+            "characterFace",
+            values.face
+        );
 
 
-        document
-            .getElementById(
-                "characterShirt"
-            )
-            .textContent =
-                values.shirt;
+        this.setText(
+            "characterShirt",
+            values.shirt
+        );
 
 
-        document
-            .getElementById(
-                "characterPants"
-            )
-            .textContent =
-                values.pants;
+        this.setText(
+            "characterPants",
+            values.pants
+        );
 
 
-        document
-            .getElementById(
-                "characterHat"
-            )
-            .textContent =
-                values.hat;
+        this.setText(
+            "characterHat",
+            values.hat
+        );
 
     },
 
@@ -378,80 +632,131 @@ const NovaProfile = {
     setupOwnerControls() {
 
 
-        document
-            .getElementById(
+        const ownerControls =
+            document.getElementById(
                 "ownerControls"
-            )
-            .hidden =
+            );
+
+
+        if (
+            ownerControls
+        ) {
+
+            ownerControls.hidden =
                 false;
 
+        }
 
-        document
-            .getElementById(
+
+        const otherUserControls =
+            document.getElementById(
                 "otherUserControls"
-            )
-            .hidden =
+            );
+
+
+        if (
+            otherUserControls
+        ) {
+
+            otherUserControls.hidden =
                 true;
 
+        }
 
-        document
-            .getElementById(
+
+        const editUsername =
+            document.getElementById(
                 "editUsername"
-            )
-            .value =
+            );
+
+
+        if (
+            editUsername
+        ) {
+
+            editUsername.value =
                 this.profile.username;
 
+        }
 
-        document
-            .getElementById(
+
+        const editDisplayName =
+            document.getElementById(
                 "editDisplayName"
-            )
-            .value =
+            );
+
+
+        if (
+            editDisplayName
+        ) {
+
+            editDisplayName.value =
                 this.profile.display_name
                 ||
                 "";
 
+        }
 
-        document
-            .getElementById(
+
+        const editBio =
+            document.getElementById(
                 "editBio"
-            )
-            .value =
+            );
+
+
+        if (
+            editBio
+        ) {
+
+
+            editBio.value =
                 this.profile.bio
                 ||
                 "";
 
 
-        this.updateBioCounter();
-
-
-        document
-            .getElementById(
-                "editBio"
-            )
-            .addEventListener(
+            editBio.addEventListener(
                 "input",
                 () =>
                     this.updateBioCounter()
             );
 
+        }
 
-        document
-            .getElementById(
+
+        this.updateBioCounter();
+
+
+        const saveButton =
+            document.getElementById(
                 "saveProfileButton"
-            )
-            .addEventListener(
+            );
+
+
+        if (
+            saveButton
+        ) {
+
+            saveButton.addEventListener(
                 "click",
                 () =>
                     this.saveProfile()
             );
 
+        }
 
-        document
-            .getElementById(
+
+        const pictureInput =
+            document.getElementById(
                 "profilePictureInput"
-            )
-            .addEventListener(
+            );
+
+
+        if (
+            pictureInput
+        ) {
+
+            pictureInput.addEventListener(
                 "change",
                 event =>
                     this.previewProfilePicture(
@@ -459,28 +764,57 @@ const NovaProfile = {
                     )
             );
 
+        }
 
-        document
-            .getElementById(
+
+        const uploadButton =
+            document.getElementById(
                 "uploadProfilePictureButton"
-            )
-            .addEventListener(
+            );
+
+
+        if (
+            uploadButton
+        ) {
+
+            uploadButton.addEventListener(
                 "click",
                 () =>
                     this.uploadProfilePicture()
             );
 
+        }
 
-        document
-            .getElementById(
+
+        const logoutButton =
+            document.getElementById(
                 "logoutButton"
-            )
-            .addEventListener(
+            );
+
+
+        if (
+            logoutButton
+        ) {
+
+            logoutButton.addEventListener(
                 "click",
                 async () => {
 
 
-                    await NovaAuth.logout();
+                    try {
+
+                        await NovaAuth.logout();
+
+                    }
+                    catch (
+                        error
+                    ) {
+
+                        console.warn(
+                            error
+                        );
+
+                    }
 
 
                     window.location.href =
@@ -489,61 +823,104 @@ const NovaProfile = {
                 }
             );
 
+        }
 
-        document
-            .getElementById(
+
+        const deleteButton =
+            document.getElementById(
                 "deleteAccountButton"
-            )
-            .addEventListener(
+            );
+
+
+        if (
+            deleteButton
+        ) {
+
+            deleteButton.addEventListener(
                 "click",
                 () =>
                     this.openDeleteModal()
             );
 
+        }
 
-        document
-            .getElementById(
+
+        const cancelDelete =
+            document.getElementById(
                 "cancelDeleteButton"
-            )
-            .addEventListener(
+            );
+
+
+        if (
+            cancelDelete
+        ) {
+
+            cancelDelete.addEventListener(
                 "click",
                 () =>
                     this.closeDeleteModal()
             );
 
+        }
 
-        document
-            .getElementById(
+
+        const confirmDelete =
+            document.getElementById(
                 "confirmDeleteButton"
-            )
-            .addEventListener(
+            );
+
+
+        if (
+            confirmDelete
+        ) {
+
+            confirmDelete.addEventListener(
                 "click",
                 () =>
                     this.deleteAccount()
             );
 
+        }
+
     },
 
 
     /* =====================================================
-       OTHER USER
+       OTHER USER CONTROLS
     ====================================================== */
 
     async setupOtherUserControls() {
 
 
-        document
-            .getElementById(
+        const ownerControls =
+            document.getElementById(
                 "ownerControls"
-            )
-            .hidden =
+            );
+
+
+        if (
+            ownerControls
+        ) {
+
+            ownerControls.hidden =
                 true;
+
+        }
 
 
         const otherControls =
             document.getElementById(
                 "otherUserControls"
             );
+
+
+        if (
+            !otherControls
+        ) {
+
+            return;
+
+        }
 
 
         otherControls.hidden =
@@ -557,11 +934,29 @@ const NovaProfile = {
 
 
         if (
+            !button
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+            Logged-out visitor.
+        */
+
+        if (
             !this.currentAuthUser
         ) {
 
+
             button.textContent =
                 "Log in to add friend";
+
+
+            button.disabled =
+                false;
 
 
             button.addEventListener(
@@ -616,16 +1011,22 @@ const NovaProfile = {
         ) {
 
             console.error(
+                "Friend relationship check:",
                 error
             );
 
         }
 
 
+        /*
+            Already friends.
+        */
+
         if (
             relationship?.status ===
             "accepted"
         ) {
+
 
             button.textContent =
                 "✓ Friends";
@@ -640,6 +1041,10 @@ const NovaProfile = {
         }
 
 
+        /*
+            Pending friend request.
+        */
+
         if (
             relationship?.status ===
             "pending"
@@ -651,6 +1056,7 @@ const NovaProfile = {
                 me
             ) {
 
+
                 button.textContent =
                     "Friend Request Sent";
 
@@ -661,8 +1067,13 @@ const NovaProfile = {
             }
             else {
 
+
                 button.textContent =
                     "Respond in Friends";
+
+
+                button.disabled =
+                    false;
 
 
                 button.addEventListener(
@@ -683,8 +1094,16 @@ const NovaProfile = {
         }
 
 
+        /*
+            No relationship yet.
+        */
+
         button.textContent =
             "＋ Add Friend";
+
+
+        button.disabled =
+            false;
 
 
         button.addEventListener(
@@ -711,11 +1130,13 @@ const NovaProfile = {
                     result.success
                 ) {
 
+
                     button.textContent =
                         "Friend Request Sent";
 
                 }
                 else {
+
 
                     button.disabled =
                         false;
@@ -739,38 +1160,253 @@ const NovaProfile = {
 
 
     /* =====================================================
+       ADMIN VERIFICATION CONTROLS
+    ====================================================== */
+
+    setupAdminVerificationControls() {
+
+
+        const box =
+            document.getElementById(
+                "novaAdminControls"
+            );
+
+
+        const button =
+            document.getElementById(
+                "novaVerifyButton"
+            );
+
+
+        if (
+            !box
+            ||
+            !button
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+            Never show admin controls unless
+            this account is registered in
+            nova_admins.
+
+            Also don't show the button when
+            looking at your own profile.
+        */
+
+        if (
+            !this.isAdmin
+            ||
+            this.viewingOwnProfile
+        ) {
+
+
+            box.hidden =
+                true;
+
+
+            return;
+
+        }
+
+
+        box.hidden =
+            false;
+
+
+        this.updateVerifyButton();
+
+
+        button.addEventListener(
+            "click",
+            async () => {
+
+
+                button.disabled =
+                    true;
+
+
+                button.textContent =
+                    this.isVerified
+                        ?
+                        "Removing..."
+                        :
+                        "Verifying...";
+
+
+                const {
+                    error
+                } =
+                    await NovaSupabase
+                        .rpc(
+                            "nova_set_verified",
+                            {
+
+                                target_user_id:
+                                    this.profile.id,
+
+
+                                should_verify:
+                                    !this.isVerified
+
+                            }
+                        );
+
+
+                if (
+                    error
+                ) {
+
+
+                    console.error(
+                        "Verification update error:",
+                        error
+                    );
+
+
+                    button.disabled =
+                        false;
+
+
+                    this.updateVerifyButton();
+
+
+                    this.showMessage(
+                        error.message,
+                        true
+                    );
+
+
+                    return;
+
+                }
+
+
+                this.isVerified =
+                    !this.isVerified;
+
+
+                button.disabled =
+                    false;
+
+
+                this.renderVerifiedBadge();
+
+
+                this.updateVerifyButton();
+
+
+                this.showMessage(
+
+                    this.isVerified
+                        ?
+                        `${this.profile.username} is now verified!`
+                        :
+                        `${this.profile.username}'s verification was removed.`
+
+                );
+
+            }
+        );
+
+    },
+
+
+    /* =====================================================
+       UPDATE VERIFY BUTTON
+    ====================================================== */
+
+    updateVerifyButton() {
+
+
+        const button =
+            document.getElementById(
+                "novaVerifyButton"
+            );
+
+
+        if (
+            !button
+        ) {
+
+            return;
+
+        }
+
+
+        button.textContent =
+            this.isVerified
+                ?
+                "Remove Verification"
+                :
+                "✓ Verify User";
+
+    },
+
+
+    /* =====================================================
        SAVE PROFILE
     ====================================================== */
 
     async saveProfile() {
 
 
+        const usernameInput =
+            document.getElementById(
+                "editUsername"
+            );
+
+
+        const displayInput =
+            document.getElementById(
+                "editDisplayName"
+            );
+
+
+        const bioInput =
+            document.getElementById(
+                "editBio"
+            );
+
+
+        if (
+            !usernameInput
+            ||
+            !displayInput
+            ||
+            !bioInput
+        ) {
+
+            return;
+
+        }
+
+
         const username =
-            document
-                .getElementById(
-                    "editUsername"
-                )
+            usernameInput
                 .value
                 .trim();
 
 
         const displayName =
-            document
-                .getElementById(
-                    "editDisplayName"
-                )
+            displayInput
                 .value
                 .trim();
 
 
         const bio =
-            document
-                .getElementById(
-                    "editBio"
-                )
+            bioInput
                 .value
                 .trim();
 
+
+        /*
+            Username validation.
+        */
 
         if (
             !/^[A-Za-z0-9_]{3,20}$/
@@ -779,10 +1415,12 @@ const NovaProfile = {
                 )
         ) {
 
+
             this.showMessage(
                 "Username must be 3-20 characters and only contain letters, numbers, or underscores.",
                 true
             );
+
 
             return;
 
@@ -794,10 +1432,12 @@ const NovaProfile = {
             40
         ) {
 
+
             this.showMessage(
                 "Display name must be 40 characters or less.",
                 true
             );
+
 
             return;
 
@@ -809,15 +1449,21 @@ const NovaProfile = {
             200
         ) {
 
+
             this.showMessage(
                 "Bio must be 200 characters or less.",
                 true
             );
 
+
             return;
 
         }
 
+
+        /*
+            Check for existing username.
+        */
 
         const {
             data:
@@ -847,10 +1493,12 @@ const NovaProfile = {
             existingError
         ) {
 
+
             this.showMessage(
                 existingError.message,
                 true
             );
+
 
             return;
 
@@ -861,10 +1509,12 @@ const NovaProfile = {
             existing
         ) {
 
+
             this.showMessage(
                 "That username is already taken.",
                 true
             );
+
 
             return;
 
@@ -881,16 +1531,20 @@ const NovaProfile = {
                 .update(
                     {
 
+
                         username:
                             username,
+
 
                         display_name:
                             displayName
                             ||
                             null,
 
+
                         bio:
                             bio,
+
 
                         updated_at:
                             new Date()
@@ -908,10 +1562,12 @@ const NovaProfile = {
             error
         ) {
 
+
             this.showMessage(
                 error.message,
                 true
             );
+
 
             return;
 
@@ -935,13 +1591,16 @@ const NovaProfile = {
         await this.refreshLocalUser(
             {
 
+
                 username:
                     username,
+
 
                 display_name:
                     displayName
                     ||
                     null,
+
 
                 bio:
                     bio
@@ -988,10 +1647,43 @@ const NovaProfile = {
             );
 
 
-        preview.src =
+        if (
+            !preview
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+            Revoke old preview URL
+            if there was one.
+        */
+
+        if (
+            preview.dataset.objectUrl
+        ) {
+
+            URL.revokeObjectURL(
+                preview.dataset.objectUrl
+            );
+
+        }
+
+
+        const objectUrl =
             URL.createObjectURL(
                 file
             );
+
+
+        preview.dataset.objectUrl =
+            objectUrl;
+
+
+        preview.src =
+            objectUrl;
 
 
         preview.hidden =
@@ -1007,6 +1699,17 @@ const NovaProfile = {
     async uploadProfilePicture() {
 
 
+        if (
+            !this.viewingOwnProfile
+            ||
+            !this.currentAuthUser
+        ) {
+
+            return;
+
+        }
+
+
         const input =
             document.getElementById(
                 "profilePictureInput"
@@ -1019,6 +1722,17 @@ const NovaProfile = {
             );
 
 
+        if (
+            !input
+            ||
+            !button
+        ) {
+
+            return;
+
+        }
+
+
         const file =
             input.files?.[0];
 
@@ -1027,10 +1741,12 @@ const NovaProfile = {
             !file
         ) {
 
+
             this.showMessage(
                 "Choose a picture first.",
                 true
             );
+
 
             return;
 
@@ -1053,17 +1769,19 @@ const NovaProfile = {
             )
         ) {
 
+
             this.showMessage(
                 "Profile pictures must be PNG, JPG, WEBP, or GIF.",
                 true
             );
+
 
             return;
 
         }
 
 
-        const fiveMegabytes =
+        const maxSize =
             5 *
             1024 *
             1024;
@@ -1071,13 +1789,15 @@ const NovaProfile = {
 
         if (
             file.size >
-            fiveMegabytes
+            maxSize
         ) {
+
 
             this.showMessage(
                 "Profile pictures must be 5 MB or smaller.",
                 true
             );
+
 
             return;
 
@@ -1094,14 +1814,18 @@ const NovaProfile = {
 
         const extensionMap = {
 
+
             "image/png":
                 "png",
+
 
             "image/jpeg":
                 "jpg",
 
+
             "image/webp":
                 "webp",
+
 
             "image/gif":
                 "gif"
@@ -1119,6 +1843,10 @@ const NovaProfile = {
             `${this.profile.id}/${Date.now()}.${extension}`;
 
 
+        /*
+            Upload image.
+        */
+
         const {
             error:
                 uploadError
@@ -1133,11 +1861,14 @@ const NovaProfile = {
                     file,
                     {
 
+
                         cacheControl:
                             "3600",
 
+
                         upsert:
                             false,
+
 
                         contentType:
                             file.type
@@ -1150,7 +1881,9 @@ const NovaProfile = {
             uploadError
         ) {
 
+
             console.error(
+                "Profile picture upload:",
                 uploadError
             );
 
@@ -1174,6 +1907,10 @@ const NovaProfile = {
         }
 
 
+        /*
+            Get public URL.
+        */
+
         const {
             data:
                 publicData
@@ -1189,8 +1926,36 @@ const NovaProfile = {
 
 
         const publicUrl =
-            publicData.publicUrl;
+            publicData?.publicUrl;
 
+
+        if (
+            !publicUrl
+        ) {
+
+
+            button.disabled =
+                false;
+
+
+            button.textContent =
+                "Upload Profile Picture";
+
+
+            this.showMessage(
+                "Nova uploaded the picture but couldn't create its URL.",
+                true
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+            Update profile row.
+        */
 
         const {
             error:
@@ -1203,8 +1968,10 @@ const NovaProfile = {
                 .update(
                     {
 
+
                         avatar_url:
                             publicUrl,
+
 
                         updated_at:
                             new Date()
@@ -1221,6 +1988,7 @@ const NovaProfile = {
         if (
             updateError
         ) {
+
 
             button.disabled =
                 false;
@@ -1245,11 +2013,18 @@ const NovaProfile = {
             publicUrl;
 
 
+        /*
+            Update local account cache
+            so homepage can use the image too.
+        */
+
         await this.refreshLocalUser(
             {
 
+
                 avatar_url:
                     publicUrl,
+
 
                 avatar:
                     publicUrl
@@ -1258,20 +2033,53 @@ const NovaProfile = {
         );
 
 
-        document
-            .getElementById(
+        const profilePicture =
+            document.getElementById(
                 "profilePicture"
-            )
-            .src =
+            );
+
+
+        if (
+            profilePicture
+        ) {
+
+            profilePicture.src =
                 publicUrl;
 
+        }
 
-        document
-            .getElementById(
+
+        const preview =
+            document.getElementById(
                 "profilePicturePreview"
-            )
-            .hidden =
+            );
+
+
+        if (
+            preview
+        ) {
+
+
+            if (
+                preview.dataset.objectUrl
+            ) {
+
+                URL.revokeObjectURL(
+                    preview.dataset.objectUrl
+                );
+
+
+                delete preview
+                    .dataset
+                    .objectUrl;
+
+            }
+
+
+            preview.hidden =
                 true;
+
+        }
 
 
         input.value =
@@ -1301,25 +2109,36 @@ const NovaProfile = {
 
 
         const bio =
-            document
-                .getElementById(
-                    "editBio"
-                )
-                .value;
+            document.getElementById(
+                "editBio"
+            );
 
 
-        document
-            .getElementById(
+        const counter =
+            document.getElementById(
                 "bioCounter"
-            )
-            .textContent =
-                `${bio.length} / 200`;
+            );
+
+
+        if (
+            !bio
+            ||
+            !counter
+        ) {
+
+            return;
+
+        }
+
+
+        counter.textContent =
+            `${bio.value.length} / 200`;
 
     },
 
 
     /* =====================================================
-       LOCAL AUTH CACHE REFRESH
+       LOCAL CACHE REFRESH
     ====================================================== */
 
     async refreshLocalUser(
@@ -1331,9 +2150,12 @@ const NovaProfile = {
 
 
             if (
+                typeof NovaAuth !==
+                "undefined"
+                &&
                 typeof NovaAuth
                     .updateCurrentUser ===
-                "function"
+                    "function"
             ) {
 
                 await NovaAuth
@@ -1345,9 +2167,12 @@ const NovaProfile = {
 
 
             if (
+                typeof NovaAuth !==
+                "undefined"
+                &&
                 typeof NovaAuth
                     .refreshSession ===
-                "function"
+                    "function"
             ) {
 
                 await NovaAuth
@@ -1359,6 +2184,7 @@ const NovaProfile = {
         catch (
             error
         ) {
+
 
             console.warn(
                 "Nova profile cache refresh:",
@@ -1377,27 +2203,43 @@ const NovaProfile = {
     openDeleteModal() {
 
 
-        document
-            .getElementById(
+        const modal =
+            document.getElementById(
                 "deleteAccountModal"
-            )
-            .hidden =
-                false;
+            );
 
 
-        document
-            .getElementById(
+        if (
+            !modal
+        ) {
+
+            return;
+
+        }
+
+
+        modal.hidden =
+            false;
+
+
+        const input =
+            document.getElementById(
                 "deleteUsernameConfirm"
-            )
-            .value =
+            );
+
+
+        if (
+            input
+        ) {
+
+
+            input.value =
                 "";
 
 
-        document
-            .getElementById(
-                "deleteUsernameConfirm"
-            )
-            .focus();
+            input.focus();
+
+        }
 
     },
 
@@ -1405,12 +2247,20 @@ const NovaProfile = {
     closeDeleteModal() {
 
 
-        document
-            .getElementById(
+        const modal =
+            document.getElementById(
                 "deleteAccountModal"
-            )
-            .hidden =
+            );
+
+
+        if (
+            modal
+        ) {
+
+            modal.hidden =
                 true;
+
+        }
 
     },
 
@@ -1422,11 +2272,42 @@ const NovaProfile = {
     async deleteAccount() {
 
 
+        if (
+            !this.viewingOwnProfile
+            ||
+            !this.profile
+        ) {
+
+            return;
+
+        }
+
+
+        const confirmationInput =
+            document.getElementById(
+                "deleteUsernameConfirm"
+            );
+
+
+        const button =
+            document.getElementById(
+                "confirmDeleteButton"
+            );
+
+
+        if (
+            !confirmationInput
+            ||
+            !button
+        ) {
+
+            return;
+
+        }
+
+
         const confirmation =
-            document
-                .getElementById(
-                    "deleteUsernameConfirm"
-                )
+            confirmationInput
                 .value
                 .trim();
 
@@ -1436,20 +2317,16 @@ const NovaProfile = {
             this.profile.username
         ) {
 
+
             this.showMessage(
                 "Type your exact username to delete your account.",
                 true
             );
 
+
             return;
 
         }
-
-
-        const button =
-            document.getElementById(
-                "confirmDeleteButton"
-            );
 
 
         button.disabled =
@@ -1475,7 +2352,9 @@ const NovaProfile = {
             error
         ) {
 
+
             console.error(
+                "Delete account function:",
                 error
             );
 
@@ -1503,6 +2382,7 @@ const NovaProfile = {
             data?.error
         ) {
 
+
             button.disabled =
                 false;
 
@@ -1522,6 +2402,10 @@ const NovaProfile = {
         }
 
 
+        /*
+            Clear browser session.
+        */
+
         try {
 
             await NovaSupabase
@@ -1529,16 +2413,38 @@ const NovaProfile = {
                 .signOut();
 
         }
-        catch {
+        catch (
+            error
+        ) {
+
+            console.warn(
+                error
+            );
+
         }
 
 
         try {
 
-            await NovaAuth.logout();
+
+            if (
+                typeof NovaAuth !==
+                "undefined"
+            ) {
+
+                await NovaAuth.logout();
+
+            }
 
         }
-        catch {
+        catch (
+            error
+        ) {
+
+            console.warn(
+                error
+            );
+
         }
 
 
@@ -1549,7 +2455,35 @@ const NovaProfile = {
 
 
     /* =====================================================
-       MESSAGES
+       SMALL HELPERS
+    ====================================================== */
+
+    setText(
+        elementId,
+        value
+    ) {
+
+
+        const element =
+            document.getElementById(
+                elementId
+            );
+
+
+        if (
+            element
+        ) {
+
+            element.textContent =
+                value;
+
+        }
+
+    },
+
+
+    /* =====================================================
+       MESSAGE
     ====================================================== */
 
     showMessage(
@@ -1563,6 +2497,19 @@ const NovaProfile = {
             document.getElementById(
                 "profileMessage"
             );
+
+
+        if (
+            !box
+        ) {
+
+            console.log(
+                text
+            );
+
+            return;
+
+        }
 
 
         box.textContent =
@@ -1579,9 +2526,15 @@ const NovaProfile = {
             false;
 
 
-        clearTimeout(
+        if (
             this.messageTimer
-        );
+        ) {
+
+            clearTimeout(
+                this.messageTimer
+            );
+
+        }
 
 
         this.messageTimer =
@@ -1592,48 +2545,66 @@ const NovaProfile = {
                         true;
 
                 },
-
                 5000
             );
 
     },
 
 
+    /* =====================================================
+       FATAL PROFILE ERROR
+    ====================================================== */
+
     showError(
         text
     ) {
 
 
-        document
-            .getElementById(
+        const page =
+            document.getElementById(
                 "profilePageContent"
-            )
-            .innerHTML =
-                `
+            );
 
-                    <div class="profile-fatal-error">
 
-                        <h2>
-                            Profile unavailable
-                        </h2>
+        if (
+            !page
+        ) {
 
-                        <p>
-                            ${this.escapeHtml(text)}
-                        </p>
+            return;
 
-                        <a
-                            href="index.html"
-                            class="retro-button"
-                        >
-                            Back to Nova
-                        </a>
+        }
 
-                    </div>
 
-                `;
+        page.innerHTML =
+            `
+
+                <div class="profile-fatal-error">
+
+                    <h2>
+                        Profile unavailable
+                    </h2>
+
+                    <p>
+                        ${this.escapeHtml(text)}
+                    </p>
+
+                    <a
+                        href="index.html"
+                        class="retro-button"
+                    >
+                        Back to Nova
+                    </a>
+
+                </div>
+
+            `;
 
     },
 
+
+    /* =====================================================
+       HTML ESCAPE
+    ====================================================== */
 
     escapeHtml(
         value
@@ -1665,6 +2636,7 @@ const NovaProfile = {
             );
 
     }
+
 
 };
 
