@@ -1,9 +1,10 @@
 #define MyAppName "Nova Player"
-#define MyAppVersion "0.1.1"
+#define MyAppVersion "0.1.2"
 #define MyAppPublisher "5r1han"
 #define MyAppExeName "Nova.Player.exe"
 
 [Setup]
+SetupIconFile=..\Player\Assets\nova-player.ico
 AppId={{B7AEE047-544B-48E3-A39A-1FD85A3F0F12}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}

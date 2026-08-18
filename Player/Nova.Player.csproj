@@ -12,6 +12,10 @@
     <InformationalVersion>0.1.1</InformationalVersion>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <ApplicationIcon>Assets\nova-player.ico</ApplicationIcon>
+</PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="OpenTK" Version="4.9.4" />
     <PackageReference Include="SharpGLTF.Toolkit" Version="1.0.6" />

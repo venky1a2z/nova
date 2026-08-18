@@ -207,7 +207,8 @@ const NovaProfile = {
                     pants,
                     hat,
                     created_at,
-                    updated_at
+                    updated_at,
+                    last_seen
                     `
                 )
                 .eq(
@@ -297,71 +298,58 @@ const NovaProfile = {
 
     async loadVerifiedStatus() {
 
+    if (
+        !this.profile
+    ) {
 
-        if (
-            !this.profile
-        ) {
+        return;
 
-            return;
-
-        }
+    }
 
 
-        const {
-            data,
+    const {
+        data,
+        error
+    } =
+        await NovaSupabase
+            .from(
+                "verified_users"
+            )
+            .select(
+                "user_id"
+            )
+            .eq(
+                "user_id",
+                this.profile.id
+            )
+            .maybeSingle();
+
+
+    if (
+        error
+    ) {
+
+        console.error(
+            "Nova verification check:",
             error
-        } =
-            await NovaSupabase
-                .from(
-                    "verified_users"
-                )
-                .select(
-                    "user_id"
-                )
-                .eq(
-                    "user_id",
-                    this.profile.id
-                )
-                
-                .maybeSingle();
-if (
-    me ===
-    them
-) {
-
-    otherControls.hidden =
-        true;
-
-
-    return;
-
-}
-
-        if (
-            error
-        ) {
-
-            console.error(
-                "Nova verification check:",
-                error
-            );
-
-
-            this.isVerified =
-                false;
-
-
-            return;
-
-        }
+        );
 
 
         this.isVerified =
-            Boolean(
-                data
-            );
+            false;
 
-    },
+
+        return;
+
+    }
+
+
+    this.isVerified =
+        Boolean(
+            data
+        );
+
+},
 
 
     /* =====================================================
@@ -519,6 +507,7 @@ if (
 
         this.renderVerifiedBadge();
 
+        this.renderOnlineStatus();
     },
 
 
@@ -549,6 +538,71 @@ if (
 
     },
 
+renderOnlineStatus() {
+
+    const dot =
+        document.getElementById(
+            "profileOnlineDot"
+        );
+
+
+    if (
+        !dot
+        ||
+        !this.profile
+    ) {
+
+        return;
+
+    }
+
+
+    let online =
+        false;
+
+
+    if (
+        typeof NovaPresence !==
+        "undefined"
+    ) {
+
+        online =
+            NovaPresence.isOnline(
+                this.profile.last_seen
+            );
+
+    }
+
+
+    /*
+        Your own profile should immediately
+        appear online while you're using Nova.
+    */
+
+    if (
+        this.viewingOwnProfile
+        &&
+        this.currentAuthUser
+    ) {
+
+        online =
+            true;
+
+    }
+
+
+    dot.hidden =
+        !online;
+
+
+    dot.title =
+        online
+            ?
+            "Online"
+            :
+            "Offline";
+
+},
 
     /* =====================================================
        CHARACTER INFO
@@ -994,6 +1048,17 @@ if (
         const them =
             this.profile.id;
 
+if (
+    me ===
+    them
+) {
+
+    otherControls.hidden =
+        true;
+
+    return;
+
+}
 
         const {
             data:
