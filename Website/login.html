@@ -10,14 +10,18 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Login - Nova</title>
+    <title>
+        Login - Nova
+    </title>
 
 
     <style>
 
         * {
+
             box-sizing:
                 border-box;
+
         }
 
 
@@ -50,6 +54,83 @@
                 sans-serif;
 
             background:
+                #65c7df;
+
+            overflow-x:
+                hidden;
+
+        }
+
+
+        /* =====================================================
+           ROTATING BACKGROUND
+        ====================================================== */
+
+        .nova-background {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            z-index:
+                -10;
+
+            overflow:
+                hidden;
+
+            background:
+                #65c7df;
+
+        }
+
+
+        .nova-background-layer {
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            opacity:
+                0;
+
+            background-position:
+                center center;
+
+            background-size:
+                cover;
+
+            background-repeat:
+                no-repeat;
+
+            transition:
+                opacity
+                1.2s
+                ease;
+
+        }
+
+
+        .nova-background-layer.active {
+
+            opacity:
+                1;
+
+        }
+
+
+        .nova-background-overlay {
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            background:
                 linear-gradient(
                     rgba(
                         40,
@@ -63,18 +144,14 @@
                         15,
                         0.20
                     )
-                ),
-                url(
-                    "assets/backgrounds/nova-login-bg.png"
-                )
-                center center
-                /
-                cover
-                no-repeat
-                fixed;
+                );
 
         }
 
+
+        /* =====================================================
+           OG TOP BAR
+        ====================================================== */
 
         .landing-topbar {
 
@@ -188,6 +265,10 @@
         }
 
 
+        /* =====================================================
+           PAGE
+        ====================================================== */
+
         .landing-page {
 
             min-height:
@@ -219,6 +300,10 @@
 
         }
 
+
+        /* =====================================================
+           BRAND AREA
+        ====================================================== */
 
         .brand-area {
 
@@ -258,6 +343,15 @@
 
             border-radius:
                 9px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.25
+                );
 
         }
 
@@ -303,6 +397,10 @@
 
         }
 
+
+        /* =====================================================
+           LOGIN CARD
+        ====================================================== */
 
         .login-card {
 
@@ -485,13 +583,132 @@
         }
 
 
+        /* =====================================================
+           GUEST
+        ====================================================== */
+
+        .guest-divider {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            margin:
+                16px 0;
+
+            color:
+                #92755e;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .guest-divider::before,
+        .guest-divider::after {
+
+            content:
+                "";
+
+            flex:
+                1;
+
+            height:
+                1px;
+
+            background:
+                #d7c5a9;
+
+        }
+
+
+        .guest-button {
+
+            width:
+                100%;
+
+            height:
+                39px;
+
+            color:
+                #513c2d;
+
+            font-size:
+                14px;
+
+            font-weight:
+                bold;
+
+            background:
+                #f7f0e5;
+
+            border:
+                1px solid
+                #b9a68c;
+
+            border-radius:
+                4px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .guest-button:hover {
+
+            background:
+                #fffaf0;
+
+        }
+
+
+        .guest-note {
+
+            margin:
+                7px 0 0;
+
+            color:
+                #8e7662;
+
+            font-size:
+                10px;
+
+            text-align:
+                center;
+
+        }
+
+
+        /* =====================================================
+           SIGNUP LINK
+        ====================================================== */
+
         .signup-link {
 
             margin-top:
+                20px;
+
+            padding-top:
                 17px;
 
             text-align:
                 center;
+
+            border-top:
+                1px solid
+                rgba(
+                    120,
+                    83,
+                    53,
+                    0.20
+                );
 
         }
 
@@ -506,6 +723,87 @@
 
         }
 
+
+        /* =====================================================
+           BACKGROUND DOTS
+        ====================================================== */
+
+        .background-dots {
+
+            position:
+                fixed;
+
+            left:
+                50%;
+
+            bottom:
+                18px;
+
+            transform:
+                translateX(
+                    -50%
+                );
+
+            display:
+                flex;
+
+            gap:
+                7px;
+
+            z-index:
+                20;
+
+        }
+
+
+        .background-dot {
+
+            width:
+                8px;
+
+            height:
+                8px;
+
+            padding:
+                0;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.8
+                );
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                );
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .background-dot.active {
+
+            background:
+                #fff1cf;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
 
         @media
         (
@@ -547,6 +845,54 @@
 
         }
 
+
+        @media
+        (
+            max-width:
+                600px
+        ) {
+
+            .landing-topbar {
+
+                padding:
+                    0 20px;
+
+            }
+
+
+            .landing-nav {
+
+                gap:
+                    15px;
+
+            }
+
+
+            .landing-nav a {
+
+                font-size:
+                    13px;
+
+            }
+
+
+            .landing-page {
+
+                padding:
+                    30px 20px;
+
+            }
+
+
+            .brand-tagline {
+
+                font-size:
+                    20px;
+
+            }
+
+        }
+
     </style>
 
 </head>
@@ -555,217 +901,698 @@
 <body>
 
 
-    <header class="landing-topbar">
+<!-- =====================================================
+     BACKGROUND
+====================================================== -->
 
-        <a
-            class="landing-logo"
-            href="index.html"
-        >
-            NOVA
+<div class="nova-background">
+
+    <div
+        id="backgroundLayerA"
+        class="nova-background-layer active"
+    ></div>
+
+    <div
+        id="backgroundLayerB"
+        class="nova-background-layer"
+    ></div>
+
+    <div class="nova-background-overlay"></div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TOP BAR
+====================================================== -->
+
+<header class="landing-topbar">
+
+    <a
+        class="landing-logo"
+        href="index.html"
+    >
+        NOVA
+    </a>
+
+
+    <nav class="landing-nav">
+
+        <a href="games.html">
+            Play
         </a>
 
+        <a href="about.html">
+            About
+        </a>
 
-        <nav class="landing-nav">
+        <a href="install.html">
+            Platforms
+        </a>
 
-            <a href="games.html">
-                Play
-            </a>
+    </nav>
 
-            <a href="index.html">
-                About
-            </a>
-
-            <a href="install.html">
-                Platforms
-            </a>
-
-        </nav>
-
-    </header>
-
-
-    <main class="landing-page">
-
-
-        <section class="brand-area">
-
-            <div class="brand-logo-panel">
-
-                <img
-                    src="assets/logo/nova-logo.png"
-                    alt="Nova"
-                >
-
-            </div>
-
-
-            <div>
-
-                <p class="brand-tagline">
-                    The World Powered by Players.
-                </p>
-
-            </div>
-
-        </section>
+</header>
 
 
 
-        <section class="login-card">
+<!-- =====================================================
+     PAGE
+====================================================== -->
 
-            <h1>
-                Welcome back!
-            </h1>
+<main class="landing-page">
 
 
-            <p>
-                Log in to continue to Nova.
+    <!-- =================================================
+         EXISTING REAL NOVA LOGO
+    ================================================== -->
+
+    <section class="brand-area">
+
+        <div class="brand-logo-panel">
+
+            <img
+                src="assets/logo/nova-logo.png"
+                alt="Nova"
+            >
+
+        </div>
+
+
+        <div>
+
+            <p class="brand-tagline">
+                The World Powered by Players.
             </p>
 
+        </div>
 
-            <form id="loginForm">
-
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="Email"
-                    autocomplete="email"
-                    required
-                >
+    </section>
 
 
-                <input
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    autocomplete="current-password"
-                    required
-                >
+
+    <!-- =================================================
+         LOGIN
+    ================================================== -->
+
+    <section class="login-card">
+
+        <h1>
+            Welcome back!
+        </h1>
 
 
-                <button
-                    class="login-button"
-                    id="loginButton"
-                    type="submit"
-                >
-                    Log In
-                </button>
+        <p>
+            Log in to continue to Nova.
+        </p>
 
 
-                <p
-                    class="login-message"
-                    id="loginMessage"
-                ></p>
+        <form id="loginForm">
 
-            </form>
-
-
-            <p class="signup-link">
-
-                Don't have an account?
-
-                <a href="signup.html">
-                    Sign up
-                </a>
-
-            </p>
-
-        </section>
+            <input
+                id="username"
+                type="text"
+                placeholder="Username"
+                autocomplete="username"
+                maxlength="20"
+                required
+            >
 
 
-    </main>
+            <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+            >
 
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-    ></script>
-
-    <script src="js/nova-storage.js"></script>
-
-    <script src="js/nova-supabase.js"></script>
-
-    <script src="js/nova-auth.js"></script>
+            <button
+                class="login-button"
+                id="loginButton"
+                type="submit"
+            >
+                Log In
+            </button>
 
 
-    <script>
+            <p
+                class="login-message"
+                id="loginMessage"
+            ></p>
 
-        NovaAuth
-            .refreshSession()
-            .then(
-                user => {
+        </form>
 
-                    if (
-                        user
-                    ) {
 
-                        window.location.href =
-                            "index.html";
 
-                    }
+        <!-- GUEST -->
 
-                }
+        <div class="guest-divider">
+            OR
+        </div>
+
+
+        <button
+            id="guestButton"
+            class="guest-button"
+            type="button"
+        >
+            Continue as Guest
+        </button>
+
+
+        <p class="guest-note">
+            Guest data stays on this computer.
+        </p>
+
+
+
+        <!-- SIGNUP -->
+
+        <p class="signup-link">
+
+            Don't have an account?
+
+            <a href="signup.html">
+                Sign up
+            </a>
+
+        </p>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     SLIDESHOW DOTS
+====================================================== -->
+
+<div class="background-dots">
+
+    <button
+        class="background-dot"
+        data-background="0"
+        title="Background 1"
+    ></button>
+
+    <button
+        class="background-dot"
+        data-background="1"
+        title="Background 2"
+    ></button>
+
+    <button
+        class="background-dot"
+        data-background="2"
+        title="Background 3"
+    ></button>
+
+    <button
+        class="background-dot"
+        data-background="3"
+        title="Background 4"
+    ></button>
+
+</div>
+
+
+
+<!-- =====================================================
+     SCRIPTS
+====================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="js/nova-storage.js"></script>
+
+<script src="js/nova-supabase.js"></script>
+
+<script src="js/nova-auth.js"></script>
+
+
+<script>
+
+
+/* =========================================================
+   BACKGROUND SLIDESHOW
+========================================================= */
+
+const loginBackgrounds = [
+
+    "assets/backgrounds/login1.png",
+
+    "assets/backgrounds/login2.png",
+
+    "assets/backgrounds/login3.png",
+
+    "assets/backgrounds/login4.png"
+
+];
+
+
+const backgroundLayerA =
+    document.getElementById(
+        "backgroundLayerA"
+    );
+
+
+const backgroundLayerB =
+    document.getElementById(
+        "backgroundLayerB"
+    );
+
+
+const backgroundDots =
+    document.querySelectorAll(
+        ".background-dot"
+    );
+
+
+let activeLayer =
+    backgroundLayerA;
+
+
+let inactiveLayer =
+    backgroundLayerB;
+
+
+let currentBackground =
+    Math.floor(
+        Math.random()
+        *
+        loginBackgrounds.length
+    );
+
+
+let slideshowTimer =
+    null;
+
+
+/*
+    Preload all four images.
+*/
+
+loginBackgrounds.forEach(
+    path => {
+
+        const image =
+            new Image();
+
+
+        image.src =
+            path;
+
+    }
+);
+
+
+function updateDots() {
+
+
+    backgroundDots.forEach(
+        (
+            dot,
+            index
+        ) => {
+
+
+            dot.classList.toggle(
+                "active",
+                index ===
+                    currentBackground
             );
 
+        }
+    );
 
-        document
-            .getElementById(
-                "loginForm"
-            )
-            .addEventListener(
-                "submit",
-                async event => {
-
-                    event.preventDefault();
+}
 
 
-                    const email =
-                        document
-                            .getElementById(
-                                "email"
-                            )
-                            .value;
+function showBackground(
+    index,
+    immediate =
+        false
+) {
 
 
-                    const password =
-                        document
-                            .getElementById(
-                                "password"
-                            )
-                            .value;
+    currentBackground =
+        index;
 
 
-                    const message =
-                        document
-                            .getElementById(
-                                "loginMessage"
-                            );
+    if (
+        immediate
+    ) {
 
 
-                    const button =
-                        document
-                            .getElementById(
-                                "loginButton"
-                            );
+        activeLayer.style.backgroundImage =
+            `url("${loginBackgrounds[currentBackground]}")`;
 
 
-                    message.textContent =
-                        "";
+        activeLayer.classList.add(
+            "active"
+        );
 
 
-                    button.disabled =
-                        true;
+        inactiveLayer.classList.remove(
+            "active"
+        );
 
 
-                    button.textContent =
-                        "Logging In...";
+        updateDots();
 
 
-                    const result =
-                        await NovaAuth
-                            .login(
-                                email,
-                                password
-                            );
+        return;
+
+    }
+
+
+    inactiveLayer.style.backgroundImage =
+        `url("${loginBackgrounds[currentBackground]}")`;
+
+
+    inactiveLayer.classList.add(
+        "active"
+    );
+
+
+    activeLayer.classList.remove(
+        "active"
+    );
+
+
+    const oldActive =
+        activeLayer;
+
+
+    activeLayer =
+        inactiveLayer;
+
+
+    inactiveLayer =
+        oldActive;
+
+
+    updateDots();
+
+}
+
+
+function nextBackground() {
+
+
+    const next =
+        (
+            currentBackground + 1
+        )
+        %
+        loginBackgrounds.length;
+
+
+    showBackground(
+        next
+    );
+
+}
+
+
+function restartSlideshow() {
+
+
+    if (
+        slideshowTimer
+    ) {
+
+
+        clearInterval(
+            slideshowTimer
+        );
+
+    }
+
+
+    slideshowTimer =
+        setInterval(
+            nextBackground,
+            7000
+        );
+
+}
+
+
+showBackground(
+    currentBackground,
+    true
+);
+
+
+restartSlideshow();
+
+
+
+/* =========================================================
+   MANUAL DOT SELECTION
+========================================================= */
+
+backgroundDots.forEach(
+    dot => {
+
+
+        dot.addEventListener(
+            "click",
+            () => {
+
+
+                const index =
+                    Number(
+                        dot.dataset.background
+                    );
+
+
+                if (
+                    !Number.isFinite(
+                        index
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                showBackground(
+                    index
+                );
+
+
+                restartSlideshow();
+
+            }
+        );
+
+    }
+);
+
+
+
+/* =========================================================
+   EXISTING LOGIN CHECK
+========================================================= */
+
+NovaAuth
+    .refreshSession()
+    .then(
+        user => {
+
+
+            if (
+                user
+                &&
+                !user.guest
+            ) {
+
+
+                window.location.href =
+                    "index.html";
+
+            }
+
+        }
+    )
+    .catch(
+        error => {
+
+            console.warn(
+                "Nova auth check:",
+                error
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+document
+    .getElementById(
+        "loginForm"
+    )
+    .addEventListener(
+        "submit",
+        async event => {
+
+
+            event.preventDefault();
+
+
+            const username =
+                document
+                    .getElementById(
+                        "username"
+                    )
+                    .value;
+
+
+            const password =
+                document
+                    .getElementById(
+                        "password"
+                    )
+                    .value;
+
+
+            const message =
+                document
+                    .getElementById(
+                        "loginMessage"
+                    );
+
+
+            const button =
+                document
+                    .getElementById(
+                        "loginButton"
+                    );
+
+
+            message.textContent =
+                "";
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "Logging In...";
+
+
+            const result =
+                await NovaAuth
+                    .login(
+                        username,
+                        password
+                    );
+
+
+            button.disabled =
+                false;
+
+
+            button.textContent =
+                "Log In";
+
+
+            if (
+                !result.success
+            ) {
+
+
+                message.style.color =
+                    "#a52a2a";
+
+
+                message.textContent =
+                    result.message;
+
+
+                return;
+
+            }
+
+
+            message.style.color =
+                "#547044";
+
+
+            message.textContent =
+                "Welcome back!";
+
+
+            setTimeout(
+                () => {
+
+
+                    window.location.href =
+                        "index.html";
+
+                },
+                400
+            );
+
+        }
+    );
+
+
+
+/* =========================================================
+   GUEST
+========================================================= */
+
+document
+    .getElementById(
+        "guestButton"
+    )
+    .addEventListener(
+        "click",
+        async () => {
+
+
+            const button =
+                document.getElementById(
+                    "guestButton"
+                );
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "Entering Nova...";
+
+
+            try {
+
+
+                const result =
+                    await NovaAuth
+                        .continueAsGuest();
+
+
+                if (
+                    result?.success ===
+                    false
+                ) {
 
 
                     button.disabled =
@@ -773,47 +1600,44 @@
 
 
                     button.textContent =
-                        "Log In";
+                        "Continue as Guest";
 
 
-                    if (
-                        !result.success
-                    ) {
-
-                        message.style.color =
-                            "#a52a2a";
-
-
-                        message.textContent =
-                            result.message;
-
-                        return;
-
-                    }
-
-
-                    message.style.color =
-                        "#547044";
-
-
-                    message.textContent =
-                        "Welcome back!";
-
-
-                    setTimeout(
-                        () => {
-
-                            window.location.href =
-                                "index.html";
-
-                        },
-                        400
-                    );
+                    return;
 
                 }
-            );
 
-    </script>
+
+                window.location.href =
+                    "index.html";
+
+
+            }
+            catch (
+                error
+            ) {
+
+
+                console.error(
+                    "Nova guest:",
+                    error
+                );
+
+
+                button.disabled =
+                    false;
+
+
+                button.textContent =
+                    "Continue as Guest";
+
+            }
+
+        }
+    );
+
+
+</script>
 
 
 </body>

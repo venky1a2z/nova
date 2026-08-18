@@ -1,179 +1,1293 @@
 const NovaAuth = {
 
-    CACHE_USER_KEY:
-        "nova_supabase_user",
+
+    currentUserCache:
+        null,
 
 
-    // =========================================================
-    // LOCAL CACHE
-    //
-    // Other Nova pages currently expect getCurrentUser()
-    // to return immediately instead of using await.
-    //
-    // Supabase is the real account source.
-    // This cache keeps the existing website compatible.
-    // =========================================================
+    /* =====================================================
+       CONSTANTS
+    ====================================================== */
 
-    getCurrentUser() {
-
-        return NovaStorage.get(
-            this.CACHE_USER_KEY,
-            null
-        );
-
-    },
+    USER_CACHE_KEY:
+        "nova_current_user",
 
 
-    isLoggedIn() {
-
-        return (
-            this.getCurrentUser() !== null
-        );
-
-    },
+    GUEST_MODE_KEY:
+        "nova_guest_mode",
 
 
-    saveCachedUser(
-        user
-    ) {
-
-        NovaStorage.set(
-            this.CACHE_USER_KEY,
-            user
-        );
+    GUEST_ID_KEY:
+        "nova_guest_id",
 
 
-        // Keep compatibility with older Nova code
-        // that may still check the old session object.
 
-        NovaStorage.set(
-            "session",
-            {
-                userId:
-                    user.id
-            }
-        );
+    /* =====================================================
+       SESSION REFRESH
+    ====================================================== */
 
-    },
+    async refreshSession() {
 
 
-    clearCachedUser() {
-
-        NovaStorage.remove(
-            this.CACHE_USER_KEY
-        );
-
-
-        NovaStorage.remove(
-            "session"
-        );
-
-    },
-
-
-    // =========================================================
-    // LOAD PROFILE
-    // =========================================================
-
-    async getProfile(
-        userId
-    ) {
-
-        const {
-            data,
-            error
-        } =
-            await NovaSupabase
-                .from(
-                    "profiles"
-                )
-                .select(
-                    "*"
-                )
-                .eq(
-                    "id",
-                    userId
-                )
-                .maybeSingle();
-
+        /*
+            Guest mode should not attempt
+            to become a Supabase account.
+        */
 
         if (
+            this.isGuest()
+        ) {
+
+
+            const guest =
+                this.getGuestUser();
+
+
+            this.currentUserCache =
+                guest;
+
+
+            return guest;
+
+        }
+
+
+        try {
+
+
+            const {
+                data,
+                error
+            } =
+                await NovaSupabase
+                    .auth
+                    .getUser();
+
+
+            if (
+                error
+                ||
+                !data?.user
+            ) {
+
+
+                this.currentUserCache =
+                    null;
+
+
+                this.clearUserCache();
+
+
+                return null;
+
+            }
+
+
+            const authUser =
+                data.user;
+
+
+            const {
+                data:
+                    profile,
+                error:
+                    profileError
+            } =
+                await NovaSupabase
+                    .from(
+                        "profiles"
+                    )
+                    .select(
+                        `
+                        id,
+                        username,
+                        display_name,
+                        bio,
+                        avatar_url,
+                        skin,
+                        face,
+                        shirt,
+                        pants,
+                        hat,
+                        created_at,
+                        updated_at
+                        `
+                    )
+                    .eq(
+                        "id",
+                        authUser.id
+                    )
+                    .maybeSingle();
+
+
+            if (
+                profileError
+            ) {
+
+                console.warn(
+                    "Nova profile refresh:",
+                    profileError
+                );
+
+            }
+
+
+            if (
+                profile
+            ) {
+
+
+                this.currentUserCache =
+                    this.profileToLocalUser(
+                        profile
+                    );
+
+            }
+            else {
+
+
+                this.currentUserCache = {
+
+                    id:
+                        authUser.id,
+
+                    username:
+                        authUser
+                            .user_metadata
+                            ?.username
+                        ||
+                        "NovaUser",
+
+                    guest:
+                        false,
+
+                    character:
+                        this.defaultCharacter()
+
+                };
+
+            }
+
+
+            this.saveCache(
+                this.currentUserCache
+            );
+
+
+            return this.currentUserCache;
+
+
+        }
+        catch (
             error
         ) {
 
-            console.error(
-                "Nova profile load failed:",
+
+            console.warn(
+                "Nova session refresh:",
                 error
             );
+
 
             return null;
 
         }
 
+    },
 
-        return data;
+
+
+    /* =====================================================
+       GET CURRENT USER
+    ====================================================== */
+
+    getCurrentUser() {
+
+
+        if (
+            this.currentUserCache
+        ) {
+
+            return this.currentUserCache;
+
+        }
+
+
+        if (
+            this.isGuest()
+        ) {
+
+
+            const guest =
+                this.getGuestUser();
+
+
+            this.currentUserCache =
+                guest;
+
+
+            return guest;
+
+        }
+
+
+        try {
+
+
+            const cached =
+                NovaStorage.get(
+                    this.USER_CACHE_KEY,
+                    null
+                );
+
+
+            if (
+                cached
+            ) {
+
+
+                this.currentUserCache =
+                    cached;
+
+
+                return cached;
+
+            }
+
+
+        }
+        catch (
+            error
+        ) {
+
+            console.warn(
+                "Nova cached user:",
+                error
+            );
+
+        }
+
+
+        return null;
 
     },
 
 
-    // =========================================================
-    // BUILD NOVA USER OBJECT
-    // =========================================================
 
-    buildNovaUser(
-        authUser,
-        profile
+    /* =====================================================
+       REAL LOGIN STATE
+    ====================================================== */
+
+    async isLoggedIn() {
+
+
+        if (
+            this.isGuest()
+        ) {
+
+            return false;
+
+        }
+
+
+        try {
+
+
+            const {
+                data
+            } =
+                await NovaSupabase
+                    .auth
+                    .getSession();
+
+
+            return Boolean(
+                data?.session
+            );
+
+
+        }
+        catch (
+            error
+        ) {
+
+
+            console.warn(
+                "Nova auth status:",
+                error
+            );
+
+
+            return false;
+
+        }
+
+    },
+
+
+
+    /* =====================================================
+       USERNAME LOGIN
+    ====================================================== */
+
+    async login(
+        username,
+        password
     ) {
+
+
+        username =
+            String(
+                username
+                ||
+                ""
+            )
+                .trim();
+
+
+        password =
+            String(
+                password
+                ||
+                ""
+            );
+
+
+        if (
+            !username
+            ||
+            !password
+        ) {
+
+
+            return {
+
+                success:
+                    false,
+
+                message:
+                    "Enter your username and password."
+
+            };
+
+        }
+
+
+        /*
+            Leave guest mode before
+            performing real login.
+        */
+
+        this.clearGuestMode();
+
+
+        try {
+
+
+            const {
+                data,
+                error
+            } =
+                await NovaSupabase
+                    .functions
+                    .invoke(
+                        "username-login",
+                        {
+
+                            body: {
+
+                                username,
+                                password
+
+                            }
+
+                        }
+                    );
+
+
+            if (
+                error
+            ) {
+
+
+                console.error(
+                    "Nova username login:",
+                    error
+                );
+
+
+                return {
+
+                    success:
+                        false,
+
+                    message:
+                        data?.message
+                        ||
+                        "Invalid username or password."
+
+                };
+
+            }
+
+
+            if (
+                !data?.success
+                ||
+                !data?.session
+            ) {
+
+
+                return {
+
+                    success:
+                        false,
+
+                    message:
+                        data?.message
+                        ||
+                        "Invalid username or password."
+
+                };
+
+            }
+
+
+            const {
+                error:
+                    sessionError
+            } =
+                await NovaSupabase
+                    .auth
+                    .setSession(
+                        {
+
+                            access_token:
+                                data
+                                    .session
+                                    .access_token,
+
+                            refresh_token:
+                                data
+                                    .session
+                                    .refresh_token
+
+                        }
+                    );
+
+
+            if (
+                sessionError
+            ) {
+
+
+                console.error(
+                    "Nova set session:",
+                    sessionError
+                );
+
+
+                return {
+
+                    success:
+                        false,
+
+                    message:
+                        "Nova verified your password but couldn't start the session."
+
+                };
+
+            }
+
+
+            const user =
+                await this.refreshSession();
+
+
+            return {
+
+                success:
+                    true,
+
+                user
+
+            };
+
+
+        }
+        catch (
+            error
+        ) {
+
+
+            console.error(
+                "Nova login:",
+                error
+            );
+
+
+            return {
+
+                success:
+                    false,
+
+                message:
+                    "Nova couldn't log you in right now."
+
+            };
+
+        }
+
+    },
+
+
+
+    /* =====================================================
+       CREATE ACCOUNT
+    ====================================================== */
+
+    async createAccount(
+        username,
+        password,
+        acceptedRules =
+            false
+    ) {
+
+
+        username =
+            String(
+                username
+                ||
+                ""
+            )
+                .trim();
+
+
+        password =
+            String(
+                password
+                ||
+                ""
+            );
+
+
+        if (
+            !/^[A-Za-z0-9_]{3,20}$/
+                .test(
+                    username
+                )
+        ) {
+
+
+            return {
+
+                success:
+                    false,
+
+                message:
+                    "Username must be 3-20 characters and only contain letters, numbers, or underscores."
+
+            };
+
+        }
+
+
+        if (
+            password.length <
+            8
+        ) {
+
+
+            return {
+
+                success:
+                    false,
+
+                message:
+                    "Password must be at least 8 characters."
+
+            };
+
+        }
+
+
+        if (
+            acceptedRules !==
+            true
+        ) {
+
+
+            return {
+
+                success:
+                    false,
+
+                message:
+                    "Please accept Nova's safety rules first."
+
+            };
+
+        }
+
+
+        this.clearGuestMode();
+
+
+        try {
+
+
+            const {
+                data,
+                error
+            } =
+                await NovaSupabase
+                    .functions
+                    .invoke(
+                        "username-signup",
+                        {
+
+                            body: {
+
+                                username,
+
+                                password,
+
+                                acceptedRules:
+                                    true
+
+                            }
+
+                        }
+                    );
+
+
+            if (
+                error
+            ) {
+
+
+                console.error(
+                    "Nova signup function:",
+                    error
+                );
+
+
+                return {
+
+                    success:
+                        false,
+
+                    message:
+                        data?.message
+                        ||
+                        "Nova couldn't create the account."
+
+                };
+
+            }
+
+
+            if (
+                !data?.success
+                ||
+                !data?.session
+            ) {
+
+
+                return {
+
+                    success:
+                        false,
+
+                    message:
+                        data?.message
+                        ||
+                        "Nova couldn't create the account."
+
+                };
+
+            }
+
+
+            const {
+                error:
+                    sessionError
+            } =
+                await NovaSupabase
+                    .auth
+                    .setSession(
+                        {
+
+                            access_token:
+                                data
+                                    .session
+                                    .access_token,
+
+                            refresh_token:
+                                data
+                                    .session
+                                    .refresh_token
+
+                        }
+                    );
+
+
+            if (
+                sessionError
+            ) {
+
+
+                return {
+
+                    success:
+                        false,
+
+                    message:
+                        "Account created, but Nova couldn't start your session."
+
+                };
+
+            }
+
+
+            const user =
+                await this.refreshSession();
+
+
+            return {
+
+                success:
+                    true,
+
+                user
+
+            };
+
+
+        }
+        catch (
+            error
+        ) {
+
+
+            console.error(
+                "Nova create account:",
+                error
+            );
+
+
+            return {
+
+                success:
+                    false,
+
+                message:
+                    "Nova couldn't create the account right now."
+
+            };
+
+        }
+
+    },
+
+
+
+    /* =====================================================
+       GUEST MODE
+    ====================================================== */
+
+    async continueAsGuest() {
+
+
+        /*
+            Sign out any existing real session.
+        */
+
+        try {
+
+
+            await NovaSupabase
+                .auth
+                .signOut();
+
+
+        }
+        catch (
+            error
+        ) {
+
+            console.warn(
+                "Nova guest signout:",
+                error
+            );
+
+        }
+
+
+        let guestId =
+            NovaStorage.get(
+                this.GUEST_ID_KEY,
+                null
+            );
+
+
+        if (
+            !guestId
+        ) {
+
+
+            if (
+                typeof crypto !==
+                    "undefined"
+                &&
+                typeof crypto.randomUUID ===
+                    "function"
+            ) {
+
+
+                guestId =
+                    crypto.randomUUID();
+
+            }
+            else {
+
+
+                guestId =
+                    "guest-"
+                    +
+                    Date.now()
+                    +
+                    "-"
+                    +
+                    Math.random()
+                        .toString(36)
+                        .slice(2);
+
+            }
+
+
+            NovaStorage.set(
+                this.GUEST_ID_KEY,
+                guestId
+            );
+
+        }
+
+
+        NovaStorage.set(
+            this.GUEST_MODE_KEY,
+            true
+        );
+
+
+        const guest =
+            this.makeGuestUser(
+                guestId
+            );
+
+
+        this.currentUserCache =
+            guest;
+
+
+        this.saveCache(
+            guest
+        );
+
+
+        return {
+
+            success:
+                true,
+
+            user:
+                guest
+
+        };
+
+    },
+
+
+
+    isGuest() {
+
+
+        try {
+
+
+            return (
+                NovaStorage.get(
+                    this.GUEST_MODE_KEY,
+                    false
+                )
+                ===
+                true
+            );
+
+
+        }
+        catch (
+            error
+        ) {
+
+
+            return false;
+
+        }
+
+    },
+
+
+
+    getGuestUser() {
+
+
+        let guestId =
+            NovaStorage.get(
+                this.GUEST_ID_KEY,
+                null
+            );
+
+
+        if (
+            !guestId
+        ) {
+
+
+            guestId =
+                typeof crypto !==
+                    "undefined"
+                &&
+                typeof crypto.randomUUID ===
+                    "function"
+                    ?
+                    crypto.randomUUID()
+                    :
+                    "guest-"
+                    +
+                    Date.now();
+
+
+            NovaStorage.set(
+                this.GUEST_ID_KEY,
+                guestId
+            );
+
+        }
+
+
+        return this.makeGuestUser(
+            guestId
+        );
+
+    },
+
+
+
+    makeGuestUser(
+        guestId
+    ) {
+
 
         return {
 
             id:
-                authUser.id,
-
-            email:
-                authUser.email || "",
+                guestId,
 
             username:
-                profile?.username
-                ||
-                authUser.user_metadata?.username
-                ||
-                "NovaPlayer",
+                "Guest",
 
-            displayName:
-                profile?.display_name
-                ||
-                profile?.username
-                ||
-                authUser.user_metadata?.username
-                ||
-                "NovaPlayer",
+            display_name:
+                "Guest",
+
+            bio:
+                "Exploring Nova as a guest.",
 
             avatar:
                 "assets/avatars/guest.png",
 
-            avatarImage:
-                NovaStorage.get(
-                    "nova_avatar_image",
-                    null
-                ),
+            avatar_url:
+                "assets/avatars/guest.png",
+
+            guest:
+                true,
 
             joinedAt:
-                profile?.created_at
-                ||
-                authUser.created_at
-                ||
-                new Date()
-                    .toISOString(),
+                null,
+
+            character:
+                this.defaultCharacter()
+
+        };
+
+    },
+
+
+
+    clearGuestMode() {
+
+
+        try {
+
+
+            NovaStorage.remove(
+                this.GUEST_MODE_KEY
+            );
+
+
+            const cached =
+                NovaStorage.get(
+                    this.USER_CACHE_KEY,
+                    null
+                );
+
+
+            if (
+                cached?.guest
+            ) {
+
+
+                NovaStorage.remove(
+                    this.USER_CACHE_KEY
+                );
+
+            }
+
+
+        }
+        catch (
+            error
+        ) {
+
+            console.warn(
+                error
+            );
+
+        }
+
+
+        if (
+            this.currentUserCache?.guest
+        ) {
+
+
+            this.currentUserCache =
+                null;
+
+        }
+
+    },
+
+
+
+    /* =====================================================
+       LOGOUT
+    ====================================================== */
+
+    async logout() {
+
+
+        if (
+            this.isGuest()
+        ) {
+
+
+            this.clearGuestMode();
+
+
+            this.currentUserCache =
+                null;
+
+
+            this.clearUserCache();
+
+
+            return;
+
+        }
+
+
+        try {
+
+
+            await NovaSupabase
+                .auth
+                .signOut();
+
+
+        }
+        catch (
+            error
+        ) {
+
+            console.warn(
+                "Nova logout:",
+                error
+            );
+
+        }
+
+
+        this.currentUserCache =
+            null;
+
+
+        this.clearUserCache();
+
+    },
+
+
+
+    /* =====================================================
+       UPDATE LOCAL USER
+    ====================================================== */
+
+    async updateCurrentUser(
+        changes
+    ) {
+
+
+        let user =
+            this.getCurrentUser();
+
+
+        if (
+            !user
+            &&
+            !this.isGuest()
+        ) {
+
+
+            user =
+                await this.refreshSession();
+
+        }
+
+
+        if (
+            !user
+        ) {
+
+            return false;
+
+        }
+
+
+        this.currentUserCache = {
+
+            ...user,
+            ...changes
+
+        };
+
+
+        this.saveCache(
+            this.currentUserCache
+        );
+
+
+        return true;
+
+    },
+
+
+
+    /* =====================================================
+       CACHE
+    ====================================================== */
+
+    saveCache(
+        user
+    ) {
+
+
+        try {
+
+
+            NovaStorage.set(
+                this.USER_CACHE_KEY,
+                user
+            );
+
+
+        }
+        catch (
+            error
+        ) {
+
+            console.warn(
+                "Nova user cache:",
+                error
+            );
+
+        }
+
+    },
+
+
+
+    clearUserCache() {
+
+
+        try {
+
+
+            NovaStorage.remove(
+                this.USER_CACHE_KEY
+            );
+
+
+        }
+        catch (
+            error
+        ) {
+
+            console.warn(
+                error
+            );
+
+        }
+
+    },
+
+
+
+    /* =====================================================
+       PROFILE CONVERSION
+    ====================================================== */
+
+    profileToLocalUser(
+        profile
+    ) {
+
+
+        return {
+
+            id:
+                profile.id,
+
+            username:
+                profile.username,
+
+            display_name:
+                profile.display_name,
 
             bio:
-                "Hey! I'm new to Nova.",
+                profile.bio,
 
-            places:
-                [],
+            avatar_url:
+                profile.avatar_url,
 
-            inventory:
-                [],
+            avatar:
+                profile.avatar_url
+                ||
+                "assets/avatars/guest.png",
+
+            joinedAt:
+                profile.created_at,
+
+            guest:
+                false,
 
             character: {
 
@@ -181,27 +1295,27 @@ const NovaAuth = {
                     "r6",
 
                 skin:
-                    profile?.skin
+                    profile.skin
                     ||
                     "yellow",
 
                 face:
-                    profile?.face
+                    profile.face
                     ||
                     "happy",
 
                 shirt:
-                    profile?.shirt
+                    profile.shirt
                     ||
-                    "none",
+                    "classic",
 
                 pants:
-                    profile?.pants
+                    profile.pants
                     ||
-                    "none",
+                    "black",
 
                 hat:
-                    profile?.hat
+                    profile.hat
                     ||
                     "none"
 
@@ -212,362 +1326,18 @@ const NovaAuth = {
     },
 
 
-    // =========================================================
-    // REFRESH CURRENT SESSION
-    // =========================================================
 
-    async refreshSession() {
+    /* =====================================================
+       DEFAULT CHARACTER
+    ====================================================== */
 
-        try {
+    defaultCharacter() {
 
-            const {
-                data,
-                error
-            } =
-                await NovaSupabase
-                    .auth
-                    .getSession();
 
+        return {
 
-            if (
-                error
-            ) {
-
-                console.error(
-                    "Nova session error:",
-                    error
-                );
-
-                this.clearCachedUser();
-
-                return null;
-
-            }
-
-
-            const session =
-                data.session;
-
-
-            if (
-                !session
-            ) {
-
-                this.clearCachedUser();
-
-                return null;
-
-            }
-
-
-            const authUser =
-                session.user;
-
-
-            const profile =
-                await this.getProfile(
-                    authUser.id
-                );
-
-
-            const novaUser =
-                this.buildNovaUser(
-                    authUser,
-                    profile
-                );
-
-
-            this.saveCachedUser(
-                novaUser
-            );
-
-
-            return novaUser;
-
-        }
-        catch (
-            error
-        ) {
-
-            console.error(
-                "Nova session refresh failed:",
-                error
-            );
-
-            return null;
-
-        }
-
-    },
-
-
-    // =========================================================
-    // CREATE ACCOUNT
-    // =========================================================
-
-    async createAccount(
-        username,
-        password,
-        email
-    ) {
-
-        username =
-            String(
-                username || ""
-            )
-                .trim();
-
-
-        email =
-            String(
-                email || ""
-            )
-                .trim()
-                .toLowerCase();
-
-
-        if (
-            username.length < 3
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    "Username must be at least 3 characters."
-
-            };
-
-        }
-
-
-        if (
-            username.length > 20
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    "Username must be 20 characters or fewer."
-
-            };
-
-        }
-
-
-        if (
-            /\s/.test(
-                username
-            )
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    "Username cannot contain spaces."
-
-            };
-
-        }
-
-
-        if (
-            !email
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    "Please enter an email address."
-
-            };
-
-        }
-
-
-        if (
-            password.length < 6
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    "Password must be at least 6 characters."
-
-            };
-
-        }
-
-
-        // -----------------------------------------------------
-        // Check Nova username
-        // -----------------------------------------------------
-
-        const {
-            data:
-                existingProfile,
-
-            error:
-                usernameCheckError
-
-        } =
-            await NovaSupabase
-                .from(
-                    "profiles"
-                )
-                .select(
-                    "id"
-                )
-                .ilike(
-                    "username",
-                    username
-                )
-                .maybeSingle();
-
-
-        if (
-            usernameCheckError
-        ) {
-
-            console.error(
-                "Username check failed:",
-                usernameCheckError
-            );
-
-        }
-
-
-        if (
-            existingProfile
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    "That username is already taken."
-
-            };
-
-        }
-
-
-        // -----------------------------------------------------
-        // Supabase Auth account
-        // -----------------------------------------------------
-
-        const {
-            data:
-                signupData,
-
-            error:
-                signupError
-
-        } =
-            await NovaSupabase
-                .auth
-                .signUp(
-                    {
-
-                        email:
-                            email,
-
-                        password:
-                            password,
-
-                        options: {
-
-                            data: {
-
-                                username:
-                                    username
-
-                            }
-
-                        }
-
-                    }
-                );
-
-
-        if (
-            signupError
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    signupError.message
-
-            };
-
-        }
-
-
-        if (
-            !signupData.user
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    "Nova could not create your account."
-
-            };
-
-        }
-
-
-        // -----------------------------------------------------
-        // Email confirmation enabled
-        // -----------------------------------------------------
-
-        if (
-            !signupData.session
-        ) {
-
-            return {
-
-                success: true,
-
-                requiresConfirmation: true,
-
-                message:
-                    "Account created! Check your email to confirm your account, then log in."
-
-            };
-
-        }
-
-
-        // -----------------------------------------------------
-        // Create Nova profile
-        // -----------------------------------------------------
-
-        const profileData = {
-
-            id:
-                signupData.user.id,
-
-            username:
-                username,
-
-            display_name:
-                username,
+            body:
+                "r6",
 
             skin:
                 "yellow",
@@ -576,470 +1346,49 @@ const NovaAuth = {
                 "happy",
 
             shirt:
-                "none",
+                "classic",
 
             pants:
-                "none",
+                "black",
 
             hat:
                 "none"
 
         };
 
-
-        const {
-            data:
-                insertedProfile,
-
-            error:
-                profileError
-
-        } =
-            await NovaSupabase
-                .from(
-                    "profiles"
-                )
-                .insert(
-                    profileData
-                )
-                .select()
-                .single();
-
-
-        if (
-            profileError
-        ) {
-
-            console.error(
-                "Nova profile creation failed:",
-                profileError
-            );
-
-
-            return {
-
-                success: false,
-
-                message:
-                    "Your login was created, but Nova could not create your profile. Please contact Nova support."
-
-            };
-
-        }
-
-
-        const novaUser =
-            this.buildNovaUser(
-                signupData.user,
-                insertedProfile
-            );
-
-
-        this.saveCachedUser(
-            novaUser
-        );
-
-
-        return {
-
-            success: true,
-
-            requiresConfirmation: false,
-
-            user:
-                novaUser,
-
-            message:
-                "Account created!"
-
-        };
-
-    },
-
-
-    // =========================================================
-    // LOGIN
-    // =========================================================
-
-    async login(
-        email,
-        password
-    ) {
-
-        email =
-            String(
-                email || ""
-            )
-                .trim()
-                .toLowerCase();
-
-
-        if (
-            !email
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    "Please enter your email."
-
-            };
-
-        }
-
-
-        if (
-            !password
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    "Please enter your password."
-
-            };
-
-        }
-
-
-        const {
-            data,
-            error
-        } =
-            await NovaSupabase
-                .auth
-                .signInWithPassword(
-                    {
-
-                        email:
-                            email,
-
-                        password:
-                            password
-
-                    }
-                );
-
-
-        if (
-            error
-        ) {
-
-            return {
-
-                success: false,
-
-                message:
-                    error.message
-
-            };
-
-        }
-
-
-        const profile =
-            await this.getProfile(
-                data.user.id
-            );
-
-
-        // -----------------------------------------------------
-        // Create profile if email-confirmed signup did not
-        // create one earlier.
-        // -----------------------------------------------------
-
-        let finalProfile =
-            profile;
-
-
-        if (
-            !finalProfile
-        ) {
-
-            const fallbackUsername =
-                data.user
-                    .user_metadata
-                    ?.username
-                ||
-                `Nova_${data.user.id.substring(0, 6)}`;
-
-
-            const {
-                data:
-                    createdProfile,
-
-                error:
-                    profileError
-
-            } =
-                await NovaSupabase
-                    .from(
-                        "profiles"
-                    )
-                    .insert(
-                        {
-
-                            id:
-                                data.user.id,
-
-                            username:
-                                fallbackUsername,
-
-                            display_name:
-                                fallbackUsername,
-
-                            skin:
-                                "yellow",
-
-                            face:
-                                "happy",
-
-                            shirt:
-                                "none",
-
-                            pants:
-                                "none",
-
-                            hat:
-                                "none"
-
-                        }
-                    )
-                    .select()
-                    .single();
-
-
-            if (
-                profileError
-            ) {
-
-                console.error(
-                    "Could not create missing profile:",
-                    profileError
-                );
-
-            }
-            else {
-
-                finalProfile =
-                    createdProfile;
-
-            }
-
-        }
-
-
-        const novaUser =
-            this.buildNovaUser(
-                data.user,
-                finalProfile
-            );
-
-
-        this.saveCachedUser(
-            novaUser
-        );
-
-
-        return {
-
-            success: true,
-
-            user:
-                novaUser
-
-        };
-
-    },
-
-
-    // =========================================================
-    // LOGOUT
-    // =========================================================
-
-    async logout() {
-
-        await NovaSupabase
-            .auth
-            .signOut();
-
-
-        this.clearCachedUser();
-
-    },
-
-
-    // =========================================================
-    // UPDATE USER
-    //
-    // Keeps compatibility with Character/Profile pages.
-    // =========================================================
-
-    async updateCurrentUser(
-        changes
-    ) {
-
-        const currentUser =
-            this.getCurrentUser();
-
-
-        if (
-            !currentUser
-        ) {
-
-            return false;
-
-        }
-
-
-        const updatedUser = {
-
-            ...currentUser,
-
-            ...changes
-
-        };
-
-
-        this.saveCachedUser(
-            updatedUser
-        );
-
-
-        const character =
-            updatedUser.character
-            ||
-            {};
-
-
-        const profileChanges = {};
-
-
-        if (
-            changes.username !==
-            undefined
-        ) {
-
-            profileChanges.username =
-                changes.username;
-
-        }
-
-
-        if (
-            changes.displayName !==
-            undefined
-        ) {
-
-            profileChanges.display_name =
-                changes.displayName;
-
-        }
-
-
-        if (
-            character.skin !==
-            undefined
-        ) {
-
-            profileChanges.skin =
-                character.skin;
-
-        }
-
-
-        if (
-            character.face !==
-            undefined
-        ) {
-
-            profileChanges.face =
-                character.face;
-
-        }
-
-
-        if (
-            character.shirt !==
-            undefined
-        ) {
-
-            profileChanges.shirt =
-                character.shirt;
-
-        }
-
-
-        if (
-            character.pants !==
-            undefined
-        ) {
-
-            profileChanges.pants =
-                character.pants;
-
-        }
-
-
-        if (
-            character.hat !==
-            undefined
-        ) {
-
-            profileChanges.hat =
-                character.hat;
-
-        }
-
-
-        if (
-            Object.keys(
-                profileChanges
-            ).length > 0
-        ) {
-
-            const {
-                error
-            } =
-                await NovaSupabase
-                    .from(
-                        "profiles"
-                    )
-                    .update(
-                        profileChanges
-                    )
-                    .eq(
-                        "id",
-                        currentUser.id
-                    );
-
-
-            if (
-                error
-            ) {
-
-                console.error(
-                    "Nova profile update failed:",
-                    error
-                );
-
-                return false;
-
-            }
-
-        }
-
-
-        return true;
-
     }
+
 
 };
 
 
+
 window.NovaAuth =
     NovaAuth;
+
+
+
+/* =========================================================
+   BACKGROUND SESSION REFRESH
+========================================================= */
+
+if (
+    typeof NovaSupabase !==
+    "undefined"
+) {
+
+
+    NovaAuth
+        .refreshSession()
+        .catch(
+            error => {
+
+                console.warn(
+                    "Nova startup auth:",
+                    error
+                );
+
+            }
+        );
+
+}

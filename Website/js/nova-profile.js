@@ -1432,268 +1432,371 @@ if (
     async saveProfile() {
 
 
-        const usernameInput =
-            document.getElementById(
-                "editUsername"
-            );
-
-
-        const displayInput =
-            document.getElementById(
-                "editDisplayName"
-            );
-
-
-        const bioInput =
-            document.getElementById(
-                "editBio"
-            );
-
-
-        if (
-            !usernameInput
-            ||
-            !displayInput
-            ||
-            !bioInput
-        ) {
-
-            return;
-
-        }
-
-
-        const username =
-            usernameInput
-                .value
-                .trim();
-
-
-        const displayName =
-            displayInput
-                .value
-                .trim();
-
-
-        const bio =
-            bioInput
-                .value
-                .trim();
-
-
-        /*
-            Username validation.
-        */
-
-        if (
-            !/^[A-Za-z0-9_]{3,20}$/
-                .test(
-                    username
-                )
-        ) {
-
-
-            this.showMessage(
-                "Username must be 3-20 characters and only contain letters, numbers, or underscores.",
-                true
-            );
-
-
-            return;
-
-        }
-
-
-        if (
-            displayName.length >
-            40
-        ) {
-
-
-            this.showMessage(
-                "Display name must be 40 characters or less.",
-                true
-            );
-
-
-            return;
-
-        }
-
-
-        if (
-            bio.length >
-            200
-        ) {
-
-
-            this.showMessage(
-                "Bio must be 200 characters or less.",
-                true
-            );
-
-
-            return;
-
-        }
-
-
-        /*
-            Check for existing username.
-        */
-
-        const {
-            data:
-                existing,
-            error:
-                existingError
-        } =
-            await NovaSupabase
-                .from(
-                    "profiles"
-                )
-                .select(
-                    "id"
-                )
-                .ilike(
-                    "username",
-                    username
-                )
-                .neq(
-                    "id",
-                    this.profile.id
-                )
-                .maybeSingle();
-
-
-        if (
-            existingError
-        ) {
-
-
-            this.showMessage(
-                existingError.message,
-                true
-            );
-
-
-            return;
-
-        }
-
-
-        if (
-            existing
-        ) {
-
-
-            this.showMessage(
-                "That username is already taken.",
-                true
-            );
-
-
-            return;
-
-        }
-
-
-        const {
-            error
-        } =
-            await NovaSupabase
-                .from(
-                    "profiles"
-                )
-                .update(
-                    {
-
-
-                        username:
-                            username,
-
-
-                        display_name:
-                            displayName
-                            ||
-                            null,
-
-
-                        bio:
-                            bio,
-
-
-                        updated_at:
-                            new Date()
-                                .toISOString()
-
-                    }
-                )
-                .eq(
-                    "id",
-                    this.profile.id
-                );
-
-
-        if (
-            error
-        ) {
-
-
-            this.showMessage(
-                error.message,
-                true
-            );
-
-
-            return;
-
-        }
-
-
-        this.profile.username =
-            username;
-
-
-        this.profile.display_name =
-            displayName
-            ||
-            null;
-
-
-        this.profile.bio =
-            bio;
-
-
-        await this.refreshLocalUser(
-            {
-
-
-                username:
-                    username,
-
-
-                display_name:
-                    displayName
-                    ||
-                    null,
-
-
-                bio:
-                    bio
-
-            }
+    const usernameInput =
+        document.getElementById(
+            "editUsername"
         );
 
 
-        this.renderProfile();
+    const displayInput =
+        document.getElementById(
+            "editDisplayName"
+        );
+
+
+    const bioInput =
+        document.getElementById(
+            "editBio"
+        );
+
+
+    if (
+        !usernameInput
+        ||
+        !displayInput
+        ||
+        !bioInput
+    ) {
+
+        return;
+
+    }
+
+
+    const username =
+        usernameInput
+            .value
+            .trim();
+
+
+    const displayName =
+        displayInput
+            .value
+            .trim();
+
+
+    const bio =
+        bioInput
+            .value
+            .trim();
+
+
+    /*
+        BASIC CLIENT-SIDE CHECKS.
+
+        Supabase will also validate everything.
+        These just give faster feedback.
+    */
+
+    if (
+        !/^[A-Za-z0-9_]{3,20}$/
+            .test(
+                username
+            )
+    ) {
 
 
         this.showMessage(
-            "Profile saved!"
+            "Username must be 3-20 characters and only contain letters, numbers, or underscores.",
+            true
         );
 
-    },
+
+        return;
+
+    }
+
+
+    if (
+        displayName.length >
+        40
+    ) {
+
+
+        this.showMessage(
+            "Display name must be 40 characters or less.",
+            true
+        );
+
+
+        return;
+
+    }
+
+
+    if (
+        bio.length >
+        200
+    ) {
+
+
+        this.showMessage(
+            "Bio must be 200 characters or less.",
+            true
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+        Make sure this is actually
+        the logged-in user's profile.
+    */
+
+    if (
+        !this.currentAuthUser
+        ||
+        !this.profile
+        ||
+        this.currentAuthUser.id !==
+            this.profile.id
+    ) {
+
+
+        this.showMessage(
+            "You can only edit your own profile.",
+            true
+        );
+
+
+        return;
+
+    }
+
+
+    const saveButton =
+        document.getElementById(
+            "saveProfileButton"
+        );
+
+
+    if (
+        saveButton
+    ) {
+
+        saveButton.disabled =
+            true;
+
+
+        saveButton.textContent =
+            "Saving...";
+
+    }
+
+
+    /*
+        SECURE SERVER-SIDE PROFILE UPDATE.
+
+        Supabase checks:
+        - username format
+        - username uniqueness
+        - display-name length
+        - bio length
+        - banned/reserved names
+        - logged-in user UUID
+    */
+
+    const {
+        data,
+        error
+    } =
+        await NovaSupabase
+            .rpc(
+                "nova_update_profile",
+                {
+
+                    new_username:
+                        username,
+
+                    new_display_name:
+                        displayName,
+
+                    new_bio:
+                        bio
+
+                }
+            );
+
+
+    if (
+        error
+    ) {
+
+
+        console.error(
+            "Nova moderated profile update:",
+            error
+        );
+
+
+        if (
+            saveButton
+        ) {
+
+            saveButton.disabled =
+                false;
+
+
+            saveButton.textContent =
+                "Save Profile";
+
+        }
+
+
+        /*
+            Supabase often prefixes
+            PostgreSQL exceptions.
+
+            This keeps the message
+            clean for the user.
+        */
+
+        let message =
+            error.message
+            ||
+            "Nova couldn't update your profile.";
+
+
+        message =
+            message
+                .replace(
+                    /^.*?:\s*/,
+                    ""
+                );
+
+
+        this.showMessage(
+            message,
+            true
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+        RPC returns the cleaned values.
+        Prefer those over browser values.
+    */
+
+    const savedUsername =
+        data?.username
+        ||
+        username;
+
+
+    const savedDisplayName =
+        data?.display_name
+        ??
+        (
+            displayName
+            ||
+            null
+        );
+
+
+    const savedBio =
+        data?.bio
+        ??
+        bio;
+
+
+    /*
+        UPDATE LOCAL PROFILE OBJECT
+    */
+
+    this.profile.username =
+        savedUsername;
+
+
+    this.profile.display_name =
+        savedDisplayName;
+
+
+    this.profile.bio =
+        savedBio;
+
+
+    /*
+        UPDATE LOCAL NOVA CACHE
+
+        This keeps things like:
+        homepage
+        launcher identity
+        profile header
+
+        synchronized.
+    */
+
+    await this.refreshLocalUser(
+        {
+
+            username:
+                savedUsername,
+
+            display_name:
+                savedDisplayName,
+
+            bio:
+                savedBio
+
+        }
+    );
+
+
+    /*
+        RENDER UPDATED PROFILE
+    */
+
+    this.renderProfile();
+
+
+    /*
+        Put the cleaned values back
+        into the edit controls too.
+    */
+
+    usernameInput.value =
+        savedUsername;
+
+
+    displayInput.value =
+        savedDisplayName
+        ||
+        "";
+
+
+    bioInput.value =
+        savedBio;
+
+
+    this.updateBioCounter();
+
+
+    if (
+        saveButton
+    ) {
+
+        saveButton.disabled =
+            false;
+
+
+        saveButton.textContent =
+            "Save Profile";
+
+    }
+
+
+    this.showMessage(
+        "Profile saved!"
+    );
+
+},
 
 
     /* =====================================================
