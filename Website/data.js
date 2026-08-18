@@ -8,14 +8,24 @@ const NOVA_GAMES = [
         category: "Building"
     },
 
-    {
-        id: 2,
-        name: "Brick Battle",
-        creator: "Nova",
-        thumbnail: "assets/games/brickbattle.png",
-        description: "Classic brick combat on floating platforms.",
-        category: "Action"
-    },
+{
+    id: 2,
+
+    name:
+        "Be Crushed by a Speeding Wall",
+
+    description:
+        "Run. Hide. Panic. A gigantic wall is coming, and it is significantly faster than you.",
+
+    creator:
+        "Nova",
+
+    category:
+        "Action",
+
+    thumbnail:
+        "assets/games/speeding-wall.png"
+},
 
     {
         id: 3,
@@ -24,32 +34,5 @@ const NOVA_GAMES = [
         thumbnail: "assets/games/crossroads.png",
         description: "Explore and battle around the crossroads.",
         category: "Adventure"
-    },
-
-    {
-        id: 4,
-        name: "Classic Obby",
-        creator: "Nova",
-        thumbnail: "assets/games/obby.png",
-        description: "Jump through a simple classic obstacle course.",
-        category: "Obby"
-    },
-
-    {
-        id: 5,
-        name: "Nova City",
-        creator: "Nova",
-        thumbnail: "assets/games/city.png",
-        description: "Explore a small city built in Nova.",
-        category: "Adventure"
-    },
-
-    {
-        id: 6,
-        name: "Block Racing",
-        creator: "Nova",
-        thumbnail: "assets/games/racing.png",
-        description: "Race block cars around a simple track.",
-        category: "Racing"
     }
 ];
