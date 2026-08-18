@@ -18,7 +18,7 @@ const NOVA_GAMES = [
         "Run. Hide. Panic. A gigantic wall is coming, and it is significantly faster than you.",
 
     creator:
-        "Nova",
+        "NintendoZACHERY",
 
     category:
         "Action",
